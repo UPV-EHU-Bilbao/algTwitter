@@ -34,7 +34,7 @@ public final class GetFavorites {
      *
      * @param args message
      */
-    public static void main(String[] args) {
+    public static void getFav() {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
             List<Status> statuses = twitter.getFavorites();

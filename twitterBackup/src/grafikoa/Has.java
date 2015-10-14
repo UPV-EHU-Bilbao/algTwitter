@@ -35,6 +35,7 @@ public class Has extends JFrame{
 		has.setVisible(true);
 		has.setSize(450,500);
 		has.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
 	private void gridBagHasieratu() {
 		edukiontzia = getContentPane();
@@ -67,6 +68,10 @@ public class Has extends JFrame{
 				// TODO Auto-generated method stub
 				GetAccessToken.konektatu();
 				dispose();
+				
+				
+				
+				
 			}
 		});
 		

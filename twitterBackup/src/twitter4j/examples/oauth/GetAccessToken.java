@@ -15,7 +15,7 @@
  */
 
 package twitter4j.examples.oauth;
-
+import grafikoa.OrrNagusia;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -136,7 +136,10 @@ public class GetAccessToken {
                 }
             }
             System.out.println("Successfully stored access token to " + file.getAbsolutePath() + ".");
+            OrrNagusia.bistaratu();
             System.exit(0);
+           
+            
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get accessToken: " + te.getMessage());

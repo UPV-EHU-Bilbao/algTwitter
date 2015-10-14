@@ -1,5 +1,8 @@
 package grafikoa;
+import twitter4j.examples.*;
+import twitter4j.examples.favorite.GetFavorites;
 import logikoa.*;
+
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
@@ -35,12 +38,16 @@ public class OrrNagusia extends JFrame{
 	//APLIKAZIOTIK IRTETZEKO BOTOIA
 	JButton logOut = new JButton("LogOut");
 	
+	//IRUDIAK
+	ImageIcon retwImage = new ImageIcon("src/media1/images.png");
+	ImageIcon favImage = new ImageIcon("src/media1/fav.jpg");
 	
 	//AUKERAK
 	JCheckBox tweets = new JCheckBox("Tweets",false);
-	JCheckBox rt = new JCheckBox(new ImageIcon("src/media1/images.png"),false);
-	//JCheckBox rt = new JCheckBox(new image("src/media/images.png"),false);
-	JCheckBox fav = new JCheckBox(new ImageIcon("src/media1/fav.jpg"),false);
+	//JCheckBox rt = new JCheckBox(new ImageIcon("src/media1/images.png"),false);
+	//JCheckBox fav = new JCheckBox(new ImageIcon("src/media1/fav.jpg"),false);
+	JCheckBox rt = new JCheckBox("RT",false);
+	JCheckBox fav = new JCheckBox("FAV",false);
 	JCheckBox dm = new JCheckBox("Direct Messages",false);
 	JCheckBox followers = new JCheckBox("Followers",false);
 	JCheckBox following = new JCheckBox("Following",false);
@@ -152,7 +159,9 @@ public class OrrNagusia extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				if(fav.isSelected()){
+					GetFavorites.getFav();
+				}
 				
 			}
 		});
