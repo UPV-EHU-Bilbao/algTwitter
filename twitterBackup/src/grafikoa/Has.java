@@ -17,6 +17,7 @@ public class Has extends JFrame{
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel loginOn = new JLabel("LOGIN ON TWITTER");
+	JTextField jtpin  = new JTextField(7);
 	JButton login = new JButton("LOGIN");
 	
 	private GridBagLayout eskema;
@@ -47,9 +48,9 @@ public class Has extends JFrame{
 		
 		this.setIconImage(wlogo.getImage());
 		
-		login.setBackground(Color.decode("#cccccc"));
+		//login.setBackground(Color.decode("#cccccc"));
 		//login.setBounds(20, 30, 30, 20);
-		gehituOsagaia(login, 9, 1, 5, 1);
+		gehituOsagaia(jtpin, 9, 1, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		loginOn.setFont(new Font("Britannic Bold",Font.BOLD,44));
@@ -68,10 +69,7 @@ public class Has extends JFrame{
 				// TODO Auto-generated method stub
 				GetAccessToken.konektatu();
 				dispose();
-				
-				
-				
-				
+				OrrNagusia.bistaratu();
 			}
 		});
 		

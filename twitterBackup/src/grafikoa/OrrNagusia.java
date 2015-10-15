@@ -182,9 +182,8 @@ public class OrrNagusia extends JFrame{
 				if(answer == JOptionPane.YES_OPTION){
 					dispose();
 				}
-				//dispose();
-				/*BukOrria.bistaratu();
-				dispose();*/
+				
+				
 				}
 		});
 			

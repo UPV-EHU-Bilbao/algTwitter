@@ -136,7 +136,7 @@ public class GetAccessToken {
                 }
             }
             System.out.println("Successfully stored access token to " + file.getAbsolutePath() + ".");
-            OrrNagusia.bistaratu();
+           // OrrNagusia.bistaratu();
             System.exit(0);
            
             
