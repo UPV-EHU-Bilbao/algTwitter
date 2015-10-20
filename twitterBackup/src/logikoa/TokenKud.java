@@ -1,6 +1,7 @@
 package logikoa;
 
 import java.awt.Desktop;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,49 +43,35 @@ public class TokenKud {
                  throw new AssertionError(e);
              }
              System.out.println("Pin -a orain egiaztatuko da...");
-            /* try {
-                 if (pPin.length() > 0) {
-                     accessToken = twitter.getOAuthAccessToken(requestToken, pPin);
-                 } else {
-                     accessToken = twitter.getOAuthAccessToken(requestToken);
-                 }
-             } catch (TwitterException te) {
-                 if (401 == te.getStatusCode()) {
-                     System.out.println("Unable to get the access token./Pin -a gaizki egongo da...");
-                 } else {
-                     te.printStackTrace();
-                 }
-             }
-       //  }
-         try{
-        	 PinKudeaketa.getPin().eratuFitxategia(accessToken.getToken(),accessToken.getTokenSecret());
-         }catch(IOException ignore){}
-         System.exit(0);*/
+           
 	}
 	public void enterPin(String pPin) throws TwitterException{
 		Twitter twitter = new TwitterFactory().getInstance();
         RequestToken requestToken = twitter.getOAuthRequestToken();
-        System.out.println("Got request token.");
-        System.out.println("Request token: " + requestToken.getToken());
-        System.out.println("Request token secret: " + requestToken.getTokenSecret());
+        System.out.println("Kaixo hemen nago.");
+       // System.out.println("Request token: " + requestToken.getToken());
+       // System.out.println("Request token secret: " + requestToken.getTokenSecret());
         AccessToken accessToken = null;
-        try {
+       // try {
             if (pPin.length() > 0) {
                 accessToken = twitter.getOAuthAccessToken(requestToken, pPin);
             } else {
                 accessToken = twitter.getOAuthAccessToken(requestToken);
             }
-        } catch (TwitterException te) {
-            if (401 == te.getStatusCode()) {
-                System.out.println("Unable to get the access token./Pin -a gaizki egongo da...");
-            } else {
-                te.printStackTrace();
-            }
-        }
+       // } catch (TwitterException te) {
+            //if (401 == te.getStatusCode()) {
+              //  System.out.println("Unable to get the access token./Pin -a gaizki egongo da...");
+            //} else {
+                //te.printStackTrace();
+           // }
+       // }
   //  }
-    try{
-   	 PinKudeaketa.getPin().eratuFitxategia(accessToken.getToken(),accessToken.getTokenSecret());
-    }catch(IOException ignore){}
+   
+    try {
+		PinKudeaketa.getPin().eratuFitxategia(requestToken.getToken(), requestToken.getTokenSecret());
+	} catch (FileNotFoundException e) {
+		System.out.println("FILE NOT FOUND!!!!");
+	}
     System.exit(0);
 		
 	}

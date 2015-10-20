@@ -16,7 +16,7 @@ public class PinKudeaketa {
 	}
 	
 	public void eratuFitxategia(String paccess, String pSecret) throws FileNotFoundException{
-		tokenFitx = new File("src/token");
+		tokenFitx = new File("src/logikoa/token");
 		tokenGorde(paccess, pSecret);
 	}
 	

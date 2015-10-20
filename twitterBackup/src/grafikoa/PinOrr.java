@@ -84,11 +84,13 @@ public class PinOrr extends JFrame{
 				String pin = jtpin.getText();
 				try {
 					TokenKud.getToken().enterPin(pin);
+					
 				} catch (TwitterException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("Zerbait gaizki dago...");
 				}
 				
+				dispose();
 			}
 		});
 		
