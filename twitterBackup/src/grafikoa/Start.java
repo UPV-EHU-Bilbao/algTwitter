@@ -10,5 +10,6 @@ public class Start {
 			Has.bistaratu();
 		}
 		
+		
 	}
 }

@@ -172,7 +172,7 @@ public class OrrNagusia extends JFrame{
 					
 				}
 				if(fav.isSelected()){
-					
+					GetFavorites.getFav();
 				}
 				if(tweets.isSelected()){
 					

@@ -25,7 +25,7 @@ public class PinKudeaketa {
 	}
 	
 	public void tokenGorde(String token1, String token2) throws FileNotFoundException{
-		PrintWriter pw = new PrintWriter(tokenFitx);
+		PrintWriter pw = new PrintWriter("twitter4j.properties");
 		pw.println("oauth.accessToken="+token1);
 		pw.println("oauth.accessTokenSecret="+token2);
 			//tokenFitx.close()
