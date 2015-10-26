@@ -98,7 +98,7 @@ public class Has extends JFrame{
 					TokenKud.getToken().hasieratuToken();
 					PinOrr.bistaratu();
 					dispose();
-				} catch (TwitterException e1) {
+				} catch (TwitterException | IOException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("Zerbait gaizki dago...");
 				}

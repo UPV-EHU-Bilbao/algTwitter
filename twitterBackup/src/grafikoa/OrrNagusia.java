@@ -172,13 +172,13 @@ public class OrrNagusia extends JFrame{
 					
 				}
 				if(fav.isSelected()){
-					GetFavorites.getFav();
+					TokenKud.getToken().getFavorites();
 				}
 				if(tweets.isSelected()){
-					
+					TokenKud.getToken().getTweets();
 				}
 				if(dm.isSelected()){
-					
+					TokenKud.getToken().getDirectMessage();
 				}
 				if(followers.isSelected()){
 					
