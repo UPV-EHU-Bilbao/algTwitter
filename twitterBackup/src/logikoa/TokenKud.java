@@ -2,6 +2,7 @@ package logikoa;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,8 +21,15 @@ import twitter4j.auth.RequestToken;
 public class TokenKud {
 
 	private static TokenKud mToken = null;
+	private String consumerKey;
+	private String consumerSecret;
+	private RequestToken requestToken;
+	private Twitter twitter;
 	
-	private TokenKud(){}
+	private TokenKud(){
+		consumerKey = "9vj1uaNEO4T6AUQc7OEUw0yOm";
+		consumerSecret = "LkzFqvGzV19fBdW1baOHY5ZkWazSm6HudWWCXBRr8redigzRca";
+	}
 	
 	public static synchronized TokenKud getToken(){
 		if(mToken==null){
@@ -31,70 +39,30 @@ public class TokenKud {
 	
 	public void hasieratuToken() throws TwitterException{
 		
-		 Twitter twitter = new TwitterFactory().getInstance();
-         RequestToken requestToken = twitter.getOAuthRequestToken();
-         System.out.println("Got request token.");
-         System.out.println("Request token: " + requestToken.getToken());
-         System.out.println("Request token secret: " + requestToken.getTokenSecret());
-        // AccessToken accessToken = null;
-         
-       //  while (null == accessToken) {
-             System.out.println("Open the following URL and grant access to your account:");
-             System.out.println(requestToken.getAuthorizationURL());
-             try {
-                 Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
-             } catch (UnsupportedOperationException ignore) {
-             } catch (IOException ignore) {
-             } catch (URISyntaxException e) {
-                 throw new AssertionError(e);
-             }
-             System.out.println("Pin -a orain egiaztatuko da...");
+		twitter = new TwitterFactory().getInstance();
+		twitter.setOAuthConsumer(consumerKey, consumerSecret);
+		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
+		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
+		requestToken = twitter.getOAuthRequestToken();
+		System.out.println("Request token lortuta : "+requestToken.toString());
+		
+		//GURE APP -eko URL -era berbidali
+		try {
+			System.out.println("URL honetara "+requestToken.getAuthenticationURL().toString()+" berbidaltzen...");
+			Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("HASIERATZEA, hasieratu(), ondo burutu da!");
+		
            
 	}
-	public void enterPin(String pPin) throws TwitterException{
-		Twitter twitter = new TwitterFactory().getInstance();
-        RequestToken requestToken = twitter.getOAuthRequestToken();
-        System.out.println("Kaixo hemen nago.");
-        File file = new File("mytwitter4j.properties");
-        System.out.println("FITXATEGIA ERATU DUT twitter4j.myproperties");
-        Properties prop = new Properties();
-        InputStream is = null;
-        OutputStream os = null;
-       // System.out.println("Request token: " + requestToken.getToken());
-       // System.out.println("Request token secret: " + requestToken.getTokenSecret());
-        AccessToken accessToken = null;
-        try {
-            if (pPin.length() > 0) {
-                accessToken = twitter.getOAuthAccessToken(requestToken, pPin);
-            } else {
-                accessToken = twitter.getOAuthAccessToken(requestToken);
-            }
-        } catch (TwitterException te) {
-            if (401 == te.getStatusCode()) {
-               System.out.println("Unable to get the access token./Pin -a gaizki egongo da...");
-            } else {
-                te.printStackTrace();
-            }
-        }
-    
-   
-    try {
-    	 prop.setProperty("oauth.accessToken", accessToken.getToken());
-         prop.setProperty("oauth.accessTokenSecret", accessToken.getTokenSecret());
-         os = new FileOutputStream(file);
-         prop.store(os, "mytwitter4j.properties");
-         os.close();
-		//PinKudeaketa.getPin().eratuFitxategia(requestToken.getToken(), requestToken.getTokenSecret());
-	} catch (IOException e) {
-		System.out.println("FILE NOT FOUND!!!!");
-	} finally {
-        if (os != null) {
-            try {
-                os.close();
-            } catch (IOException ignore) {
-            }
-        }
-    System.exit(0);
-		
-	}
+	public void enterPin(String pin) throws TwitterException{
+		System.out.println("AccesToken lortzen...");
+		AccessToken accesToken = twitter.getOAuthAccessToken(requestToken, pin);
+		System.out.println("ACCESSTOKEN LORTUTA!");
 }}
