@@ -49,7 +49,8 @@ public class TokenKud {
 		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
 		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
 		requestToken = twitter.getOAuthRequestToken();
-		System.out.println("Request token lortuta : "+requestToken.toString());
+		System.out.println("Request token lortuta : "+requestToken.getToken());
+		System.out.println("Request token lortuta : "+requestToken.getTokenSecret());
 		
 		//GURE APP -eko URL -era berbidali
 		try {
@@ -142,6 +143,10 @@ public class TokenKud {
 			System.exit(-1);
     }
 	}
-
+	//token -ak DB -an gorde
+	public void saveTokens(){
+		requestToken.getToken();
+		requestToken.getTokenSecret();
+	}
 
 }
