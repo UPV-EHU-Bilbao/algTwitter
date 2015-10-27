@@ -77,9 +77,12 @@ public class TokenKud {
 		System.out.println("ACCESSTOKEN LORTUTA!");
 		System.out.println("Kaixo"+twitter.getScreenName());
 		//userId DB -an gorde
-		//Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
-		
+		//Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());	
 	}
+	
+	
+	
+	
 	public void getFavorites(){
 		try {
            
@@ -155,4 +158,9 @@ public class TokenKud {
 		//TokenEragiketak.getTokEragik().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
 	}
 	
+	public void getSession(){
+		String token = "";
+		String secret = "";
+		AccessToken accessToken = new AccessToken(token, secret);
+	}
 }

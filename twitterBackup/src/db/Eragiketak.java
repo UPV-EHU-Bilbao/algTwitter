@@ -66,7 +66,20 @@ public class Eragiketak {
 			e.printStackTrace();
 		}
 	}
-	
+	public String secretBilatu(){
+		String secret = "";
+		try {
+			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM token );");
+			int x = 0;
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				secret= secret+rs.getString(x);
+			}
+		} catch (SQLException e) {
+			System.out.println("EZ DA GEHITU TOKEN!!");
+			e.printStackTrace();
+		}return secret;
+	}
 
 
 
