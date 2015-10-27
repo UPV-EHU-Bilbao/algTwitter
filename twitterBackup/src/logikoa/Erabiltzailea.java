@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import db.DBKudeatzaile;
+import db.Eragiketak;
 
 //Erabiltzailearen user id gordeko da
 public class Erabiltzailea {
@@ -27,19 +28,7 @@ public class Erabiltzailea {
 	}
 	//db-an gordeta dagoen user id -a izango da erabiltzaile saia irekita dagoenenan gordeko den izena
 	public void setUserId() {
-		String userId = "";
-		try {
-			ResultSet rs = dbk.execSQL("SELECT izena FROM user;");
-			int x = 0;
-			while(rs.next()){
-				//rs osoan dagoena sartuko du String -ean
-				userId = userId+rs.getString(x);
-			}
-			rs.close();
-			this.userId = userId;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userId = Eragiketak.getEragiketak().erabiltzaileIzena();
 		
 	}
 	

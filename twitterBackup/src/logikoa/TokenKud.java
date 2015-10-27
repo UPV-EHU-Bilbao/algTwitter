@@ -13,6 +13,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Properties;
 
+
+
+import db.Eragiketak;
 import twitter4j.DirectMessage;
 import twitter4j.Paging;
 import twitter4j.Status;
@@ -70,7 +73,11 @@ public class TokenKud {
 	public void enterPin(String pin) throws TwitterException, IOException{
 		System.out.println("AccesToken lortzen...");
 		AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+		//TokenEragiketak.getTokEragik().gordeRequest(requestToken.toString());
 		System.out.println("ACCESSTOKEN LORTUTA!");
+		System.out.println("Kaixo"+twitter.getScreenName());
+		//userId DB -an gorde
+		//Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
 		
 	}
 	public void getFavorites(){
@@ -145,8 +152,7 @@ public class TokenKud {
 	}
 	//token -ak DB -an gorde
 	public void saveTokens(){
-		requestToken.getToken();
-		requestToken.getTokenSecret();
+		//TokenEragiketak.getTokEragik().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
 	}
-
+	
 }
