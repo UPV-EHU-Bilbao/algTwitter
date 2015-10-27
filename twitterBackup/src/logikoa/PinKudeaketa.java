@@ -21,7 +21,7 @@ public class PinKudeaketa {
 	}
 	
 	public void eratuFitxategia() throws IOException{
-		tokenFitx = new File("token.txt");	
+		tokenFitx = new File("logikoa/token.txt");	
 	}
 	
 	public boolean badagoFitx(){
@@ -40,6 +40,9 @@ public class PinKudeaketa {
 			bw.write("AccesToken: "+token1+"\n");
 			bw.write("AccesTokenSecret: "+token2+"\n");
 		}
+	}
+	public long getLength(){
+		return tokenFitx.length();
 	}
 	
 }

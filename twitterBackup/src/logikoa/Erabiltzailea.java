@@ -1,10 +1,9 @@
 package logikoa;
-
+//Erabiltzailearen user id gordeko da
 public class Erabiltzailea {
 
 	private String userId;
-	/*private String passId;*/
-	private String pin;
+	
 	private static Erabiltzailea mErab = null;
 	
 	private Erabiltzailea(){
@@ -21,12 +20,6 @@ public class Erabiltzailea {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public String getPin() {
-		return pin;
-	}
-	public void setPassId(String passId) {
-		this.pin = passId;
 	}
 	
 }

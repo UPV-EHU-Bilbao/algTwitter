@@ -80,7 +80,7 @@ public class TokenKud {
                 System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
             }
             System.out.println("done.");
-            System.exit(0);
+            //System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get favorites: " + te.getMessage());
@@ -100,7 +100,7 @@ public class TokenKud {
                 paging.setPage(paging.getPage() + 1);
             } while (messages.size() > 0 && paging.getPage() < 10);
             System.out.println("done.");
-            System.exit(0);
+            //System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get messages: " + te.getMessage());
@@ -120,7 +120,7 @@ public class TokenKud {
 	                page.setPage(page.getPage() + 1);
 	            } while (directMessages.size() > 0 && page.getPage() < 10);
 	            System.out.println("done.");
-	            System.exit(0);
+	            //System.exit(0);
 	        } catch (TwitterException te) {
 	            te.printStackTrace();
 	            System.out.println("Failed to get sent messages: " + te.getMessage());
