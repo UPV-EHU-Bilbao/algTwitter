@@ -102,7 +102,6 @@ public class Has extends JFrame{
 					// TODO Auto-generated catch block
 					System.out.println("Zerbait gaizki dago...");
 				}
-				//GetAccessToken.konektatu();
 				
 			}
 		});

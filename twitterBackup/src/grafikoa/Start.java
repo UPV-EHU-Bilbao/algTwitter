@@ -2,21 +2,16 @@ package grafikoa;
 
 import java.io.IOException;
 
-import logikoa.PinKudeaketa;
+import db.Eragiketak;
+import logikoa.TokenKud;
 
 public class Start {
 	public static void main(String[] args) throws IOException {
-		PinKudeaketa.getPin().eratuFitxategia();
-		
-		/*if(!PinKudeaketa.getPin().badagoFitx()){
-			
-			PinKudeaketa.getPin().eratuFitxategia();
-			Has.bistaratu();
+		if (Eragiketak.getEragiketak().tokenBilatu()!=null){
+			TokenKud.getToken().getSession();
 		}else{
-			OrrNagusia.bistaratu();
-			
-		}*/
-		
+			Has.bistaratu();
+		}
 		
 	}
 }
