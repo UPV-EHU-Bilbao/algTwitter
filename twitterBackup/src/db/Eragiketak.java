@@ -13,13 +13,8 @@ public class Eragiketak {
 			mEragiketak = new Eragiketak();
 		}return mEragiketak;
 	}
-	public void tokenGorde(String token, String tokenSecret){
-		try {
-			ResultSet rs = dbk.execSQL("INSERT INTO twitterDB.token(`"+token+"`"+"`"+tokenSecret+"`);");
-		} catch (SQLException e) {
-			System.out.println("EZ DA GEHITU TOKEN!!");
-			e.printStackTrace();
-		}
+	public void tokenGorde(String token, String tokenSecret) throws SQLException{
+		ResultSet rs = dbk.execSQL("INSERT INTO token("+token+","+tokenSecret+"WHERE );");
 	}
 	
 	public String tokenBilatu(){
@@ -47,7 +42,7 @@ public class Eragiketak {
 			}
 		} catch (SQLException e) {
 			System.out.println("EZ DA GEHITU TOKEN!!");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}return token;
 	}
 	public String erabiltzaileIzena(){
@@ -65,13 +60,8 @@ public class Eragiketak {
 		}
 		return userId;
 	}
-	public void sartuErab(String izena){
-		try {
-			ResultSet rs = dbk.execSQL("INSERT INTO twitterDB.user(`"+izena+"`);");
-		} catch (SQLException e) {
-			System.out.println("EZ DA GEHITU TOKEN!!");
-			e.printStackTrace();
-		}
+	public void sartuErab(String izena) throws SQLException{
+		ResultSet rs = dbk.execSQL("INSERT INTO user("+izena+");");
 	}
 	
 

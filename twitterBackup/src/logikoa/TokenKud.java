@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
@@ -70,7 +71,7 @@ public class TokenKud {
 		
            
 	}
-	public void enterPin(String pin) throws TwitterException, IOException{
+	public void enterPin(String pin) throws TwitterException, IOException, SQLException{
 		System.out.println("AccesToken lortzen...");
 		AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, pin);
 		System.out.println("ACCESSTOKEN LORTUTA!");
