@@ -87,14 +87,9 @@ public class OrrNagusia extends JFrame{
 		gehituOsagaia(userId, 0, 0, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
-		
-		
 		toDo.setFont(new Font("Britannic Bold",Font.BOLD,30));
 		gehituOsagaia(toDo, 3, 1, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		
-		
-		
 		
 		
 		tweets.setBackground(Color.decode("#7ea6e0"));
@@ -102,11 +97,11 @@ public class OrrNagusia extends JFrame{
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		rt.setBackground(Color.decode("#7ea6e0"));
-		gehituOsagaia(rt, 6, 1, 5, 1);
+		gehituOsagaia(rt, 5, 3, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		fav.setBackground(Color.decode("#7ea6e0"));
-		gehituOsagaia(fav, 7, 1, 5, 1);
+		gehituOsagaia(fav, 5, 4, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		dm.setBackground(Color.decode("#7ea6e0"));
@@ -114,11 +109,11 @@ public class OrrNagusia extends JFrame{
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		followers.setBackground(Color.decode("#7ea6e0"));
-		gehituOsagaia(followers, 9, 1, 5, 1);
+		gehituOsagaia(followers, 8, 4, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		following.setBackground(Color.decode("#7ea6e0"));
-		gehituOsagaia(following, 10, 1, 5, 1);
+		gehituOsagaia(following, 8, 11, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		
@@ -128,11 +123,11 @@ public class OrrNagusia extends JFrame{
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		view.setBackground(Color.decode("#cccccc"));
-		gehituOsagaia(view, 11, 2, 3, 1);
+		gehituOsagaia(view, 11, 3, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		export.setBackground(Color.decode("#cccccc"));
-		gehituOsagaia(export, 11, 4, 3, 1);
+		gehituOsagaia(export, 11, 8, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		logOut.setBackground(Color.decode("#cccccc"));
@@ -148,10 +143,24 @@ public class OrrNagusia extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				
+				if(rt.isSelected()){
+					
+				}
+				if(fav.isSelected()){
+					
+				}
+				if(tweets.isSelected()){
+					
+				}
+				if(dm.isSelected()){
+					
+				}
+				if(followers.isSelected()){
+					
+				}
+				if(following.isSelected()){
+					
+				}	
 			}
 		});
 		
@@ -159,19 +168,29 @@ public class OrrNagusia extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(rt.isSelected()){
+					
+				}
 				if(fav.isSelected()){
-					GetFavorites.getFav();
+					TokenKud.getToken().getFavorites();
+				}
+				if(tweets.isSelected()){
+					TokenKud.getToken().getTweets();
+				}
+				if(dm.isSelected()){
+					TokenKud.getToken().getDirectMessage();
+				}
+				if(followers.isSelected()){
+					
+				}
+				if(following.isSelected()){
+					
 				}
 				
 			}
 		});
 		
-		
-		
-		
-		
-		
-		
+		//ERABILTZAILEAREN SAIOA ITXI, HAU DA, APLIKAZIOTIK GUZTIA EZABATU
 		logOut.addActionListener(new ActionListener() {
 			
 			@Override
