@@ -15,7 +15,7 @@
  */
 
 package twitter4j.examples.oauth;
-import grafikoa.OrrNagusia;
+//import grafikoa.OrrNagusia;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -38,7 +38,7 @@ public class GetAccessToken {
      *
      * @param args message
      */
-    public static void konektatu() {
+    public static void main(String[]args) {
         File file = new File("twitter4j.properties");
         Properties prop = new Properties();
         InputStream is = null;
@@ -99,6 +99,7 @@ public class GetAccessToken {
                     throw new AssertionError(e);
                 }
                 System.out.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
+               // System.out.println("Logeatuta zaude");
                 String pin = br.readLine();
                 try {
                     if (pin.length() > 0) {
@@ -136,7 +137,7 @@ public class GetAccessToken {
                 }
             }
             System.out.println("Successfully stored access token to " + file.getAbsolutePath() + ".");
-            OrrNagusia.bistaratu();
+           // OrrNagusia.bistaratu();
             System.exit(0);
            
             
