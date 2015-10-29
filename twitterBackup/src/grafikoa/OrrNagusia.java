@@ -9,12 +9,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,25 +27,27 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class OrrNagusia extends JFrame{
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel userId = new JLabel("Hi"+Erabiltzailea.getErab().getUserId());
 	JLabel toDo = new JLabel("WHAT DO YOU WANT TO DO?");
 	
+	//botoien JPanel
+	JPanel buttons;
 	JButton backup = new JButton("Backup");
 	JButton view = new JButton("View");
 	JButton export = new JButton("Export");
-	
-	
-	//APLIKAZIOTIK IRTETZEKO BOTOIA
-	JButton logOut = new JButton("LogOut");
+	JButton logOut = new JButton("LogOut"); //APLIKAZIOTIK IRTETZEKO BOTOIA
 	
 	//IRUDIAK
 	ImageIcon retwImage = new ImageIcon("src/media1/images.png");
 	ImageIcon favImage = new ImageIcon("src/media1/fav.jpg");
 	
-	//AUKERAK
+	//AUKERAK JPanel
+	JPanel aukerak;
 	JCheckBox tweets = new JCheckBox("Tweets",false);
 	//JCheckBox rt = new JCheckBox(new ImageIcon("src/media1/images.png"),false);
 	//JCheckBox fav = new JCheckBox(new ImageIcon("src/media1/fav.jpg"),false);
@@ -71,6 +76,7 @@ public class OrrNagusia extends JFrame{
 		has.setVisible(true);
 		has.setSize(700,550);
 		has.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
 	private void gridBagHasieratu() {
 		edukiontzia = getContentPane();
@@ -92,7 +98,7 @@ public class OrrNagusia extends JFrame{
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		
-		tweets.setBackground(Color.decode("#7ea6e0"));
+		/*tweets.setBackground(Color.decode("#7ea6e0"));
 		gehituOsagaia(tweets, 5, 1, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
@@ -114,10 +120,12 @@ public class OrrNagusia extends JFrame{
 		
 		following.setBackground(Color.decode("#7ea6e0"));
 		gehituOsagaia(following, 8, 11, 5, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
+		mugak.insets = new Insets(3, 3, 3, 3);*/
+		gridJPaukerak();
+		gehituOsagaia(aukerak, 5, 1, 3, 1);
 		
 		
-		backup.setBackground(Color.decode("#cccccc"));
+		/*backup.setBackground(Color.decode("#cccccc"));
 		//login.setBounds(20, 30, 30, 20);
 		gehituOsagaia(backup, 11, 0, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
@@ -132,8 +140,9 @@ public class OrrNagusia extends JFrame{
 		
 		logOut.setBackground(Color.decode("#cccccc"));
 		gehituOsagaia(logOut, 12, 12, 5, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-		
+		mugak.insets = new Insets(3, 3, 3, 3);*/
+		gridJPbuttons();
+		gehituOsagaia(buttons, 6, 1, 3, 1);
 		
 		
 		
@@ -222,5 +231,25 @@ public class OrrNagusia extends JFrame{
 
 		eskema.setConstraints(osagaia, mugak);
 		edukiontzia.add(osagaia);
+	}
+	public void gridJPaukerak(){
+		aukerak = new JPanel(new GridLayout(6, 1));
+		aukerak.setBackground(Color.decode("#7ea6e0"));
+		aukerak.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		aukerak.add(tweets);
+		aukerak.add(fav);
+		aukerak.add(rt);
+		aukerak.add(dm);
+		aukerak.add(followers);
+		aukerak.add(following);
+		
+	}
+	public void gridJPbuttons(){
+		buttons = new JPanel(new GridLayout(1,4));
+		buttons.add(view);
+		buttons.add(backup);
+		buttons.add(export);
+		buttons.add(logOut);
+		
 	}
 }
