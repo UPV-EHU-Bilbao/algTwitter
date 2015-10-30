@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -91,6 +92,9 @@ public class PinOrr extends JFrame{
 				} catch (TwitterException | IOException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("PinOrr exception enter sakatzerakoan...");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				
 				dispose();

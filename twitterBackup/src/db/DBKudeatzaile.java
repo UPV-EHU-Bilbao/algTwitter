@@ -17,11 +17,11 @@ public class DBKudeatzaile {
 				conn = null;
 			}
 
-			//String userName = u;
-			//String password = pass;
-			String url = "jdbc:sqlite:";
-			Class.forName("org.sqlite.JDBC").newInstance();
-			conn = (Connection) DriverManager.getConnection(url);
+			String userName = "twitterUser";
+			String password = "twitter";
+			String url = "jdbc:mysql://localhost:3306/twittermysql";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			conn = (Connection) DriverManager.getConnection(url, userName, password);
 			System.out.println("Database connection established");
 		} catch (Exception e) {
 			System.err.println("Cannot connect to database server");
@@ -29,12 +29,16 @@ public class DBKudeatzaile {
 		}
 	}
 
-	private ResultSet query(Statement s, String query) throws SQLException {
+	private ResultSet query(Statement s, String query) {
 
 		ResultSet rs = null;
 
-		s.executeQuery(query);
-		rs = s.getResultSet();
+		try {
+			s.executeQuery(query);
+			rs = s.getResultSet();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return rs;
 	}
@@ -43,30 +47,29 @@ public class DBKudeatzaile {
 	private static DBKudeatzaile instantzia = new DBKudeatzaile();
 
 	private DBKudeatzaile() {
+		this.conOpen();
 	}
 
 	public static DBKudeatzaile getInstantzia() {
 		return instantzia;
 	}
 
-	public ResultSet execSQL(String query) throws SQLException {
+	public ResultSet execSQL(String query) {
 		int count = 0;
 		Statement s = null;
 		ResultSet rs = null;
-
-		s = (Statement) conn.createStatement();
-
-		if (query.toLowerCase().indexOf("select") == 0) {
-
-			// select agindu bat
-			rs = this.query(s, query);
-		} else {
-			// update, delete, create agindu bat
-			count = s.executeUpdate(query);
+		try {
+			s = (Statement) conn.createStatement();
+			if (query.toLowerCase().indexOf("select") == 0) {
+				// select agindu bat
+				rs = this.query(s, query);
+			} else {
+				// update, delete, create agindu bat
+				count = s.executeUpdate(query);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
 		return rs;
 	}
 }
-	
-

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
@@ -70,14 +71,14 @@ public class TokenKud {
 		
            
 	}
-	public void enterPin(String pin) throws TwitterException, IOException{
+	public void enterPin(String pin) throws TwitterException, IOException, SQLException{
 		System.out.println("AccesToken lortzen...");
 		AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, pin);
-		//TokenEragiketak.getTokEragik().gordeRequest(requestToken.toString());
 		System.out.println("ACCESSTOKEN LORTUTA!");
 		System.out.println("Kaixo"+twitter.getScreenName());
 		//userId DB -an gorde
-		//Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());	
+		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
+		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());	
 	}
 	
 	
@@ -159,8 +160,8 @@ public class TokenKud {
 	}
 	
 	public void getSession(){
-		String token = "";
-		String secret = "";
+		String token = Eragiketak.getEragiketak().tokenBilatu();
+		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
 		AccessToken accessToken = new AccessToken(token, secret);
 	}
 }
