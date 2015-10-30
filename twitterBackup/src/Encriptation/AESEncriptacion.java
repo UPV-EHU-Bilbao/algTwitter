@@ -27,8 +27,6 @@ public class AESEncriptacion {
 	   SecretKey skey = kgen.generateKey(); 
 	   AESkey aesKey = new AESkey();
 	   aesKey.setEncoded(HexToString(skey.getEncoded()));
-	   //originalmente estava (metida de pata)
-	   // aesKey.setEncoded(StringtoHex(skey.getEncoded()));
 	   return aesKey;
 	 }
 	  
@@ -81,8 +79,6 @@ public class AESEncriptacion {
 	   AESkey aesKey = new AESkey();
 	      
 	   AESEncriptacion tmp = new AESEncriptacion(aesKey);
-	   //originalmente estava, error nuevamente
-	   //AESEncriptacion tmp = new AESEncriptacion();
 	   aesKey = tmp.generaKey();
 	     
 	   AESEncriptacion ejemplo = new AESEncriptacion(aesKey);
@@ -97,5 +93,5 @@ public class AESEncriptacion {
 	   System.out.println(encriptado);
 	   System.out.println(desencriptado);
 	 }
-	}
+	
 }
