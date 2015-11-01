@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -98,7 +99,7 @@ public class Has extends JFrame{
 					TokenKud.getToken().hasieratuToken();
 					PinOrr.bistaratu();
 					dispose();
-				} catch (TwitterException | IOException e1) {
+				} catch (TwitterException | IOException | SQLException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("Zerbait gaizki dago...");
 				}
