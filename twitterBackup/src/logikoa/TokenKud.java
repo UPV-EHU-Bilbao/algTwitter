@@ -84,7 +84,7 @@ public class TokenKud {
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
 		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
 		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
-	//	Eragiketak.getEragiketak().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
+		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
 			
 	}
 	

@@ -14,8 +14,8 @@ public class Eragiketak {
 		}return mEragiketak;
 	}
 	public void tokenGorde(String token, String tokenSecret) throws SQLException{
-		ResultSet rs = dbk.execSQL("INSERT INTO token(accessToken)VALUES("+token+");");
-		rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
+		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`)VALUES('"+token+"','"+tokenSecret+"');");
+		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
 	}
 	
 	public String tokenBilatu(){
@@ -61,8 +61,8 @@ public class Eragiketak {
 		}
 		return userId;
 	}
-	public void sartuErab(String izena) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`user`(`izena`) VALUES(`"+izena+"`);");
+	public void sartuErab(String pizena) throws SQLException{
+		dbk.execSQL("INSERT INTO `twittermysql`.`user`(`izena`) VALUES('"+pizena+"');");
 	}
 	
 
