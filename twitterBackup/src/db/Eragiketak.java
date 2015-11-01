@@ -21,11 +21,11 @@ public class Eragiketak {
 	public String tokenBilatu(){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessToken FROM token );");
-			int x = 0;
+			ResultSet rs = dbk.execSQL("SELECT accessToken FROM twittermysql.token;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				token= token+rs.getString(x);
+				token= rs.getString("accessToken");
+				System.out.println(token);
 			}
 		} catch (SQLException e) {
 			System.out.println("EZ DA GEHITU TOKEN!!");
@@ -35,11 +35,11 @@ public class Eragiketak {
 	public String tokenSecretBilatu(){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM token );");
-			int x = 0;
+			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM twittermysql.token;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				token= token+rs.getString(x);
+				token= rs.getString("accessTokenSecret");
+				System.out.println(token);
 			}
 		} catch (SQLException e) {
 			System.out.println("EZ DA GEHITU TOKEN!!");
@@ -50,10 +50,10 @@ public class Eragiketak {
 		String userId = "";
 		try {
 			ResultSet rs = dbk.execSQL("SELECT izena FROM user;");
-			int x = 0;
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				userId = userId+rs.getString(x);
+				userId = rs.getString("izena");
+				System.out.println(userId);
 			}
 			rs.close();
 		} catch (SQLException e) {
