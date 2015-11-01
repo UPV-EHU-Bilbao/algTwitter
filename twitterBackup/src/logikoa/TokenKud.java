@@ -46,15 +46,17 @@ public class TokenKud {
 		}return mToken;
 	}
 	
-	public void hasieratuToken() throws TwitterException, IOException{
+	public void hasieratuToken() throws TwitterException, IOException, SQLException{
 		
 		twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
 		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
 		requestToken = twitter.getOAuthRequestToken();
-		System.out.println("Request token lortuta : "+requestToken.getToken());
-		System.out.println("Request token lortuta : "+requestToken.getTokenSecret());
+		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
+		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
+		
+		
 		
 		//GURE APP -eko URL -era berbidali
 		try {
@@ -78,7 +80,12 @@ public class TokenKud {
 		System.out.println("Kaixo"+twitter.getScreenName());
 		//userId DB -an gorde
 		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
-		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());	
+		//tokenak datu basean gorde
+		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
+		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
+		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
+		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
+			
 	}
 	
 	

@@ -48,20 +48,20 @@ public class GetAccessToken {
                 is = new FileInputStream(file);
                 prop.load(is);
             }
-            //if (args.length < 2) {
-              /*  if (null == prop.getProperty("oauth.consumerKey")
+            if (args.length < 2) {
+               if (null == prop.getProperty("oauth.consumerKey")
                         && null == prop.getProperty("oauth.consumerSecret")) {
                     // consumer key/secret are not set in twitter4j.properties
                     System.out.println(
                             "Usage: java twitter4j.examples.oauth.GetAccessToken [consumer key] [consumer secret]");
                     System.exit(-1);
                 }
-            //} else {
+            } else {
                 prop.setProperty("oauth.consumerKey", args[0]);
                 prop.setProperty("oauth.consumerSecret", args[1]);
                 os = new FileOutputStream("twitter4j.properties");
                 prop.store(os, "twitter4j.properties");
-            }*/
+            }
        } catch (IOException ioe) {
             ioe.printStackTrace();
             System.exit(-1);

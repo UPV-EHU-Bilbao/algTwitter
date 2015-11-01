@@ -14,17 +14,18 @@ public class Eragiketak {
 		}return mEragiketak;
 	}
 	public void tokenGorde(String token, String tokenSecret) throws SQLException{
-		ResultSet rs = dbk.execSQL("INSERT INTO token("+token+","+tokenSecret+"WHERE );");
+		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`)VALUES('"+token+"','"+tokenSecret+"');");
+		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
 	}
 	
 	public String tokenBilatu(){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessToken FROM token );");
-			int x = 0;
+			ResultSet rs = dbk.execSQL("SELECT accessToken FROM twittermysql.token;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				token= token+rs.getString(x);
+				token= rs.getString("accessToken");
+				System.out.println(token);
 			}
 		} catch (SQLException e) {
 			System.out.println("EZ DA GEHITU TOKEN!!");
@@ -34,11 +35,11 @@ public class Eragiketak {
 	public String tokenSecretBilatu(){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM token );");
-			int x = 0;
+			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM twittermysql.token;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				token= token+rs.getString(x);
+				token= rs.getString("accessTokenSecret");
+				System.out.println(token);
 			}
 		} catch (SQLException e) {
 			System.out.println("EZ DA GEHITU TOKEN!!");
@@ -49,10 +50,10 @@ public class Eragiketak {
 		String userId = "";
 		try {
 			ResultSet rs = dbk.execSQL("SELECT izena FROM user;");
-			int x = 0;
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				userId = userId+rs.getString(x);
+				userId = rs.getString("izena");
+				System.out.println(userId);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -60,8 +61,8 @@ public class Eragiketak {
 		}
 		return userId;
 	}
-	public void sartuErab(String izena) throws SQLException{
-		ResultSet rs = dbk.execSQL("INSERT INTO user("+izena+");");
+	public void sartuErab(String pizena) throws SQLException{
+		dbk.execSQL("INSERT INTO `twittermysql`.`user`(`izena`) VALUES('"+pizena+"');");
 	}
 	
 

@@ -7,11 +7,14 @@ import logikoa.TokenKud;
 
 public class Start {
 	public static void main(String[] args) throws IOException {
-		if (Eragiketak.getEragiketak().tokenBilatu()!=null){
+		String token = Eragiketak.getEragiketak().tokenBilatu();
+		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
+		String erab = Eragiketak.getEragiketak().erabiltzaileIzena();
+		/*if (Eragiketak.getEragiketak().tokenBilatu()!=null){
 			TokenKud.getToken().getSession();
 		}else{
 			Has.bistaratu();
-		}
+		}*/
 		
 	}
 }
