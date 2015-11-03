@@ -96,7 +96,7 @@ public class TokenKud {
            
             List<Status> statuses = twitter.getFavorites();
             for (Status status : statuses) {
-                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+                System.out.println("Noiz"+status.getCreatedAt().toString()+"@" + status.getUser().getScreenName() + " - " + status.getText());
             }
             System.out.println("done.");
             //System.exit(0);
@@ -161,10 +161,7 @@ public class TokenKud {
 			System.exit(-1);
     }
 	}
-	//token -ak DB -an gorde
-	public void saveTokens(){
-		//TokenEragiketak.getTokEragik().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
-	}
+	
 	
 	public void getSession(){
 		String token = Eragiketak.getEragiketak().tokenBilatu();
