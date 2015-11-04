@@ -51,12 +51,13 @@ public class TokenKud {
 	public void hasieratuToken() throws TwitterException, IOException, SQLException{
 		
 		twitter = new TwitterFactory().getInstance();
-		twitter.setOAuthConsumer(consumerKey, consumerSecret);
-		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
-		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
-		requestToken = twitter.getOAuthRequestToken();
-		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
-		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
+		//twitter.setOAuthConsumer("", "");
+//		twitter.setOAuthConsumer(consumerKey, consumerSecret);
+//		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
+//		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
+	// requestToken = twitter.getOAuthRequestToken();
+//		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
+//		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
 		
 		
 		
