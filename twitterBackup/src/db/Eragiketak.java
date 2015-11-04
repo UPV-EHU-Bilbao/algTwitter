@@ -13,10 +13,15 @@ public class Eragiketak {
 			mEragiketak = new Eragiketak();
 		}return mEragiketak;
 	}
-	public void tokenGorde(String token, String tokenSecret) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`)VALUES('"+token+"','"+tokenSecret+"');");
+	public void tokenGorde(String token) throws SQLException{
+		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`)VALUES('"+token+"');");
 		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
 	}
+	public void tokenSecretGorde(String tokenSecret) throws SQLException{
+		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessTokenSecret`)VALUES('"+tokenSecret+"');");
+		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
+	}
+	
 	
 	public String tokenBilatu(){
 		String token = "";
@@ -32,6 +37,7 @@ public class Eragiketak {
 			//e.printStackTrace();
 		}return token;
 	}
+	
 	public String tokenSecretBilatu(){
 		String token = "";
 		try {
@@ -46,6 +52,7 @@ public class Eragiketak {
 			e.printStackTrace();
 		}return token;
 	}
+	
 	public String erabiltzaileIzena(){
 		String userId = "";
 		try {

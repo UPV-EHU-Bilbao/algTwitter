@@ -26,6 +26,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class TokenKud {
 
@@ -34,6 +35,7 @@ public class TokenKud {
 	private String consumerSecret;
 	private RequestToken requestToken;
 	private Twitter twitter;
+	private AccessToken accessToken;
 	
 	private TokenKud(){
 		consumerKey = "9vj1uaNEO4T6AUQc7OEUw0yOm";
@@ -75,17 +77,20 @@ public class TokenKud {
 	}
 	public void enterPin(String pin) throws TwitterException, IOException, SQLException{
 		System.out.println("AccesToken lortzen...");
-		AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+		accessToken = twitter.getOAuthAccessToken(requestToken, pin);
 		System.out.println("ACCESSTOKEN LORTUTA!");
 		System.out.println("Kaixo"+twitter.getScreenName());
 		//userId DB -an gorde
 		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
 		//tokenak datu basean gorde
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
-		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
-		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
-		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
-			
+		//System.out.println("Accesstoken lortuta : "+requestToken.getToken());
+		//System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
+		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken());
+		Eragiketak.getEragiketak().tokenSecretGorde(requestToken.getTokenSecret());
+		
+		//System.out.println(requestToken);
+		//Eragiketak.getEragiketak().rTokenGorde(requestToken.toString());
 	}
 	
 	
@@ -96,7 +101,7 @@ public class TokenKud {
            
             List<Status> statuses = twitter.getFavorites();
             for (Status status : statuses) {
-                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+                System.out.println("Noiz "+status.getCreatedAt().toString()+"@" + status.getUser().getScreenName() + " - " + status.getText());
             }
             System.out.println("done.");
             //System.exit(0);
@@ -113,7 +118,7 @@ public class TokenKud {
             do {
                 messages = twitter.getDirectMessages(paging);
                 for (DirectMessage message : messages) {
-                    System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
+                    System.out.println("Noiz: "+message.getCreatedAt()+"From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
                             + message.getText());
                 }
                 paging.setPage(paging.getPage() + 1);
@@ -133,7 +138,7 @@ public class TokenKud {
 	            do {
 	                directMessages = twitter.getSentDirectMessages(page);
 	                for (DirectMessage message : directMessages) {
-	                    System.out.println("To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
+	                    System.out.println("Noiz: "+message.getCreatedAt()+"To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
 	                            + message.getText());
 	                }
 	                page.setPage(page.getPage() + 1);
@@ -161,14 +166,18 @@ public class TokenKud {
 			System.exit(-1);
     }
 	}
-	//token -ak DB -an gorde
-	public void saveTokens(){
-		//TokenEragiketak.getTokEragik().tokenGorde(requestToken.getToken(), requestToken.getTokenSecret());
-	}
+	
 	
 	public void getSession(){
 		String token = Eragiketak.getEragiketak().tokenBilatu();
 		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
-		AccessToken accessToken = new AccessToken(token, secret);
+		
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setOAuthConsumerKey(consumerKey);
+		cb.setOAuthConsumerSecret(consumerSecret);
+		cb.setOAuthAccessToken(token);
+		cb.setOAuthAccessTokenSecret(secret);
+		twitter = new TwitterFactory(cb.build()).getInstance();
+		
 	}
 }

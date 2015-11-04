@@ -101,6 +101,7 @@ public class Has extends JFrame{
 					dispose();
 				} catch (TwitterException | IOException | SQLException e1) {
 					// TODO Auto-generated catch block
+					e1.printStackTrace();
 					System.out.println("Zerbait gaizki dago...");
 				}
 				

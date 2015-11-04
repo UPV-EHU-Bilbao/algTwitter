@@ -149,6 +149,7 @@ public class OrrNagusia extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				viewText.setText("KAIXO HEMEN NAGO");
+				TokenKud.getToken().getFavorites();
 				//viewPanel();
 				
 				/*if(rt.isSelected()){
