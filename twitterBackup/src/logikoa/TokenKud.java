@@ -40,6 +40,7 @@ public class TokenKud {
 	private TokenKud(){
 		consumerKey = "9vj1uaNEO4T6AUQc7OEUw0yOm";
 		consumerSecret = "LkzFqvGzV19fBdW1baOHY5ZkWazSm6HudWWCXBRr8redigzRca";
+		
 	}
 	
 	public static synchronized TokenKud getToken(){
@@ -49,29 +50,35 @@ public class TokenKud {
 	}
 	
 	public void hasieratuToken() throws TwitterException, IOException, SQLException{
+		String token = Eragiketak.getEragiketak().tokenBilatu();
+		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
 		
-		twitter = new TwitterFactory().getInstance();
-		//twitter.setOAuthConsumer("", "");
-//		twitter.setOAuthConsumer(consumerKey, consumerSecret);
-//		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
-//		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
-	// requestToken = twitter.getOAuthRequestToken();
-//		System.out.println("Accesstoken lortuta : "+requestToken.getToken());
-//		System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setOAuthConsumerKey(consumerKey);
+		cb.setOAuthConsumerSecret(consumerSecret);
+		//cb.setOAuthAccessToken(accessToken);
+    	//cb.setOAuthAccessTokenSecret(accessTokenSecret);
+		twitter = new TwitterFactory(cb.build()).getInstance();
 		
+		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
+		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
 		
+		//consumer -ak datu basean gorde
+//		Eragiketak.getEragiketak().consumerGorde(consumerKey);
+//		Eragiketak.getEragiketak().consumerSecretGorde(consumerSecret);
 		
-		//GURE APP -eko URL -era berbidali
+		requestToken = twitter.getOAuthRequestToken();
 		try {
-			System.out.println("URL honetara "+requestToken.getAuthenticationURL().toString()+" berbidaltzen...");
-			Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//	System.out.println("URL honetara "+requestToken.getAuthenticationURL().toString()+" berbidaltzen...");
+				Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 		System.out.println("HASIERATZEA, hasieratu(), ondo burutu da!");
 		
            
@@ -79,16 +86,15 @@ public class TokenKud {
 	public void enterPin(String pin) throws TwitterException, IOException, SQLException{
 		System.out.println("AccesToken lortzen...");
 		accessToken = twitter.getOAuthAccessToken(requestToken, pin);
-		System.out.println("ACCESSTOKEN LORTUTA!");
+		accessToken.getToken();
+		System.out.println("ACCESSTOKEN LORTUTA!: "+accessToken);
 		System.out.println("Kaixo"+twitter.getScreenName());
 		//userId DB -an gorde
 		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
 		//tokenak datu basean gorde
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
-		//System.out.println("Accesstoken lortuta : "+requestToken.getToken());
-		//System.out.println("AccessTokenSecret lortuta : "+requestToken.getTokenSecret());
-		Eragiketak.getEragiketak().tokenGorde(requestToken.getToken());
-		Eragiketak.getEragiketak().tokenSecretGorde(requestToken.getTokenSecret());
+		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken());
+		Eragiketak.getEragiketak().tokenSecretGorde(accessToken.getTokenSecret());
 		
 		//System.out.println(requestToken);
 		//Eragiketak.getEragiketak().rTokenGorde(requestToken.toString());
@@ -170,13 +176,13 @@ public class TokenKud {
 	
 	
 	public void getSession(){
-		String token = Eragiketak.getEragiketak().tokenBilatu();
+		String accesstoken = Eragiketak.getEragiketak().tokenBilatu();
 		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setOAuthConsumerKey(consumerKey);
 		cb.setOAuthConsumerSecret(consumerSecret);
-		cb.setOAuthAccessToken(token);
+		cb.setOAuthAccessToken(accesstoken);
 		cb.setOAuthAccessTokenSecret(secret);
 		twitter = new TwitterFactory(cb.build()).getInstance();
 		
