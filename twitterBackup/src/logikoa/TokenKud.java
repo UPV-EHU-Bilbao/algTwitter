@@ -50,8 +50,8 @@ public class TokenKud {
 	}
 	
 	public void hasieratuToken() throws TwitterException, IOException, SQLException{
-		String token = Eragiketak.getEragiketak().tokenBilatu();
-		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
+//		String token = Eragiketak.getEragiketak().tokenBilatu();
+//		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setOAuthConsumerKey(consumerKey);
@@ -60,8 +60,8 @@ public class TokenKud {
     	//cb.setOAuthAccessTokenSecret(accessTokenSecret);
 		twitter = new TwitterFactory(cb.build()).getInstance();
 		
-		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
-		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
+//		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
+//		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
 		
 		//consumer -ak datu basean gorde
 //		Eragiketak.getEragiketak().consumerGorde(consumerKey);
@@ -93,16 +93,16 @@ public class TokenKud {
 		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
 		//tokenak datu basean gorde
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
+		
+		System.out.println("Accesstoken: "+accessToken.getToken());
 		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken());
+		
+		System.out.println("AccesstokenSecret: "+accessToken.getTokenSecret());
 		Eragiketak.getEragiketak().tokenSecretGorde(accessToken.getTokenSecret());
 		
 		//System.out.println(requestToken);
 		//Eragiketak.getEragiketak().rTokenGorde(requestToken.toString());
 	}
-	
-	
-	
-	
 	public void getFavorites(){
 		try {
            

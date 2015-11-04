@@ -17,6 +17,7 @@ public class Start {
 		if(Eragiketak.getEragiketak().tokenBilatu() == null){
 			Has.bistaratu();
 		}else{
+			System.out.println(Eragiketak.getEragiketak().tokenBilatu());
 			TokenKud.getToken().getSession();
 			OrrNagusia.bistaratu();
 		}
