@@ -76,7 +76,7 @@ public class TokenKud {
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
 		System.out.println("Accesstoken: "+accessToken.getToken());
 		System.out.println("AccesstokenSecret: "+accessToken.getTokenSecret());
-		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken(), accessToken.getTokenSecret());
+		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken(), accessToken.getTokenSecret(),twitter.getScreenName());
 	}
 	public void getFavorites(){
 		try {
@@ -160,9 +160,9 @@ public class TokenKud {
 	
 	
 	
-	public void getSession(){
-		String accesstoken = Eragiketak.getEragiketak().tokenBilatu();
-		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
+	public void getSession(String izena){
+		String accesstoken = Eragiketak.getEragiketak().tokenBilatu(izena);
+		String secret = Eragiketak.getEragiketak().tokenSecretBilatu(izena);
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setOAuthConsumerKey(consumerKey);

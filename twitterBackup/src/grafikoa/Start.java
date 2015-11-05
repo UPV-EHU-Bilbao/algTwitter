@@ -9,11 +9,12 @@ import logikoa.TokenKud;
 
 public class Start {
 	public static void main(String[] args) throws IOException {
-		if(Eragiketak.getEragiketak().tokenBilatu() == null){
+		String izena="Leireva";
+		if(Eragiketak.getEragiketak().tokenBilatu(izena) == null){
 			Has.bistaratu();
 		}else{
-			System.out.println(Eragiketak.getEragiketak().tokenBilatu());
-			TokenKud.getToken().getSession();
+			//System.out.println(Eragiketak.getEragiketak().tokenBilatu());
+			TokenKud.getToken().getSession(izena);
 			OrrNagusia.bistaratu();
 		}
 	}

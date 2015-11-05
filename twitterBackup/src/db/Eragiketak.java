@@ -13,8 +13,8 @@ public class Eragiketak {
 			mEragiketak = new Eragiketak();
 		}return mEragiketak;
 	}
-	public void tokenGorde(String token, String tokenSecret) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`)VALUES('"+token+"','"+tokenSecret+"');");
+	public void tokenGorde(String token, String tokenSecret, String user) throws SQLException{
+		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`,`user`)VALUES('"+token+"','"+tokenSecret+"','"+user+"');");
 	}
 	public void tokenSecretGorde(String tokenSecret) throws SQLException{
 		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessTokenSecret`)VALUES('"+tokenSecret+"');");
@@ -26,10 +26,10 @@ public class Eragiketak {
 	public void consumerSecretGorde(String cS) throws SQLException{
 		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`consumerKeySecret`)VALUES('"+cS+"');");
 	}
-	public String tokenBilatu(){
+	public String tokenBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessToken FROM twittermysql.token;");
+			ResultSet rs = dbk.execSQL("SELECT accessToken FROM twittermysql.token WHERE user='"+izena+"');");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessToken");
@@ -41,10 +41,10 @@ public class Eragiketak {
 		}return token;
 	}
 	
-	public String tokenSecretBilatu(){
+	public String tokenSecretBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM twittermysql.token;");
+			ResultSet rs = dbk.execSQL("SELECT `accessTokenSecret` FROM `twittermysql`.`token` WHERE `user`='"+izena+"');");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessTokenSecret");
