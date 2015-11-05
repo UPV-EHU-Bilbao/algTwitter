@@ -16,12 +16,14 @@
 
 package twitter4j.examples.favorite;
 
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,10 +36,14 @@ public final class GetFavoritesproba {
      * Usage: java twitter4j.examples.favorite.GetFavorites
      *
      * @param args message
+     * @throws InterruptedException 
      */
-   public static void main(String[] args) {
+   public static void main(String[] args) throws InterruptedException {
 	
         try {
+            int pagenumber = 1;
+            int count = 20;
+            List<Status> statuses = new ArrayList<Status>();
             
         	ConfigurationBuilder cb = new ConfigurationBuilder();
         	cb.setOAuthConsumerKey("9vj1uaNEO4T6AUQc7OEUw0yOm");
@@ -46,18 +52,27 @@ public final class GetFavoritesproba {
         	cb.setOAuthAccessTokenSecret("Z5ugnSlUvhQuOYjFoQbKrxYcCkkT84cNnjYJbHYCyP5fH");
         	
         	Twitter twitter = new TwitterFactory(cb.build()).getInstance();
-            List<Status> statuses = twitter.getFavorites();
+        	while(true){
+        	  Paging page = new Paging(pagenumber, count);
+        	  int size = statuses.size();
+        	  statuses.addAll(twitter.getFavorites(page));
+        	  if(statuses.size()== size){
+            	break;
+        	  }
             
-            
-            for (Status status : statuses) {
-                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-            }
-            System.out.println("done.");
-            System.exit(0);
+        	  for (Status status : statuses) {
+                System.out.println(status.getId()+" @" + status.getUser().getScreenName() + " - " + status.getText());
+        	  }
+            //System.out.println("done.");
+        	  //System.exit(0);
+        	}
         } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get favorites: " + te.getMessage());
+            //te.printStackTrace();
+            //System.out.println("Failed to get favorites: " + te.getMessage());
+            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            Thread.sleep(1446713686l);
             System.exit(-1);
         }
-    }
+        }
+    
 }
