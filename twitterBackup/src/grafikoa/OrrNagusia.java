@@ -149,27 +149,30 @@ public class OrrNagusia extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				viewText.setText("KAIXO HEMEN NAGO");
-				TokenKud.getToken().getFavorites();
-				//viewPanel();
-				
-				/*if(rt.isSelected()){
-					
+				//TokenKud.getToken().getFavorites();
+				try {
+					//TokenKud.getToken().getFavPage();
+					if(rt.isSelected()){
+						
+					}
+					if(fav.isSelected()){
+						TokenKud.getToken().getFavPage();
+					}
+					if(tweets.isSelected()){
+						TokenKud.getToken().getTweets();
+					}
+					if(dm.isSelected()){
+						//TokenKud.getToken().getDirectMessage();
+					}
+					if(followers.isSelected()){
+						
+					}
+					if(following.isSelected()){
+						
+					}
+				} catch (InterruptedException e1) {
+					//e1.printStackTrace();
 				}
-				if(fav.isSelected()){
-					TokenKud.getToken().getFavorites();
-				}
-				if(tweets.isSelected()){
-					TokenKud.getToken().getTweets();
-				}
-				if(dm.isSelected()){
-					TokenKud.getToken().getDirectMessage();
-				}
-				if(followers.isSelected()){
-					
-				}
-				if(following.isSelected()){
-					
-				}*/
 				
 			}
 		});

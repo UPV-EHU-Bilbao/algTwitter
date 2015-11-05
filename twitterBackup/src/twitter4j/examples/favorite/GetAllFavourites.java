@@ -17,13 +17,14 @@ public final class GetAllFavourites {
 	            try {
 	                int size = statuses.size();
 	                Paging page = new Paging(pageno++, 100);
-	                statuses.addAll(twitter.getUserTimeline(page));
+	                statuses.addAll(twitter.getFavorites(page));
 	                if (statuses.size() == size || pageno==3) {
 	                    break;
 	                }
 	            } catch (TwitterException e) {
 	            
 	            }
+	            System.out.println(statuses);
 	        }
 	     
 	    }

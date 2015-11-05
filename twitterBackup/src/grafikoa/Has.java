@@ -97,6 +97,7 @@ public class Has extends JFrame{
 				//String pin = jtpin.getText();
 				try {
 					TokenKud.getToken().hasieratuToken();
+					//OrrNagusia.bistaratu();
 					PinOrr.bistaratu();
 					dispose();
 				} catch (TwitterException | IOException | SQLException e1) {
