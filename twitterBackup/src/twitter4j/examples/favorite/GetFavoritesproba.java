@@ -67,10 +67,14 @@ public final class GetFavoritesproba {
         	  //System.exit(0);
         	}
         } catch (TwitterException te) {
-            //te.printStackTrace();
+            te.printStackTrace();
+            String errorea = te.toString();
+            String azpikatea = errorea.substring(errorea.indexOf("secondsUntilReset"),errorea.indexOf("secondsUntilReset")+ "secondsUntilReset=000".length());
             //System.out.println("Failed to get favorites: " + te.getMessage());
+            String[] zatiak = azpikatea.split("=");
+            System.out.println("Falta diren segunduak:" + zatiak[1]);
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-            Thread.sleep(1446713686l);
+            
             System.exit(-1);
         }
         }

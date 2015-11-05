@@ -1,18 +1,12 @@
 package logikoa;
 
 import java.awt.Desktop;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 
 
@@ -23,7 +17,6 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
@@ -50,32 +43,18 @@ public class TokenKud {
 	}
 	
 	public void hasieratuToken() throws TwitterException, IOException, SQLException{
-//		String token = Eragiketak.getEragiketak().tokenBilatu();
-//		String secret = Eragiketak.getEragiketak().tokenSecretBilatu();
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setOAuthConsumerKey(consumerKey);
 		cb.setOAuthConsumerSecret(consumerSecret);
-		//cb.setOAuthAccessToken(accessToken);
-    	//cb.setOAuthAccessTokenSecret(accessTokenSecret);
 		twitter = new TwitterFactory(cb.build()).getInstance();
-		
-//		System.out.println("TWITTER APP -eko consumerKey: "+consumerKey);
-//		System.out.println("TWITTER APP -eko consumerSecret: "+consumerSecret);
-		
-		//consumer -ak datu basean gorde
-//		Eragiketak.getEragiketak().consumerGorde(consumerKey);
-//		Eragiketak.getEragiketak().consumerSecretGorde(consumerSecret);
 		
 		requestToken = twitter.getOAuthRequestToken();
 		try {
-			//	System.out.println("URL honetara "+requestToken.getAuthenticationURL().toString()+" berbidaltzen...");
 				Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
@@ -89,19 +68,15 @@ public class TokenKud {
 		accessToken.getToken();
 		System.out.println("ACCESSTOKEN LORTUTA!: "+accessToken);
 		System.out.println("Kaixo"+twitter.getScreenName());
+		
 		//userId DB -an gorde
 		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
+		
 		//tokenak datu basean gorde
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");
-		
 		System.out.println("Accesstoken: "+accessToken.getToken());
-		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken());
-		
 		System.out.println("AccesstokenSecret: "+accessToken.getTokenSecret());
-		Eragiketak.getEragiketak().tokenSecretGorde(accessToken.getTokenSecret());
-		
-		//System.out.println(requestToken);
-		//Eragiketak.getEragiketak().rTokenGorde(requestToken.toString());
+		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken(), accessToken.getTokenSecret());
 	}
 	public void getFavorites(){
 		try {
@@ -160,19 +135,29 @@ public class TokenKud {
 	}
 	public void getTweets(){
 		//getgometimeline()
-		try{
-			User user = twitter.verifyCredentials();
-			List<Status> statuses = twitter.getHomeTimeline();
-			System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
-			for (Status status : statuses) {
-            System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-			}
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
-			System.exit(-1);
-    }
-	}
+		try {
+            int pagenumber = 1;
+            int count = 20;
+            List<Status> statuses = new ArrayList<Status>();
+        	while(true){
+        	  Paging page = new Paging(pagenumber, count);
+        	  int size = statuses.size();
+        	  statuses.addAll(twitter.getHomeTimeline(page));
+        	  if(statuses.size()== size){
+            	break;
+        	  }
+            
+        	  for (Status status : statuses) {
+                System.out.println(status.getId()+" @" + status.getUser().getScreenName() + " - " + status.getText());
+        	  }
+        	}
+        } catch (TwitterException te) {
+            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+            System.exit(-1);
+        }
+        }
+	
 	
 	
 	public void getSession(){
@@ -187,5 +172,34 @@ public class TokenKud {
 		twitter = new TwitterFactory(cb.build()).getInstance();
 		
 	}
-	
+	public void getFavPage() throws InterruptedException{
+	      try {
+	            int pagenumber = 1;
+	            int count = 20;
+	            List<Status> statuses = new ArrayList<Status>();
+	        	while(true){
+	        	  Paging page = new Paging(pagenumber, count);
+	        	  int size = statuses.size();
+	        	  statuses.addAll(twitter.getFavorites(page));
+	        	  if(statuses.size()== size){
+	            	break;
+	        	  }
+	            
+	        	  for (Status status : statuses) {
+	                System.out.println(status.getId()+" @" + status.getUser().getScreenName() + " - " + status.getText());
+	        	  }
+	        	}
+	        } catch (TwitterException te) {
+	            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+	            timeTo(te.toString());
+	            //System.exit(-1);
+	        }
+	        }
+	public void timeTo(String errorea){
+		 String azpikatea = errorea.substring(errorea.indexOf("secondsUntilReset"),errorea.indexOf("secondsUntilReset")+ "secondsUntilReset=000".length());
+         String[] zatiak = azpikatea.split("=");
+         System.out.println("Falta diren segunduak:" + zatiak[1]);
+         //String denbora = zatiak[1]+"segundu...";
+         System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+	}
 }
