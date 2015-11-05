@@ -29,7 +29,7 @@ public class Eragiketak {
 	public String tokenBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT accessToken FROM twittermysql.token WHERE user='"+izena+"');");
+			ResultSet rs = dbk.execSQL("SELECT * FROM `twittermysql`.`token` WHERE user='"+izena+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessToken");
@@ -44,7 +44,7 @@ public class Eragiketak {
 	public String tokenSecretBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT `accessTokenSecret` FROM `twittermysql`.`token` WHERE `user`='"+izena+"');");
+			ResultSet rs = dbk.execSQL("SELECT * FROM `twittermysql`.`token` WHERE user='"+izena+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessTokenSecret");
