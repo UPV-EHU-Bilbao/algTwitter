@@ -110,7 +110,7 @@ public class TokenKud {
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get messages: " + te.getMessage());
-            System.exit(-1);
+            //System.exit(-1);
         }
 	}
 	public void getSentDirectMessage(){
@@ -130,7 +130,7 @@ public class TokenKud {
 	        } catch (TwitterException te) {
 	            te.printStackTrace();
 	            System.out.println("Failed to get sent messages: " + te.getMessage());
-	            System.exit(-1);
+	            //System.exit(-1);
 	        }
 	}
 	public void getTweets(){
@@ -154,7 +154,7 @@ public class TokenKud {
         } catch (TwitterException te) {
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             timeTo(te.toString());
-            System.exit(-1);
+           // System.exit(-1);
         }
         }
 	
