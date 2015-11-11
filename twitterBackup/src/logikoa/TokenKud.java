@@ -1,5 +1,5 @@
 package logikoa;
-
+import twitter4j.*;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -12,6 +12,7 @@ import java.util.List;
 
 import db.Eragiketak;
 import twitter4j.DirectMessage;
+import twitter4j.IDs;
 import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -78,6 +79,47 @@ public class TokenKud {
 		System.out.println("AccesstokenSecret: "+accessToken.getTokenSecret());
 		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken(), accessToken.getTokenSecret(),twitter.getScreenName());
 	}
+	public void getFollowers(){
+		 try {
+	            
+	            long cursor = -1;
+	            IDs ids;
+	            System.out.println("Listing followers's ids.");
+	            do {
+	                
+	                ids = twitter.getFollowersIDs(cursor);
+	                
+	                for (long id : ids.getIDs()) {
+	                    System.out.println(id);
+	                    System.out.println(twitter.showUser(id).getScreenName());
+	                }
+	            } while ((cursor = ids.getNextCursor()) != 0);
+	            //System.exit(0);
+	        } catch (TwitterException te) {
+	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+	            timeTo(te.toString());
+	        }
+	}
+	public void getFollowing(){
+		try {
+            long cursor = -1;
+            IDs ids;
+            System.out.println("Listing following ids.");
+            do {
+                    ids = twitter.getFriendsIDs(cursor);
+                
+                for (long id : ids.getIDs()) {
+                    System.out.println(id);
+                    System.out.println(twitter.showUser(id).getScreenName());
+                    
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+            System.exit(0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
+	}
 	public void getFavorites(){
 		try {
            
@@ -108,9 +150,8 @@ public class TokenKud {
             System.out.println("done.");
             //System.exit(0);
         } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get messages: " + te.getMessage());
-            //System.exit(-1);
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
         }
 	}
 	public void getSentDirectMessage(){
@@ -128,9 +169,8 @@ public class TokenKud {
 	            System.out.println("done.");
 	            //System.exit(0);
 	        } catch (TwitterException te) {
-	            te.printStackTrace();
-	            System.out.println("Failed to get sent messages: " + te.getMessage());
-	            //System.exit(-1);
+	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+	            timeTo(te.toString());
 	        }
 	}
 	public void getTweets(){
@@ -172,7 +212,7 @@ public class TokenKud {
 		twitter = new TwitterFactory(cb.build()).getInstance();
 		
 	}
-	public void getFavPage() throws InterruptedException{
+	public void getFavPage(){
 	      try {
 	            int pagenumber = 1;
 	            int count = 20;

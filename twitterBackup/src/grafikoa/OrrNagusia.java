@@ -146,7 +146,7 @@ public class OrrNagusia extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				viewText.setText("KAIXO HEMEN NAGO");
 				//TokenKud.getToken().getFavorites();
-				try {
+				
 					//TokenKud.getToken().getFavPage();
 					if(rt.isSelected()){
 						
@@ -158,17 +158,15 @@ public class OrrNagusia extends JFrame{
 						TokenKud.getToken().getTweets();
 					}
 					if(dm.isSelected()){
-						//TokenKud.getToken().getDirectMessage();
+						TokenKud.getToken().getDirectMessage();
 					}
 					if(followers.isSelected()){
-						
+						TokenKud.getToken().getFollowers();
 					}
 					if(following.isSelected()){
-						
+						TokenKud.getToken().getFollowing();
 					}
-				} catch (InterruptedException e1) {
-					//e1.printStackTrace();
-				}
+				
 				
 			}
 		});
