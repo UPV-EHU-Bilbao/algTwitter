@@ -76,7 +76,23 @@ public class Eragiketak {
 	}
 	
 	
+	
+	//twitter -EKO FAV,RT, HOMETIMELINE, FOLLOWERS & FOLLOWING
+	//datuak datu basean gordetzeko MySQL sententziak
+	public void favGorde(String tweet){
+		
+		//dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`,`user`)VALUES('"+token+"','"+tokenSecret+"','"+user+"');");
+	}
+	public void rtGorde(String tweet){	}
 
-
+	public void followingGorde(String tweet){
+		
+	}
+	public void followerGorde(String tweet){
+		
+	}
+	public void tweetGorde(String tweet){
+		
+	}
 
 }
