@@ -43,8 +43,9 @@ public class Has extends JFrame{
 	public static void bistaratu(){
 		Has has = new Has();
 		has.setTitle("Twitter App Login");
+		has.setResizable(false);
 		has.setVisible(true);
-		has.setSize(900,400);
+		has.setSize(700,400);
 		has.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 	}
@@ -83,7 +84,7 @@ public class Has extends JFrame{
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		//logoTwitter.s
-		gehituOsagaia(logoTwitter, 1, 4, 3,1);
+		gehituOsagaia(logoTwitter, 1, 2, 3,1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		
 		
