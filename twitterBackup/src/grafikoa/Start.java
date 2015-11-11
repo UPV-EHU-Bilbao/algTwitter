@@ -10,13 +10,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,11 +21,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import db.Eragiketak;
-import javafx.scene.control.ComboBox;
+import logikoa.Erabiltzailea;
 import logikoa.TokenKud;
 
 
 public class Start extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel welcome = new JLabel("Ongi etorri TWITTER APP aplikaziora");
@@ -99,6 +100,7 @@ public class Start extends JFrame{
 					
 					 if(Eragiketak.getEragiketak().userIzena(userId)!= null){
 						TokenKud.getToken().getSession(userId);
+						Erabiltzailea.getErab().setUserId(userId);
 						OrrNagusia.bistaratu();
 						dispose();
 					

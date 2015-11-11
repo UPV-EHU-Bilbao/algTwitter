@@ -22,6 +22,10 @@ import logikoa.TokenKud;
 import twitter4j.TwitterException;
 
 public class PinOrr extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel loginOn = new JLabel("LOGIN ON TWITTER");

@@ -10,7 +10,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 import javax.swing.*;
@@ -18,9 +17,12 @@ import javax.swing.*;
 
 import logikoa.TokenKud;
 import twitter4j.TwitterException;
-import twitter4j.examples.oauth.*;
-
+//@SuppressWarnings("serial")
 public class Has extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel loginOn = new JLabel("WELCOME! / ONGI ETORRI!");
