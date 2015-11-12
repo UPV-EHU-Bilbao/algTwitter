@@ -1,15 +1,11 @@
 package grafikoa;
-import twitter4j.examples.*;
-import twitter4j.examples.favorite.GetFavorites;
 import logikoa.*;
 
-import java.awt.Checkbox;
-import java.awt.CheckboxGroup;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -18,22 +14,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
 
 public class OrrNagusia extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
-	JLabel userId = new JLabel("Hi"+Erabiltzailea.getErab().getUserId());
+	JLabel userId = new JLabel("Hi "+Erabiltzailea.getErab().getUserId());
 	JLabel toDo = new JLabel("WHAT DO YOU WANT TO DO?");
 	
 	//botoien JPanel
@@ -150,7 +146,7 @@ public class OrrNagusia extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				viewText.setText("KAIXO HEMEN NAGO");
 				//TokenKud.getToken().getFavorites();
-				try {
+				
 					//TokenKud.getToken().getFavPage();
 					if(rt.isSelected()){
 						
@@ -162,17 +158,15 @@ public class OrrNagusia extends JFrame{
 						TokenKud.getToken().getTweets();
 					}
 					if(dm.isSelected()){
-						//TokenKud.getToken().getDirectMessage();
+						TokenKud.getToken().getDirectMessage();
 					}
 					if(followers.isSelected()){
-						
+						TokenKud.getToken().getFollowers();
 					}
 					if(following.isSelected()){
-						
+						TokenKud.getToken().getFollowing();
 					}
-				} catch (InterruptedException e1) {
-					//e1.printStackTrace();
-				}
+				
 				
 			}
 		});
