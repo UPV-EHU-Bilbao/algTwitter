@@ -20,13 +20,14 @@ public final class GetAllFavourites {
 		Twitter twitter = new TwitterFactory().getInstance();
 	        ArrayList <Status> statuses = new ArrayList<Status>();
 	        int pageno = 1;
-	        long id = statuses.lastIndexOf(statuses);
 	        while (true) {
 	            try {
 	                int size = statuses.size();
-	                Paging page = new Paging(pageno++, 100).sinceId(id);
+	                Status azkenFava = statuses.get(size-1);
+	                long lortutakoAzkenFavarenIda = azkenFava.getId();
+	                Paging page = new Paging(pageno++, 100).sinceId(lortutakoAzkenFavarenIda);
 	                statuses.addAll(twitter.getFavorites(page));
-	                id = statuses.lastIndexOf(statuses);
+	                
 	                if (statuses.size() == size || pageno==3) {
 	                    break;
 	                }

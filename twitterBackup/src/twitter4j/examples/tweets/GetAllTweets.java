@@ -20,13 +20,14 @@ public class GetAllTweets {
 			Twitter twitter = new TwitterFactory().getInstance();
 		        ArrayList <Status> statuses = new ArrayList<Status>();
 		        int pageno = 1;
-		        long id = statuses.lastIndexOf(statuses);
 		        while (true) {
 		            try {
 		                int size = statuses.size();
-		                Paging page = new Paging(pageno++, 100).sinceId(id);
+		                Status azkenTwita = statuses.get(size-1);
+		                long lortutakoAzkenTwitarenIda = azkenTwita.getId();
+		                Paging page = new Paging(pageno++, 100).sinceId(lortutakoAzkenTwitarenIda);
 		                statuses.addAll(twitter.getUserTimeline(page));
-		                id = statuses.lastIndexOf(statuses);
+		                
 		                if (statuses.size() == size || pageno==3) {
 		                    break;
 		                }
