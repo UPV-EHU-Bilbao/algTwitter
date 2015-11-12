@@ -1,5 +1,6 @@
 package grafikoa;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,62 +35,73 @@ public class Start extends JFrame{
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel welcome = new JLabel("Ongi etorri TWITTER APP aplikaziora");
+	JPanel panel = new JPanel();
 	//erabiltzaile hauen saioa jadanik gordeta izango dugu
-	JPanel panel1 = new JPanel(new GridLayout(0, 1));
+	JPanel panel1 = new JPanel();
 	JLabel descript1 = new JLabel("Nor zara zu?");
-	JTextField user = new JTextField(40);
+	JTextField user = new JTextField(20);
 	JButton buser = new JButton("Aurrera");
 	
 	//saioa gordeta EZ duten erabiltzaileentzat...
-	JPanel panel2 = new JPanel(new GridLayout(0, 2));
+	JPanel panel2 = new JPanel();
 	JLabel descript = new JLabel("Oraindik ez zaude logeaturik?");
 	JButton go = new JButton("Hasi");
 	
-	private GridBagLayout eskema;
-	private Container edukiontzia;
-	private GridBagConstraints mugak;
+	JPanel center = new JPanel();
 	
 	public Start(){
 		gridBagHasieratu();
+		getContentPane().setBackground(Color.white);
+		this.setIconImage(wlogo.getImage());
+		
+		getContentPane().add(panel, BorderLayout.NORTH);
+		getContentPane().add(center, BorderLayout.CENTER);
+//		getContentPane().add(panel1, BorderLayout.WEST);
+//		getContentPane().add(panel2, BorderLayout.EAST);
+		
+		((JPanel)getContentPane()).setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	}
 	public static void main(String[]args){
 		bistaratu();
 	}
 	public static void bistaratu(){
 		Start st = new Start();
-		st.setTitle("Twitter App Login");
+		st.setTitle("Twitter App");
 		st.setVisible(true);
 		st.setResizable(false);
-		st.setSize(400,900);
+		//st.setSize(400,900);
 		st.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		st.pack();
+		st.actionListener();
 		
 	}
 	private void gridBagHasieratu() {
-		edukiontzia = getContentPane();
-		eskema = new GridBagLayout();
-		edukiontzia.setLayout(eskema);
-		mugak = new GridBagConstraints();
 		
-		getContentPane().setBackground(Color.WHITE);
+		//panel hasieratu
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setBackground(Color.WHITE);
+		panel.add(logoTwitter);
+		welcome.setFont(new Font("Britannic Bold",Font.BOLD,30));
+		panel.add(welcome);
 		
-		this.setIconImage(wlogo.getImage());
 		
-		gehituOsagaia(logoTwitter, 1, 2, 3,1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-		
-		welcome.setFont(new Font("Arial",Font.BOLD,15));
-		gehituOsagaia(welcome, 2, 1, 3, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-		
+		//panel1 hasieratu
+		panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+		panel1.setBackground(Color.WHITE);
 		viewp1();
-		gehituOsagaia(panel1, 4, 1, 3, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-
-		viewp2();
-		gehituOsagaia(panel2, 6, 1, 3, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-
+		
+		//panel2 hasieratu
+		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+		panel2.setBackground(Color.WHITE);
+		viewp2();	
+		
+		//centerpanel hasieratu
+		center.setBackground(Color.WHITE);
+		center.setLayout(new BoxLayout(center, BoxLayout.X_AXIS));
+		center.add(panel1);
+		center.add(panel2);
+	}
+	private void actionListener(){
 		buser.addActionListener(new ActionListener() {
 			
 			@Override
@@ -123,16 +136,7 @@ public class Start extends JFrame{
 		});
 		
 	}
-	/*public static void main(String[] args) throws IOException {
-		String izena="Leireva";
-		if(Eragiketak.getEragiketak().tokenBilatu(izena) == null){
-			Has.bistaratu();
-		}else{
-			//System.out.println(Eragiketak.getEragiketak().tokenBilatu());
-			TokenKud.getToken().getSession(izena);
-			OrrNagusia.bistaratu();
-		}
-	}*/
+	
 	public void viewp1(){
 		panel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		descript1.setFont(new Font("Britannic Bold",Font.BOLD,15));
@@ -150,15 +154,5 @@ public class Start extends JFrame{
 		descript.setForeground(Color.decode("#7ea6e0"));
 		panel2.add(descript);
 		panel2.add(go);
-	}
-	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {
-		mugak.gridx = zutabea;
-		mugak.gridy = errenkada;
-
-		mugak.gridwidth = zabalera;
-		mugak.gridheight = altuera;
-
-		eskema.setConstraints(osagaia, mugak);
-		edukiontzia.add(osagaia);
 	}
 }
