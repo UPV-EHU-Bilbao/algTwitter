@@ -91,7 +91,16 @@ public class TokenKud {
 	                
 	                for (long id : ids.getIDs()) {
 	                    System.out.println(id);
-	                    System.out.println(twitter.showUser(id).getScreenName());
+	                    //System.out.println(twitter.showUser(id).getScreenName());
+	                    String[] follow= new String[2];
+	                    
+	                    follow[0] = Long.toString(id);
+	                    System.out.println(follow[0]);
+	                    follow[1] = twitter.showUser(id).getScreenName();
+	                    System.out.println(follow[1]);
+	                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName());
+
+	                    
 	                }
 	            } while ((cursor = ids.getNextCursor()) != 0);
 	            //System.exit(0);
@@ -111,6 +120,13 @@ public class TokenKud {
                 for (long id : ids.getIDs()) {
                     System.out.println(id);
                     System.out.println(twitter.showUser(id).getScreenName());
+                    String[] following= new String[2];
+                    
+                    following[0] = Long.toString(id);
+                    System.out.println(following[0]);
+                    following[1] = twitter.showUser(id).getScreenName();
+                    System.out.println(following[1]);
+                    Eragiketak.getEragiketak().followingGorde(following,twitter.getScreenName());
                     
                 }
             } while ((cursor = ids.getNextCursor()) != 0);
