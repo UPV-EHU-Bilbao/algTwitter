@@ -110,8 +110,7 @@ public class TokenKud {
                 
                 for (long id : ids.getIDs()) {
                     System.out.println(id);
-                    System.out.println(twitter.showUser(id).getScreenName());
-                    
+                    System.out.println(twitter.showUser(id).getScreenName());   
                 }
             } while ((cursor = ids.getNextCursor()) != 0);
             System.exit(0);
@@ -119,6 +118,54 @@ public class TokenKud {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             timeTo(te.toString());
         }
+	}
+	public void backupFollowing(){
+	  try{
+		long cursor = -1;
+        IDs ids;
+        do {
+            ids = twitter.getFriendsIDs(cursor);
+            for (long id : ids.getIDs()) {
+            String[] following= new String[2];
+            following[0] = Long.toString(id);
+            System.out.println(following[0]);
+            following[1] = twitter.showUser(id).getScreenName();
+            System.out.println(following[1]);
+            Eragiketak.getEragiketak().followingGorde(following,twitter.getScreenName());
+            }
+        }while ((cursor = ids.getNextCursor()) != 0);
+        System.exit(0);
+    } catch (TwitterException te) {
+    	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+        timeTo(te.toString());
+    }
+	
+   }
+	public void backupFollowers(){
+		try {
+            
+            long cursor = -1;
+            IDs ids;
+            System.out.println("Listing followers's ids.");
+            do {
+                
+                ids = twitter.getFollowersIDs(cursor);
+                
+                for (long id : ids.getIDs()) {
+                    String[] follow= new String[2];
+                    follow[0] = Long.toString(id);
+                    follow[1] = twitter.showUser(id).getScreenName();
+                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName());  
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
+
+	}
+	public void backupFavorites(){
+		
 	}
 	public void getFavorites(){
 		try {
@@ -163,6 +210,12 @@ public class TokenKud {
 	                for (DirectMessage message : directMessages) {
 	                    System.out.println("Noiz: "+message.getCreatedAt()+"To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
 	                            + message.getText());
+	                    String[]mezua = new String[3];
+	                    mezua[0]= message.getCreatedAt().toString();
+	                    mezua[1] = message.getRecipientScreenName();
+	                    mezua[2] = Long.toString(message.getId());
+	                    mezua[3] = message.getText();
+	                    Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
 	                }
 	                page.setPage(page.getPage() + 1);
 	            } while (directMessages.size() > 0 && page.getPage() < 10);

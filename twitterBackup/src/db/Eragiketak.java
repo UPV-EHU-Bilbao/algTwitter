@@ -73,14 +73,21 @@ public class Eragiketak {
 		dbk.execSQL("INSERT INTO `twittermysql`.`rt`(`id`,`data`,`nork`,`txioa`)VALUES();");
 	}
 
-	public void followingGorde(String tweet){
-		dbk.execSQL("INSERT INTO `twittermysql`.`jarraituak`(`id`,`nor`,`userId`,`userIzena`)VALUES();");
+	public void followingGorde(String[] following, String userId){
+		String id = following[0];
+		String screenName = following[1];
+		dbk.execSQL("INSERT INTO `twittermysql`.`jarraituak` VALUES('"+id+"','"+userId+"','"+screenName+"');");
 	}
-	public void followerGorde(String tweet){
-		dbk.execSQL("INSERT INTO `twittermysql`.`jarraitzaileak`(`id`,`nor`,`userId`,`userIzena`)VALUES();");
+	public void followerGorde(String[] follow, String userId){
+		String id = follow[0];
+		String screenName = follow[1];
+		dbk.execSQL("INSERT INTO `twittermysql`.`jarraitzaileak` VALUES('"+userId+"','"+screenName+"','"+id+"');");
 	}
 	public void tweetGorde(String tweet){
 		dbk.execSQL("INSERT INTO `twittermysql`.`txio`(`id`,`data`,`nork`,`txioa`)VALUES();");
+	}
+	public void dmGorde(String[] follow, String userId){
+		dbk.execSQL("INSERT INTO `twittermysql`.`md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
 	}
 	public String userIzena(String id){
 		String userId = "";
@@ -97,4 +104,67 @@ public class Eragiketak {
 		}
 		return userId;
 	}
+	public long azkenFavId(){
+		long favID = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM fav;");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				favID = rs.getLong("id");
+				System.out.println(favID);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return favID;
+	}
+	public long azkenRtId(){
+		long id = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM rt;");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				id = rs.getLong("id");
+				System.out.println(id);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	public long azkenTweetId(){
+		long id = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM txio;");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				id = rs.getLong("id");
+				System.out.println(id);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	public long azkenjarraitId(){
+		long id = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM rt;");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				id = rs.getLong("id");
+				System.out.println(id);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+
+
+
 }

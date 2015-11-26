@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import db.Eragiketak;
+
 public class OrrNagusia extends JFrame{
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel userId = new JLabel("Hi "+Erabiltzailea.getErab().getUserId());
@@ -118,13 +120,13 @@ public class OrrNagusia extends JFrame{
 							
 						}
 						if(dm.isSelected()){
-							
+							TokenKud.getToken().getSentDirectMessage();
 						}
 						if(followers.isSelected()){
-							
+							TokenKud.getToken().getFollowers();
 						}
 						if(following.isSelected()){
-							
+							TokenKud.getToken().getFollowing();
 						}	
 					}
 				});
@@ -147,7 +149,7 @@ public class OrrNagusia extends JFrame{
 								TokenKud.getToken().getTweets();
 							}
 							if(dm.isSelected()){
-								TokenKud.getToken().getDirectMessage();
+								TokenKud.getToken().getSentDirectMessage();
 							}
 							if(followers.isSelected()){
 								TokenKud.getToken().getFollowers();

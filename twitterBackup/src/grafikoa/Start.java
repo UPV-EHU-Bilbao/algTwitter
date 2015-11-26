@@ -138,7 +138,7 @@ public class Start extends JFrame{
 	}
 	
 	public void viewp1(){
-		panel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel1.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		descript1.setFont(new Font("Britannic Bold",Font.BOLD,15));
 		descript1.setForeground(Color.decode("#7ea6e0"));
 
@@ -149,10 +149,11 @@ public class Start extends JFrame{
 		panel1.add(buser);
 	}
 	public void viewp2(){
-		panel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel2.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		descript.setFont(new Font("Britannic Bold",Font.BOLD,15));
 		descript.setForeground(Color.decode("#7ea6e0"));
 		panel2.add(descript);
 		panel2.add(go);
+		
 	}
 }
