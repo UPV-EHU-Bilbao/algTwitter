@@ -60,8 +60,7 @@ public class TableG extends AbstractTableModel{
 		}
 		
 	}
-	public void hasieratuZutabeIzenak(){
-		
+	public void hasieratuZutabeIzenak(){	
 		columnNames.add("Twitter User");
 		columnNames.add("Txioa");
 	}
@@ -79,5 +78,12 @@ public class TableG extends AbstractTableModel{
 	public Object getValueAt(int row, int col) {
 		return data.get(row).getBalioa(col);
 	}
+	
+	public String getColumnName(int col){
+		return columnNames.get(col);
+	}
 
+	public void setValueAt(Object value, int row, int col){
+		data.get(row).insertElementAt(value, col);
+	}
 }

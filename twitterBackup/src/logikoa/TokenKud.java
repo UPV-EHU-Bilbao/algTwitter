@@ -346,8 +346,10 @@ public class TokenKud {
         }
 		return followingKont;
 	}
-
-	//TAULAK ERAIKITZEN
+	//-------------------------------
+	//TAULAK ERAIKITZEN             |
+	//-------------------------------
+	
 	public void tweetTaula(){
 		try {
             int pagenumber = 1;
