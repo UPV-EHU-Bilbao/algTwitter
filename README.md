@@ -3,7 +3,7 @@ Twitter Backup - ISAD 15 -16
 
 Instrukzioak:
 
-1- Lehenengo pantailan, 2 aukera ditugu:
+*one- Lehenengo pantailan, 2 aukera ditugu:
 
 -LOGEATUTA BAZAUDE GURE APLIKAZIOAN:
     2- Zure erabiltzaile izena idatzi eta aurrera botoia sakatu.
