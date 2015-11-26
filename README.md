@@ -3,6 +3,10 @@ Twitter Backup - ISAD 15 -16
 
 Instrukzioak:
 
+*INSTALATZEKO: twitter-backup.jar ean bi click egin eta aplikazioa ireki egingo da.
+
+
+
 1. Lehenengo pantailan, 2 aukera ditugu:
 
     * LOGEATUTA BAZAUDE GURE APLIKAZIOAN:
