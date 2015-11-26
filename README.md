@@ -3,7 +3,10 @@ Twitter Backup - ISAD 15 -16
 
 Instrukzioak:
 
-*INSTALATZEKO: twitter-backup.jar ean bi click egin eta aplikazioa ireki egingo da.
+*INSTALATZEKO: 
+   * JDK8 instalatuta izan beharko duzu.
+   * Twitter4j deskargatu beharko duzu eta twitter4j-core-4.0.4.jar liburutegia instalatu beharko duzu proiektuan. Esteka deskargatzeko: http://twitter4j.org/archive/twitter4j-4.0.4.zip
+   * Mysql liburutegia instalatuta izan beharko duzu.
 
 
 
