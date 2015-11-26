@@ -20,7 +20,7 @@ public class DBKudeatzaile {
 			String userName = "twitterUser";
 			String password = "twitter";
 			String url = "jdbc:mysql://localhost:3306/twittermysql";
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			//Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = (Connection) DriverManager.getConnection(url, userName, password);
 			System.out.println("Database connection established");
 		} catch (Exception e) {

@@ -367,7 +367,11 @@ public class TokenKud {
         	
         	txioTaula = new TableG(statuses);
         	JTable taula = new JTable(txioTaula);
-        	taulaPanel(taula);
+        	tpanel = new JPanel();
+        	tpanel.setSize(100,100);
+        	tpanel.add(taula);
+        	tpanel.setVisible(false);
+        	//taulaPanel(taula);
         } catch (TwitterException te) {
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             timeTo(te.toString());
