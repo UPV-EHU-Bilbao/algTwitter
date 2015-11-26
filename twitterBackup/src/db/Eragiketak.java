@@ -86,6 +86,9 @@ public class Eragiketak {
 	public void tweetGorde(String tweet){
 		dbk.execSQL("INSERT INTO `twittermysql`.`txio`(`id`,`data`,`nork`,`txioa`)VALUES();");
 	}
+	public void dmGorde(String[] follow, String userId){
+		dbk.execSQL("INSERT INTO `twittermysql`.`md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
+	}
 	public String userIzena(String id){
 		String userId = "";
 		try {
@@ -162,12 +165,6 @@ public class Eragiketak {
 		return id;
 	}
 
-	public void followerGordep(){
-		Integer id = 297023798;
-		String ide = id.toString();
-		String screenName = "CyrilMicheals";
-		String userId="Leireva";
-		dbk.execSQL("INSERT INTO `twittermysql`.`jarraitzaileak` VALUES('"+userId+"','"+screenName+"','"+ide+"');");
-	}
+
 
 }

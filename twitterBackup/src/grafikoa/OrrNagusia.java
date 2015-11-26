@@ -120,7 +120,7 @@ public class OrrNagusia extends JFrame{
 							
 						}
 						if(dm.isSelected()){
-							
+							TokenKud.getToken().getSentDirectMessage();
 						}
 						if(followers.isSelected()){
 							TokenKud.getToken().getFollowers();
@@ -149,7 +149,7 @@ public class OrrNagusia extends JFrame{
 								TokenKud.getToken().getTweets();
 							}
 							if(dm.isSelected()){
-								TokenKud.getToken().getDirectMessage();
+								TokenKud.getToken().getSentDirectMessage();
 							}
 							if(followers.isSelected()){
 								TokenKud.getToken().getFollowers();
