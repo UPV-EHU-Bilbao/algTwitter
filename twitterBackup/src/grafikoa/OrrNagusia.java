@@ -146,7 +146,8 @@ public class OrrNagusia extends JFrame{
 								TokenKud.getToken().getFavPage();
 							}
 							if(tweets.isSelected()){
-								TokenKud.getToken().getTweets();
+								TokenKud.getToken().tweetTaula();
+								TokenKud.getToken().aldatuVisible();
 							}
 							if(dm.isSelected()){
 								TokenKud.getToken().getSentDirectMessage();

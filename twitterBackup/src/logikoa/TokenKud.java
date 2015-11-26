@@ -1,6 +1,7 @@
 package logikoa;
 import twitter4j.*;
 import java.awt.Desktop;
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -8,7 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import db.Eragiketak;
 import twitter4j.DirectMessage;
@@ -30,6 +33,9 @@ public class TokenKud {
 	private RequestToken requestToken;
 	private Twitter twitter;
 	private AccessToken accessToken;
+	private TableG txioTaula;
+	private JTable taula;
+	private JPanel tpanel;
 	
 	private TokenKud(){
 		consumerKey = "9vj1uaNEO4T6AUQc7OEUw0yOm";
@@ -244,6 +250,7 @@ public class TokenKud {
                 System.out.println(status.getId()+" @" + status.getUser().getScreenName() + " - " + status.getText());
         	  }
         	}
+        	
         } catch (TwitterException te) {
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             timeTo(te.toString());
@@ -295,4 +302,84 @@ public class TokenKud {
          //String denbora = zatiak[1]+"segundu...";
          System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
 	}
+	public int followerKop(){
+		int followerKont = 0;
+		try {
+            
+            long cursor = -1;
+            IDs ids;
+            System.out.println("Listing followers's ids.");
+            do {
+                
+                ids = twitter.getFollowersIDs(cursor);
+                
+                for (long id : ids.getIDs()) {
+                    System.out.println(id);
+                    System.out.println(twitter.showUser(id).getScreenName());
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+            //System.exit(0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
+		
+		return followerKont;
+	}
+	public int followingKop(){
+		int followingKont = 0;
+		try {
+            long cursor = -1;
+            IDs ids;
+          //  System.out.println("Listing following ids.");
+            do {
+                    ids = twitter.getFriendsIDs(cursor);
+                
+                for (long id : ids.getIDs()) {
+                   followingKont = followingKont++; 
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+            System.exit(0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
+		return followingKont;
+	}
+
+	//TAULAK ERAIKITZEN
+	public void tweetTaula(){
+		try {
+            int pagenumber = 1;
+            int count = 20;
+            List<Status> statuses = new ArrayList<Status>();
+        	while(true){
+        	  Paging page = new Paging(pagenumber, count);
+        	  int size = statuses.size();
+        	  statuses.addAll(twitter.getHomeTimeline(page));
+        	  if(statuses.size()== size){
+            	break;
+        	  }
+        	}
+        	//TAULA ERAIKI
+        	
+        	txioTaula = new TableG(statuses);
+        	JTable taula = new JTable(txioTaula);
+        	taulaPanel(taula);
+        } catch (TwitterException te) {
+            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+           // System.exit(-1);
+        }
+	}
+
+	public void taulaPanel(JTable t){
+		tpanel = new JPanel();
+		tpanel.add(t);
+		tpanel.setVisible(false);
+	}
+	public void aldatuVisible(){
+		tpanel.setVisible(true);
+	}
+
 }
