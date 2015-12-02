@@ -119,7 +119,7 @@ public class OrrNagusia extends JFrame{
 							TokenKud.getToken().backupFavorites();
 						}
 						if(tweets.isSelected()){
-							TokenKud.getToken().backupFavorites();
+							TokenKud.getToken().backupTweets();
 						}
 						if(dm.isSelected()){
 							//TokenKud.getToken().getSentDirectMessage();
@@ -145,7 +145,7 @@ public class OrrNagusia extends JFrame{
 								//TokenKud.getToken().backupRt();
 							}
 							if(fav.isSelected()){
-								TokenKud.getToken().getFavPage();
+								//TokenKud.getToken().getFavPage();
 							}
 							if(tweets.isSelected()){
 								TokenKud.getToken().tweetTaula();

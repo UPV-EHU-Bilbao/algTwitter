@@ -83,8 +83,8 @@ public class Eragiketak {
 		String screenName = follow[1];
 		dbk.execSQL("INSERT INTO `twittermysql`.`jarraitzaileak` VALUES('"+userId+"','"+screenName+"','"+id+"');");
 	}
-	public void tweetGorde(String tweet){
-		dbk.execSQL("INSERT INTO `twittermysql`.`txio`(`id`,`data`,`nork`,`txioa`)VALUES();");
+	public void tweetGorde(String[] tweet, String userId){
+		dbk.execSQL("INSERT INTO `twittermysql`.`txio`(`id`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
 	public void dmGorde(String[] follow, String userId){
 		dbk.execSQL("INSERT INTO `twittermysql`.`md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
@@ -135,20 +135,20 @@ public class Eragiketak {
 		}
 		return id;
 	}
-	public long azkenTweetId(){
-		long id = 0;
+	public long azkenTweetId(String user){
+		String idS = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio;");
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio WHERE userIzena='"+user+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = Long.valueOf(rs.getString("maximoa"));
-				System.out.println(id);
+				idS = rs.getString("maximoa");
+				System.out.println(idS);
 			}
 			rs.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 		}
-		return id;
+		return Long.valueOf(idS);
 	}
 	public long azkenjarraitzId(){
 		long id = 0;
