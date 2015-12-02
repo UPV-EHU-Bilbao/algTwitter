@@ -113,10 +113,10 @@ public class OrrNagusia extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(rt.isSelected()){
-							
+							//TokenKud.getToken().
 						}
 						if(fav.isSelected()){
-							
+							TokenKud.getToken().backupFavorites();
 						}
 						if(tweets.isSelected()){
 							TokenKud.getToken().backupFavorites();
@@ -142,7 +142,7 @@ public class OrrNagusia extends JFrame{
 						
 							//TokenKud.getToken().getFavPage();
 							if(rt.isSelected()){
-								
+								//TokenKud.getToken().backupRt();
 							}
 							if(fav.isSelected()){
 								TokenKud.getToken().getFavPage();

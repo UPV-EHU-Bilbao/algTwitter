@@ -173,22 +173,60 @@ public class TokenKud {
 	public void backupFavorites(){
 		try {
 	           
-            List<Status> statuses = twitter.getFavorites();
-            for (Status status : statuses) {
-            	String[] favTweet = new String [3];
-            	favTweet[0] = Long.toString(status.getId());
-            	favTweet[1] = status.getUser().getScreenName();
-            	favTweet[2] = status.getText();
-               Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
+			List<Status> statuses = null;
+            long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
+            System.out.println(max);
+           if ( max == 0){
+            	statuses = twitter.getFavorites();
+            	for (Status status : statuses) {
+            		String[] favTweet = new String [3];
+            		favTweet[0] = Long.toString(status.getId());
+            		favTweet[1] = status.getUser().getScreenName();
+            		favTweet[2] = status.getText();
+            		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
                 
+            	}
+            }else{
+            	int pagenumber = 1;
+	            int count = 20;
+	            statuses = new ArrayList<Status>();
+            	while(true){
+            		Paging pag = new Paging(pagenumber, count, max);
+            		int size = statuses.size();
+            		statuses.addAll(twitter.getFavorites(pag));
+            		if(statuses.size()== size){
+            			break;
+            		}
+            	}
+            	for (Status status: statuses){
+            		String[] favTweet = new String [3];
+            		favTweet[0] = Long.toString(status.getId());
+            		favTweet[1] = status.getUser().getScreenName();
+            		favTweet[2] = status.getText();
+            		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
+            	}
+            	
             }
-            //System.out.println("done.");
-            //System.exit(0);
         } catch (TwitterException te) {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             timeTo(te.toString());
         }
 		
+	}
+	public void backupRt(){
+		 try {
+	            Twitter twitter = new TwitterFactory().getInstance();
+	            List<Status> statuses = twitter.getRetweets(0);
+	            for (Status status : statuses) {
+	                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+	            }
+	            System.out.println("done.");
+	            System.exit(0);
+	        } catch (TwitterException te) {
+	            te.printStackTrace();
+	            System.out.println("Failed to get retweets: " + te.getMessage());
+	            System.exit(-1);
+	        }
 	}
 	public void getFavorites(){
 		try {

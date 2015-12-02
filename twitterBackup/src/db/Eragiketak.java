@@ -104,28 +104,29 @@ public class Eragiketak {
 		}
 		return userId;
 	}
-	public long azkenFavId(){
-		long favID = 0;
+	public long azkenFavId(String user){
+		String favIDS = "";
+		//long favId = 0;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(idFav) FROM fav;");
+			ResultSet rs = dbk.execSQL("SELECT MAX(idFav) as maximoa FROM fav WHERE userIzena='"+user+"'");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				favID = Long.valueOf(rs.getString("idFav"));
-				System.out.println(favID);
+				favIDS = rs.getString("maximoa");
+				System.out.println(favIDS);
 			}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return favID;
+		return Long.valueOf(favIDS);
 	}
 	public long azkenRtId(){
 		long id = 0;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM rt;");
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM rt;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = Long.valueOf(rs.getString("id"));
+				id = Long.valueOf(rs.getString("maximoa"));
 				System.out.println(id);
 			}
 			rs.close();
@@ -137,10 +138,10 @@ public class Eragiketak {
 	public long azkenTweetId(){
 		long id = 0;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM txio;");
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = Long.valueOf(rs.getString("id"));
+				id = Long.valueOf(rs.getString("maximoa"));
 				System.out.println(id);
 			}
 			rs.close();
@@ -149,13 +150,28 @@ public class Eragiketak {
 		}
 		return id;
 	}
-	public long azkenjarraitId(){
+	public long azkenjarraitzId(){
 		long id = 0;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM rt;");
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM jarraitzaileak;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = Long.valueOf(rs.getString("id"));
+				id = Long.valueOf(rs.getString("maximoa"));
+				System.out.println(id);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	public long azkenjarraituakId(){
+		long id = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM jarraituak;");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				id = Long.valueOf(rs.getString("maximoa"));
 				System.out.println(id);
 			}
 			rs.close();
