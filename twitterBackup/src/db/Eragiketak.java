@@ -65,9 +65,9 @@ public class Eragiketak {
 	
 	//twitter -EKO FAV,RT, HOMETIMELINE, FOLLOWERS & FOLLOWING
 	//datuak datu basean gordetzeko MySQL sententziak
-	public void favGorde(String tweet){
+	public void favGorde(String [] tweet, String userId){
 		
-		//dbk.execSQL("INSERT INTO `twittermysql`.`fav`(`accessToken`,`accessTokenSecret`,`user`)VALUES('"+token+"','"+tokenSecret+"','"+user+"');");
+		dbk.execSQL("INSERT INTO `twittermysql`.`fav`(`idFav`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
 	public void rtGorde(String tweet){
 		dbk.execSQL("INSERT INTO `twittermysql`.`rt`(`id`,`data`,`nork`,`txioa`)VALUES();");
@@ -107,10 +107,10 @@ public class Eragiketak {
 	public long azkenFavId(){
 		long favID = 0;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM fav;");
+			ResultSet rs = dbk.execSQL("SELECT MAX(idFav) FROM fav;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				favID = rs.getLong("id");
+				favID = Long.valueOf(rs.getString("idFav"));
 				System.out.println(favID);
 			}
 			rs.close();
@@ -125,7 +125,7 @@ public class Eragiketak {
 			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM rt;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = rs.getLong("id");
+				id = Long.valueOf(rs.getString("id"));
 				System.out.println(id);
 			}
 			rs.close();
@@ -140,7 +140,7 @@ public class Eragiketak {
 			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM txio;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = rs.getLong("id");
+				id = Long.valueOf(rs.getString("id"));
 				System.out.println(id);
 			}
 			rs.close();
@@ -155,7 +155,7 @@ public class Eragiketak {
 			ResultSet rs = dbk.execSQL("SELECT MAX(id) FROM rt;");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = rs.getLong("id");
+				id = Long.valueOf(rs.getString("id"));
 				System.out.println(id);
 			}
 			rs.close();

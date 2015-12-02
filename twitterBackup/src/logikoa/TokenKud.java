@@ -171,6 +171,23 @@ public class TokenKud {
 
 	}
 	public void backupFavorites(){
+		try {
+	           
+            List<Status> statuses = twitter.getFavorites();
+            for (Status status : statuses) {
+            	String[] favTweet = new String [3];
+            	favTweet[0] = Long.toString(status.getId());
+            	favTweet[1] = status.getUser().getScreenName();
+            	favTweet[2] = status.getText();
+               Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
+                
+            }
+            //System.out.println("done.");
+            //System.exit(0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
 		
 	}
 	public void getFavorites(){
@@ -271,6 +288,7 @@ public class TokenKud {
 		cb.setOAuthAccessTokenSecret(secret);
 		twitter = new TwitterFactory(cb.build()).getInstance();
 		
+		
 	}
 	public void getFavPage(){
 	      try {
@@ -370,7 +388,7 @@ public class TokenKud {
         	tpanel = new JPanel();
         	tpanel.setSize(100,100);
         	tpanel.add(taula);
-        	tpanel.setVisible(false);
+        	tpanel.setVisible(true);
         	//taulaPanel(taula);
         } catch (TwitterException te) {
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");

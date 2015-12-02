@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -75,6 +76,7 @@ public class OrrNagusia extends JFrame{
 		toDo.setFont(new Font("Britannic Bold",Font.BOLD,30));
 		header.add(toDo);
 		
+		
 		getContentPane().add(header, BorderLayout.NORTH);
 		
 		//BOTOIAK
@@ -117,16 +119,16 @@ public class OrrNagusia extends JFrame{
 							
 						}
 						if(tweets.isSelected()){
-							
+							TokenKud.getToken().backupFavorites();
 						}
 						if(dm.isSelected()){
-							TokenKud.getToken().getSentDirectMessage();
+							//TokenKud.getToken().getSentDirectMessage();
 						}
 						if(followers.isSelected()){
-							TokenKud.getToken().getFollowers();
+							TokenKud.getToken().backupFollowers();
 						}
 						if(following.isSelected()){
-							TokenKud.getToken().getFollowing();
+							TokenKud.getToken().backupFollowing();
 						}	
 					}
 				});
@@ -147,7 +149,7 @@ public class OrrNagusia extends JFrame{
 							}
 							if(tweets.isSelected()){
 								TokenKud.getToken().tweetTaula();
-								TokenKud.getToken().aldatuVisible();
+								//TokenKud.getToken().aldatuVisible();
 							}
 							if(dm.isSelected()){
 								TokenKud.getToken().getSentDirectMessage();
@@ -169,10 +171,10 @@ public class OrrNagusia extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//JOptionPane.
-						
-						int answer = JOptionPane.showConfirmDialog(null, "Are you sure?", "EXIT", JOptionPane.YES_NO_OPTION);
+						Object[] options = { "Bai", "Ez" };
+						int answer = JOptionPane.showOptionDialog(null, "Are you sure?", "EXIT", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,options[0]);
 						if(answer == JOptionPane.YES_OPTION){
-							dispose();
+							System.exit(0);
 						}
 						
 						
