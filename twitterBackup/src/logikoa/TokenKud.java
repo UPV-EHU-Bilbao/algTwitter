@@ -41,7 +41,11 @@ public class TokenKud {
 			mToken = new TokenKud();
 		}return mToken;
 	}
-	
+	/*
+	 * #####################################################
+	 * ###########HASIERATU GABEKO ERABILTZAILEAK###########
+	 * #####################################################
+	 */
 	public void hasieratuToken() throws TwitterException, IOException, SQLException{
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -78,6 +82,30 @@ public class TokenKud {
 		System.out.println("AccesstokenSecret: "+accessToken.getTokenSecret());
 		Eragiketak.getEragiketak().tokenGorde(accessToken.getToken(), accessToken.getTokenSecret(),twitter.getScreenName());
 	}
+	/*
+	 * #####################################################################
+	 * ###########HASIERATUTAKO ERABILTZAILEEN SAIOA BERRESKURATU###########
+	 * #####################################################################
+	 */
+	public void getSession(String izena){
+		String accesstoken = Eragiketak.getEragiketak().tokenBilatu(izena);
+		String secret = Eragiketak.getEragiketak().tokenSecretBilatu(izena);
+		
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setOAuthConsumerKey(consumerKey);
+		cb.setOAuthConsumerSecret(consumerSecret);
+		cb.setOAuthAccessToken(accesstoken);
+		cb.setOAuthAccessTokenSecret(secret);
+		twitter = new TwitterFactory(cb.build()).getInstance();
+		
+		
+	}
+	
+	/*
+	 * ###########################################
+	 * ###########BISTARATZEKO METODOAK###########
+	 * ###########################################
+	 */
 	public void getFollowers(){
 		 try {
 	            
@@ -118,116 +146,7 @@ public class TokenKud {
             timeTo(te.toString());
         }
 	}
-	public void backupTweets(){
-		try {
-			//long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
-			//if(max == 0){
-		            List<Status> statuses = twitter.getHomeTimeline();
-		            for (Status status : statuses) {
-		                String [] tweet = new String [3];
-		                tweet[0] = Long.toString(status.getId());
-		                tweet[1] = status.getUser().getScreenName();
-		                tweet[2] = status.getText();
-		                Eragiketak.getEragiketak().tweetGorde(tweet, twitter.getScreenName());
-		            }
-			//}else{
-				//getHomeTimeline(max);
-			//}
-            
-        	
-        } catch (TwitterException te) {
-            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-            timeTo(te.toString());
-        }
-	}
-	public void backupFollowing(){
-	  try{
-		long cursor = -1;
-        IDs ids;
-        do {
-            ids = twitter.getFriendsIDs(cursor);
-            for (long id : ids.getIDs()) {
-            String[] following= new String[2];
-            following[0] = Long.toString(id);
-            System.out.println(following[0]);
-            following[1] = twitter.showUser(id).getScreenName();
-            System.out.println(following[1]);
-            Eragiketak.getEragiketak().followingGorde(following,twitter.getScreenName());
-            }
-        }while ((cursor = ids.getNextCursor()) != 0);
-        System.exit(0);
-    } catch (TwitterException te) {
-    	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-        timeTo(te.toString());
-    }
 	
-   }
-	public void backupFollowers(){
-		try {
-            
-            long cursor = -1;
-            IDs ids;
-            System.out.println("Listing followers's ids.");
-            do {
-                
-                ids = twitter.getFollowersIDs(cursor);
-                
-                for (long id : ids.getIDs()) {
-                    String[] follow= new String[2];
-                    follow[0] = Long.toString(id);
-                    follow[1] = twitter.showUser(id).getScreenName();
-                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName());  
-                }
-            } while ((cursor = ids.getNextCursor()) != 0);
-        } catch (TwitterException te) {
-        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-            timeTo(te.toString());
-        }
-
-	}
-	public void backupFavorites(){
-		try {
-	           
-			List<Status> statuses = null;
-            long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
-            System.out.println(max);
-           if ( max == 0){
-            	statuses = twitter.getFavorites();
-            	for (Status status : statuses) {
-            		String[] favTweet = new String [3];
-            		favTweet[0] = Long.toString(status.getId());
-            		favTweet[1] = status.getUser().getScreenName();
-            		favTweet[2] = status.getText();
-            		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
-                
-            	}
-            }else{
-            	getFavPage(max);	
-            }
-        } catch (TwitterException te) {
-        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-            timeTo(te.toString());
-        }
-		
-	}
-	public void backupRt(){
-		/*try {
-			List<Status> statuses = null;
-			long max = Eragiketak.getEragiketak().azkenRtId();
-		 if (max == 0){
-	            Twitter twitter = new TwitterFactory().getInstance();
-	            //List<Status> statuses = twitter.getretw;
-	            for (Status status : statuses) {
-	                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-	            }
-		 }else{
-			 
-		 }
-	        } catch (TwitterException te) {
-	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-	            timeTo(te.toString());
-	        }*/
-	}
 	public void getFavorites(){
 		try {
            
@@ -288,7 +207,6 @@ public class TokenKud {
 	        }
 	}
 	public void getTweets(){
-		//getgometimeline()
 		try {
             int pagenumber = 1;
             int count = 20;
@@ -314,20 +232,118 @@ public class TokenKud {
         }
 	
 	
+
+	/*
+	 * #####################################################################
+	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
+	 * #####################################################################
+	 */
+	public void backupTweets(){
+		try {
+			long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
+			if(max == 0){
+		            List<Status> statuses = twitter.getHomeTimeline();
+		            for (Status status : statuses) {
+		                String [] tweet = new String [3];
+		                tweet[0] = Long.toString(status.getId());
+		                tweet[1] = status.getUser().getScreenName();
+		                tweet[2] = status.getText();
+		                Eragiketak.getEragiketak().tweetGorde(tweet, twitter.getScreenName());
+		            }
+			}else{
+				getHomeTimeline(max);
+			}
+        } catch (TwitterException te) {
+            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
+	}
+	public void backupFollowing(){
+	  try{
+		long cursor = -1;
+        IDs ids;
+        do {
+            ids = twitter.getFriendsIDs(cursor);
+            for (long id : ids.getIDs()) {
+            String[] following= new String[2];
+            following[0] = Long.toString(id);
+            System.out.println(following[0]);
+            following[1] = twitter.showUser(id).getScreenName();
+            System.out.println(following[1]);
+            Eragiketak.getEragiketak().followingGorde(following,twitter.getScreenName());
+            }
+        }while ((cursor = ids.getNextCursor()) != 0);
+        System.exit(0);
+    } catch (TwitterException te) {
+    	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+        timeTo(te.toString());
+    }
 	
-	public void getSession(String izena){
-		String accesstoken = Eragiketak.getEragiketak().tokenBilatu(izena);
-		String secret = Eragiketak.getEragiketak().tokenSecretBilatu(izena);
-		
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setOAuthConsumerKey(consumerKey);
-		cb.setOAuthConsumerSecret(consumerSecret);
-		cb.setOAuthAccessToken(accesstoken);
-		cb.setOAuthAccessTokenSecret(secret);
-		twitter = new TwitterFactory(cb.build()).getInstance();
-		
+   }
+	public void backupFollowers(){
+		try {
+            long cursor = -1;
+            IDs ids;
+            do { 
+                ids = twitter.getFollowersIDs(cursor);
+                for (long id : ids.getIDs()) {
+                    String[] follow= new String[2];
+                    follow[0] = Long.toString(id);
+                    follow[1] = twitter.showUser(id).getScreenName();
+                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName());  
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
+	}
+	public void backupFavorites(){
+		try {
+	           
+			List<Status> statuses = null;
+            long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
+            System.out.println(max);
+           if ( max == 0){
+            	statuses = twitter.getFavorites();
+            	for (Status status : statuses) {
+            		String[] favTweet = new String [3];
+            		favTweet[0] = Long.toString(status.getId());
+            		favTweet[1] = status.getUser().getScreenName();
+            		favTweet[2] = status.getText();
+            		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
+                
+            	}
+            }else{
+            	getFavPage(max);	
+            }
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+        }
 		
 	}
+	public void backupRt(){
+		/*try {
+			List<Status> statuses = null;
+			long max = Eragiketak.getEragiketak().azkenRtId();
+		 if (max == 0){
+	            Twitter twitter = new TwitterFactory().getInstance();
+	            //List<Status> statuses = twitter.getretw;
+	            for (Status status : statuses) {
+	                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+	            }
+		 }else{
+			 
+		 }
+	        } catch (TwitterException te) {
+	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+	            timeTo(te.toString());
+	        }*/
+	}
+	
+	
+
 	/*
 	 * #####################################################################
 	 * ########################SINCE ID -ak#################################
@@ -384,7 +400,23 @@ public class TokenKud {
 	            //System.exit(-1);
 	        }
 	        }
-	
+	public void getFollowersPage(long max){
+		
+			long cursor = -1;
+			int pagenumber = 1;
+			int count = 20;
+			List<User> users = new ArrayList<User>();
+			while(true){
+				Paging pag = new Paging(pagenumber, count, max);
+				int size = users.size();
+				//users.addAll(twitter.getFollowersList(pag, cursor));
+			}
+		  	
+		
+	}
+	public void getFollowingPage(long max){
+		
+	}
 	
 	/*
 	 * ###############################################

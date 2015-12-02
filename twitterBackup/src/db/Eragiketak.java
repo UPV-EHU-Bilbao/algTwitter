@@ -118,7 +118,11 @@ public class Eragiketak {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return Long.valueOf(favIDS);
+		if (favIDS == null){
+			return 0;
+		}else{
+			return Long.valueOf(favIDS);
+		}
 	}
 	public long azkenRtId(){
 		long id = 0;
@@ -148,7 +152,11 @@ public class Eragiketak {
 		} catch (SQLException e) {
 			
 		}
-		return Long.valueOf(idS);
+		if (idS == null){
+			return 0;
+		}else{
+			return Long.valueOf(idS);
+		}
 	}
 	public long azkenjarraitzId(){
 		long id = 0;
