@@ -14,22 +14,23 @@ public class Eragiketak {
 		}return mEragiketak;
 	}
 	public void tokenGorde(String token, String tokenSecret, String user) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessToken`,`accessTokenSecret`,`user`)VALUES('"+token+"','"+tokenSecret+"','"+user+"');");
+		String agindua = "INSERT INTO `token`(`accessToken`,`accessTokenSecret`,`user`)VALUES('"+token+"','"+tokenSecret+"','"+user+"')";
+		dbk.execSQL(agindua);
 	}
 	public void tokenSecretGorde(String tokenSecret) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`accessTokenSecret`)VALUES('"+tokenSecret+"');");
+		dbk.execSQL("INSERT INTO `token`(`accessTokenSecret`)VALUES('"+tokenSecret+"');");
 		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
 	}
 	public void consumerGorde(String c) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`consumerKey`)VALUES('"+c+"');");
+		dbk.execSQL("INSERT INTO `token`(`consumerKey`)VALUES('"+c+"');");
 	}
 	public void consumerSecretGorde(String cS) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`token`(`consumerKeySecret`)VALUES('"+cS+"');");
+		dbk.execSQL("INSERT INTO `token`(`consumerKeySecret`)VALUES('"+cS+"');");
 	}
 	public String tokenBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM `twittermysql`.`token` WHERE user='"+izena+"';");
+			ResultSet rs = dbk.execSQL("SELECT * FROM `token` WHERE user='"+izena+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessToken");
@@ -44,7 +45,7 @@ public class Eragiketak {
 	public String tokenSecretBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM `twittermysql`.`token` WHERE user='"+izena+"';");
+			ResultSet rs = dbk.execSQL("SELECT * FROM `token` WHERE user='"+izena+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessTokenSecret");
@@ -58,7 +59,7 @@ public class Eragiketak {
 	
 	
 	public void sartuErab(String pizena) throws SQLException{
-		dbk.execSQL("INSERT INTO `twittermysql`.`user`(`izena`) VALUES('"+pizena+"');");
+		dbk.execSQL("INSERT INTO user(`izena`) VALUES('"+pizena+"');");
 	}
 	
 	
@@ -67,27 +68,27 @@ public class Eragiketak {
 	//datuak datu basean gordetzeko MySQL sententziak
 	public void favGorde(String [] tweet, String userId){
 		
-		dbk.execSQL("INSERT INTO `twittermysql`.`fav`(`idFav`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
+		dbk.execSQL("INSERT INTO `fav`(`idFav`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
 	public void rtGorde(String tweet){
-		dbk.execSQL("INSERT INTO `twittermysql`.`rt`(`id`,`data`,`nork`,`txioa`)VALUES();");
+		dbk.execSQL("INSERT INTO `rt`(`id`,`data`,`nork`,`txioa`)VALUES();");
 	}
 
 	public void followingGorde(String[] following, String userId){
 		String id = following[0];
 		String screenName = following[1];
-		dbk.execSQL("INSERT INTO `twittermysql`.`jarraituak` VALUES('"+id+"','"+userId+"','"+screenName+"');");
+		dbk.execSQL("INSERT INTO `jarraituak` VALUES('"+id+"','"+userId+"','"+screenName+"');");
 	}
 	public void followerGorde(String[] follow, String userId){
 		String id = follow[0];
 		String screenName = follow[1];
-		dbk.execSQL("INSERT INTO `twittermysql`.`jarraitzaileak` VALUES('"+userId+"','"+screenName+"','"+id+"');");
+		dbk.execSQL("INSERT INTO `jarraitzaileak` VALUES('"+userId+"','"+screenName+"','"+id+"');");
 	}
 	public void tweetGorde(String[] tweet, String userId){
-		dbk.execSQL("INSERT INTO `twittermysql`.`txio`(`id`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
+		dbk.execSQL("INSERT INTO `txio`(`id`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
 	public void dmGorde(String[] follow, String userId){
-		dbk.execSQL("INSERT INTO `twittermysql`.`md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
+		dbk.execSQL("INSERT INTO `md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
 	}
 	public String userIzena(String id){
 		String userId = "";

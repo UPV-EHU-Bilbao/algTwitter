@@ -22,7 +22,7 @@ public class Export {
 		try{
 			String izena = "";
 			JFileChooser file = new JFileChooser();
-			int aukera = file.showSaveDialog(areaTexto);
+	//		int aukera = file.showSaveDialog(areaTexto);
 			File gorde = file.getSelectedFile();
 			
 			if (gorde != null){

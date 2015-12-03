@@ -107,6 +107,13 @@ public class OrrNagusia extends JFrame{
 		nagusia.setBackground(Color.decode("#7ea6e0"));
 		nagusia.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		getContentPane().add(nagusia, BorderLayout.CENTER);
+		/* http://stackoverflow.com/questions/218155/how-do-i-change-jpanel-inside-a-jframe-on-the-fly
+		 * myJFrame.getContentPane().removeAll()
+myJFrame.getContentPane().invalidate()
+
+myJFrame.getContentPane().add(newContentPanel)
+myJFrame.getContentPane().revalidate()
+		 */
 		
 		((JPanel)getContentPane()).setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	}
