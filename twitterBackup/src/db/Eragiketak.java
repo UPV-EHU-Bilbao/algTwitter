@@ -14,11 +14,11 @@ public class Eragiketak {
 		}return mEragiketak;
 	}
 	public void tokenGorde(String token, String tokenSecret, String user) throws SQLException{
-		String agindua = "INSERT INTO `token`(`accessToken`,`accessTokenSecret`,`user`)VALUES('"+token+"','"+tokenSecret+"','"+user+"')";
+		String agindua = "INSERT INTO token(accessToken, accessTokenSecret, user)VALUES('"+token+"','"+tokenSecret+"','"+user+"')";
 		dbk.execSQL(agindua);
 	}
 	public void tokenSecretGorde(String tokenSecret) throws SQLException{
-		dbk.execSQL("INSERT INTO `token`(`accessTokenSecret`)VALUES('"+tokenSecret+"');");
+		dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES('"+tokenSecret+"');");
 		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
 	}
 	public void consumerGorde(String c) throws SQLException{
@@ -30,7 +30,8 @@ public class Eragiketak {
 	public String tokenBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM `token` WHERE user='"+izena+"';");
+			ResultSet rs = dbk.execSQL("SELECT accessToken FROM token WHERE user='"+izena+"';");
+			System.out.println("HAU DA RESULt SET: "+rs);
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessToken");
@@ -45,7 +46,7 @@ public class Eragiketak {
 	public String tokenSecretBilatu(String izena){
 		String token = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM `token` WHERE user='"+izena+"';");
+			ResultSet rs = dbk.execSQL("SELECT accessTokenSecret FROM `token` WHERE user='"+izena+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				token= rs.getString("accessTokenSecret");
@@ -85,7 +86,7 @@ public class Eragiketak {
 		dbk.execSQL("INSERT INTO `jarraitzaileak` VALUES('"+userId+"','"+screenName+"','"+id+"');");
 	}
 	public void tweetGorde(String[] tweet, String userId){
-		dbk.execSQL("INSERT INTO `txio`(`id`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
+		dbk.execSQL("INSERT INTO txio(id, nork, txioa, userIzena)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
 	public void dmGorde(String[] follow, String userId){
 		dbk.execSQL("INSERT INTO `md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
@@ -94,6 +95,7 @@ public class Eragiketak {
 		String userId = "";
 		try {
 			ResultSet rs = dbk.execSQL("SELECT izena FROM user WHERE izena='"+id+"';");
+			System.out.println(rs);
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				userId = rs.getString("izena");
@@ -142,22 +144,29 @@ public class Eragiketak {
 	}
 	public long azkenTweetId(String user){
 		String idS = "";
-		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio WHERE userIzena='"+user+"';");
-			while(rs.next()){
-				//rs osoan dagoena sartuko du String -ean
-				idS = rs.getString("maximoa");
-				System.out.println(idS);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			
-		}
-		if (idS == null){
+		if(kontatu(user) == 0){
 			return 0;
 		}else{
-			return Long.valueOf(idS);
+			try {
+			
+				ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio WHERE userIzena='"+user+"';");
+			
+					while(rs.next()){
+					//rs osoan dagoena sartuko du String -ean
+					idS = rs.getString("maximoa");
+					System.out.println(idS);
+					}
+				rs.close();
+			
+			} catch (SQLException e) {
+			
+			}return Long.valueOf(idS);
 		}
+		/*if (idS == null){
+			return 0;
+		}else{*/
+			
+		//}
 	}
 	public long azkenjarraitzId(){
 		long id = 0;
@@ -189,7 +198,21 @@ public class Eragiketak {
 		}
 		return id;
 	}
-	
+	public int kontatu(String user){
+		int zenb = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT COUNT(*) as zenbat FROM txio WHERE userIzena='"+user+"'");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				zenb = rs.getInt("zenbat");
+				System.out.println(zenb);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return zenb;
+	}
 
 
 }

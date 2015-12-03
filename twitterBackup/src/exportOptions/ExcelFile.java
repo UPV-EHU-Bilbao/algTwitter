@@ -36,17 +36,22 @@ public class ExcelFile {
 	       * TXIO SHEET EGITEKO
 	       */
 		Map<String, Object[]> txiodata = new TreeMap<String, Object[]>();
-		int posizioa = 1;
-		ArrayList<Object []> datuak = txioLortu();
-		datuak.get(i)[0];
+		txiodata.put("1", new Object[] {"Id", "User", "Txio"});
+		int pos = 1;
+		ArrayList<String []> datuak = txioLortu();
 		for(int iT=0; iT<datuak.size(); iT++){
-			txiodata.put(, new Object[]{)
+			String id = datuak.get(iT)[0];
+			String user = datuak.get(iT)[1];
+			String txio = datuak.get(iT)[2];
+			pos = pos++;
+			String posS = Integer.toString(pos);
+			txiodata.put(posS, new Object[]{id,user,txio});
 		}
-	      txiodata.put("1", new Object[] {"Id", "User", "Txio"});
-	      txiodata.put("2", new Object[] {1, "Amit", "Shukla"});
-	      txiodata.put("3", new Object[] {2, "Lokesh", "Gupta"});
-	      txiodata.put("4", new Object[] {3, "John", "Adwards"});
-	      txiodata.put("5", new Object[] {4, "Brian", "Schultz"});
+	      
+//	      txiodata.put("2", new Object[] {1, "Amit", "Shukla"});
+//	      txiodata.put("3", new Object[] {2, "Lokesh", "Gupta"});
+//	      txiodata.put("4", new Object[] {3, "John", "Adwards"});
+//	      txiodata.put("5", new Object[] {4, "Brian", "Schultz"});
 	      /*
 	       * TXIO SHEET EGITEKO
 	       */
@@ -176,27 +181,30 @@ public class ExcelFile {
 	          out.close();
 	          System.out.println("howtodoinjava_demo.xlsx written successfully on disk.");
 	      }
-	      catch (Exception e)
-	      {
+	      catch (Exception e) {
 	          e.printStackTrace();
 	      }
 	}
-    public static ArrayList<Object[]> txioLortu(){
-    	ArrayList<Object []> txioak = new ArrayList<>();
+    public static ArrayList<String[]> txioLortu(){
+    	ArrayList<String []> txioak = new ArrayList<>();
     	String agindua = "SELECT * FROM txio WHERE userIzena='ISADtaldea'";
-    	try {
-			ResultSet rs = dbk.execSQL(agindua);
-			while(rs.next()){
-				Object [] elem = new Object [3];
-				elem[0] = rs.getString("id");
-				elem[1] = rs.getString("nork");
-				elem[2]= rs.getString("txioa");
-				txioak.add(elem);
+    	if (agindua == null){
+    		System.out.println("EZ DAUKAZU TXIORIK!!!");
+    		return null;
+    	}else{
+    		try {
+    			ResultSet rs = dbk.execSQL(agindua);
+    			while(rs.next()){
+    				String [] elem = new String [3];
+    				elem[0] = rs.getString("id");
+    				elem[1] = rs.getString("nork");
+    				elem[2]= rs.getString("txioa");
+    				txioak.add(elem);
 				}
-		} catch (SQLException e) {
-			System.out.println("EZ DA GEHITU TOKEN!!");
-			e.printStackTrace();
-		}
-    	return txioak;
+    		} catch (SQLException e) {
+    			System.out.println("EZ DA GEHITU TOKEN!!");
+    			e.printStackTrace();
+    		}return txioak;
+    	}
     }
 }

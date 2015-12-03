@@ -111,7 +111,7 @@ public class Start extends JFrame{
 					System.out.println(userId);
 				
 					
-					 if(Eragiketak.getEragiketak().userIzena(userId)!= null){
+					if(Eragiketak.getEragiketak().userIzena(userId)!= null){
 						TokenKud.getToken().getSession(userId);
 						Erabiltzailea.getErab().setUserId(userId);
 						OrrNagusia.bistaratu();

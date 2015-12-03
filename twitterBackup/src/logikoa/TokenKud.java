@@ -88,6 +88,7 @@ public class TokenKud {
 	 * #####################################################################
 	 */
 	public void getSession(String izena){
+		System.out.println(izena);
 		String accesstoken = Eragiketak.getEragiketak().tokenBilatu(izena);
 		String secret = Eragiketak.getEragiketak().tokenSecretBilatu(izena);
 		
