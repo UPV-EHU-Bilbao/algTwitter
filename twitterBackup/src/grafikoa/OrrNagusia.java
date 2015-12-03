@@ -28,6 +28,10 @@ import javax.swing.JTextArea;
 import db.Eragiketak;
 
 public class OrrNagusia extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel userId = new JLabel("Hi "+Erabiltzailea.getErab().getUserId());
 	
