@@ -71,7 +71,7 @@ public class DBKudeatzaile {
 		return instantzia;
 	}
 
-	public ResultSet execSQL(String query) {
+	public ResultSet execSQL(String query)  {
 		int count = 0;
 		Statement s = null;
 		ResultSet rs = null;
@@ -86,7 +86,16 @@ public class DBKudeatzaile {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		
+		}finally {
+			if (s != null)
+			try {
+				s.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
+
 		return rs;
 	}
 }
