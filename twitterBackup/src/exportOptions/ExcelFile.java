@@ -59,18 +59,23 @@ public class ExcelFile {
 	       */
 	      jarraituakPage();
 	      
+	      String  filename = "backupTwitter.xls";
 	      try
 	      {
 	          //Write the workbook in file system
-	          FileOutputStream out = new FileOutputStream(new File("howtodoinjava_demo.xlsx"));
+	          FileOutputStream out = new FileOutputStream(filename);
 	          workbook.write(out);
+	          out.close();
+	          String name = "";
+		      Export.getExport().fileSave(filename, name);
+
 	          out.close();
 	          System.out.println("howtodoinjava_demo.xlsx written successfully on disk.");
 	      }
 	      catch (Exception e) {
 	          e.printStackTrace();
 	      }
-	      Export.getExport().fileSave();
+	    //  Export.getExport().fileSave();
 	}
     public  void txioPage(){
     	sheetTxio = workbook.createSheet("Txioak");

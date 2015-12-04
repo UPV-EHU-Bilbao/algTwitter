@@ -1,6 +1,7 @@
 package exportOptions;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -18,11 +19,10 @@ public class Export {
 		}
 		return mExport;
 	}
-	public void fileSave(){
-		String name = "MyBackup.xls";
+	public void fileSave(String f, String name){
 	      final JFileChooser chooser=new JFileChooser();
 	    //  chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-	      chooser.setDialogTitle("MY TWITTER DATA BACKUP");
+	      chooser.setDialogTitle(f);
 	      chooser.setCurrentDirectory(new File(System.getProperties().getProperty("user.dir")));
 	      chooser.setFileFilter(new javax.swing.filechooser.FileFilter()
 	      {
@@ -51,4 +51,7 @@ public class Export {
 	        }
 	      }
 	}
+	/*
+	 * http://stackoverflow.com/questions/26925275/how-to-save-file-in-java-using-jfilechooser
+	 */
 }
