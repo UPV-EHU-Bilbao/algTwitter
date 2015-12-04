@@ -17,8 +17,8 @@ public class DBKudeatzaile {
 				conn = null;
 			}
 
-//			String userName = "twitterUser";
-//			String password = "twitter";
+			String userName = "twitterUser";
+			String password = "twitter";
 		//	String url = "jdbc:mysql://localhost:3306/twittermysql";
 			String url = "jdbc:sqlite:twitter.sqlite";
 			//Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -51,7 +51,7 @@ public class DBKudeatzaile {
 		ResultSet rs = null;
 
 		try {
-			s.executeQuery(query);
+			rs = s.executeQuery(query);
 			//rs = s.getResultSet();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -87,13 +87,13 @@ public class DBKudeatzaile {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
-		}finally {
-			if (s != null)
-			try {
-				s.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+//		}finally {
+//			if (s != null)
+//			try {
+//				s.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
 	}
 
 		return rs;
