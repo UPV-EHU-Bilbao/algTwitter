@@ -17,21 +17,27 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import db.DBKudeatzaile;
 
 public class ExcelFile {
-	static DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+	DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+	private static ExcelFile mExcel = null;
 	 //Blank workbook
-    static XSSFWorkbook workbook = new XSSFWorkbook();
+   private XSSFWorkbook workbook = new XSSFWorkbook();
      
     //Create a blank sheet
-    static XSSFSheet sheetTxio;
-    static XSSFSheet sheetFav = workbook.createSheet("Faboritoak");
-    static XSSFSheet sheetRt = workbook.createSheet("RT");
-    static XSSFSheet sheetFllw = workbook.createSheet("Jarraituak");
-    static XSSFSheet sheetFoll = workbook.createSheet("Jarraitzaileak");
+    private XSSFSheet sheetTxio;
+    private XSSFSheet sheetFav ;
+    private XSSFSheet sheetRt ;
+    private XSSFSheet sheetFllw ;
+    private XSSFSheet sheetFoll ;
+    
+    private ExcelFile(){}
+    
+    public static synchronized ExcelFile getMExcel(){
+    	if(mExcel == null){
+    		mExcel = new ExcelFile();
+    	}return mExcel;
+    }
 	
-    public void tweetFile(String user){
-		ResultSet rs = dbk.execSQL("SELECT * FROM txio WHERE userIzena='"+user+"';");	
-	}
-    public static void main(String[] args){
+    public void createExcel(){
     	/*
 	       * TXIO SHEET EGITEKO
 	       */
@@ -64,8 +70,9 @@ public class ExcelFile {
 	      catch (Exception e) {
 	          e.printStackTrace();
 	      }
+	      Export.getExport().fileSave();
 	}
-    public static void txioPage(){
+    public  void txioPage(){
     	sheetTxio = workbook.createSheet("Txioak");
     	Row row = sheetTxio.createRow(0);
     	row.createCell(0).setCellValue("ID");
@@ -85,7 +92,7 @@ public class ExcelFile {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
     		}
     }
-    public static void favPage(){
+    public void favPage(){
     	sheetFav = workbook.createSheet("FAV");
     	Row row = sheetFav.createRow(0);
     	row.createCell(0).setCellValue("ID");
@@ -105,7 +112,7 @@ public class ExcelFile {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
     		}
     }
-    public static void rtPage(){
+    public void rtPage(){
     	sheetRt = workbook.createSheet("RT");
     	Row row = sheetRt.createRow(0);
     	row.createCell(0).setCellValue("ID");
@@ -125,7 +132,7 @@ public class ExcelFile {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
     		}
     }
-    public static void jarraituakPage(){
+    public void jarraituakPage(){
     	sheetFllw = workbook.createSheet("Jarraituak");
     	Row row = sheetFllw.createRow(0);
     	row.createCell(0).setCellValue("ID");
@@ -144,12 +151,12 @@ public class ExcelFile {
         		System.out.println("EZ DUZU INOR JARRAITZEN!!!");
     		}
     }
-    public static void jarraitzaileakPage(){
+    public void jarraitzaileakPage(){
     	sheetFoll = workbook.createSheet("Jarraitzaileak");
     	Row row = sheetFoll.createRow(0);
     	row.createCell(0).setCellValue("ID");
     	row.createCell(1).setCellValue("User");
-    	String agindua = "SELECT id, userIzena FROM txio WHERE userIzena='ISADtaldea'";
+    	String agindua = "SELECT id, userIzena FROM jarraitzaileak WHERE userIzena='ISADtaldea'";
     	int zut = 1;
     		try{
     			ResultSet rs = dbk.execSQL(agindua);

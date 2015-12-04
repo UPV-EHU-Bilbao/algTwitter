@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import db.Eragiketak;
+import exportOptions.ExcelFile;
 
 public class OrrNagusia extends JFrame{
 	/**
@@ -183,6 +184,27 @@ myJFrame.getContentPane().revalidate()
 						
 						
 						}
+				});
+				export.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try{
+							ExcelFile.getMExcel().createExcel();
+							JOptionPane.showMessageDialog(null,
+								    "Zure fitxategia eratu da!.",
+								    "Info",
+								    JOptionPane.PLAIN_MESSAGE);
+						}catch(Exception ex){
+							JOptionPane.showMessageDialog(null,
+								    "EZ DA FITXATEGIA ERATU.",
+								    "ERROR",
+								    JOptionPane.ERROR_MESSAGE);
+						}
+							
+						
+						
+					}
 				});
 					
 	}
