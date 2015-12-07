@@ -23,7 +23,7 @@ public class Export {
 	      final JFileChooser chooser=new JFileChooser();
 	    //  chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 	      chooser.setDialogTitle(f);
-	      chooser.setCurrentDirectory(new File(System.getProperties().getProperty("user.dir")));
+	      chooser.setCurrentDirectory(new File(System.getProperties().getProperty("user.home")));
 	      chooser.setFileFilter(new javax.swing.filechooser.FileFilter()
 	      {
 	         public boolean accept(final File f)

@@ -1,5 +1,9 @@
 package grafikoa;
 import logikoa.*;
+import twittercomponents.Favorites;
+import twittercomponents.Followers;
+import twittercomponents.Following;
+import twittercomponents.HomeTimeLine;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -62,6 +66,8 @@ public class OrrNagusia extends JFrame{
 	JPanel nagusia = new JPanel();
 	JTextArea viewText = new JTextArea();
 	
+	JPanel lag = new JPanel();
+	
 	public OrrNagusia(){
 		getContentPane().setBackground(Color.decode("#7ea6e0"));
 		this.setIconImage(wlogo.getImage());
@@ -104,10 +110,10 @@ public class OrrNagusia extends JFrame{
 		/* http://stackoverflow.com/questions/218155/how-do-i-change-jpanel-inside-a-jframe-on-the-fly
 		 * myJFrame.getContentPane().removeAll()
 myJFrame.getContentPane().invalidate()
-
-myJFrame.getContentPane().add(newContentPanel)
-myJFrame.getContentPane().revalidate()
-		 */
+*/
+		//getContentPane().add(new nagusia)
+		getContentPane().revalidate();
+		 
 		
 		((JPanel)getContentPane()).setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	}
@@ -121,19 +127,23 @@ myJFrame.getContentPane().revalidate()
 							//TokenKud.getToken().
 						}
 						if(fav.isSelected()){
-							TokenKud.getToken().backupFavorites();
+							//TokenKud.getToken().backupFavorites();
+							Favorites.getMfav().backupFavorites();
 						}
 						if(tweets.isSelected()){
-							TokenKud.getToken().backupTweets();
+							//TokenKud.getToken().backupTweets();
+							HomeTimeLine.getMhome().backupTweets();
 						}
 						if(dm.isSelected()){
 							//TokenKud.getToken().getSentDirectMessage();
 						}
 						if(followers.isSelected()){
-							TokenKud.getToken().backupFollowers();
+							Followers.getMfollowers().backupFollowers();
+							//TokenKud.getToken().backupFollowers();
 						}
 						if(following.isSelected()){
-							TokenKud.getToken().backupFollowing();
+							//TokenKud.getToken().backupFollowing();
+							Following.getMfollowing().backupFollowing();
 						}	
 					}
 				});
@@ -153,17 +163,12 @@ myJFrame.getContentPane().revalidate()
 								//TokenKud.getToken().getFavPage();
 							}
 							if(tweets.isSelected()){
-								TokenKud.getToken().tweetTaula();
-								//TokenKud.getToken().aldatuVisible();
 							}
 							if(dm.isSelected()){
-								TokenKud.getToken().getSentDirectMessage();
 							}
 							if(followers.isSelected()){
-								TokenKud.getToken().getFollowers();
 							}
 							if(following.isSelected()){
-								TokenKud.getToken().getFollowing();
 							}
 						
 						
@@ -226,7 +231,12 @@ myJFrame.getContentPane().revalidate()
 		aukerak.add(followers);
 		aukerak.add(following);
 	}
-	
+	public void bistaratuNagusia(){
+		nagusia.setLayout(new BoxLayout(aukerak, BoxLayout.Y_AXIS));
+		nagusia.add(lag);
+		nagusia.setVisible(true);
+		
+	}
 	public static void main(String[] args) {
 		bistaratu();
 		
