@@ -25,7 +25,6 @@ public class ExcelFile {
     //Create a blank sheet
     private XSSFSheet sheetTxio;
     private XSSFSheet sheetFav ;
-    private XSSFSheet sheetRt ;
     private XSSFSheet sheetFllw ;
     private XSSFSheet sheetFoll ;
     
@@ -46,10 +45,7 @@ public class ExcelFile {
 	       * FAV SHEET EGITEKO
 	       */
 	      favPage();
-	      /*
-	       * RT SHEET EGITEKO
-	       */
-	      rtPage();
+	      
 	      /*
 	       * FOLLOWERS SHEET EGITEKO
 	       */
@@ -117,26 +113,7 @@ public class ExcelFile {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
     		}
     }
-    public void rtPage(){
-    	sheetRt = workbook.createSheet("RT");
-    	Row row = sheetRt.createRow(0);
-    	row.createCell(0).setCellValue("ID");
-    	row.createCell(1).setCellValue("User");
-    	row.createCell(2).setCellValue("Txioa");
-    	String agindua = "SELECT id, nork, txioa FROM rt WHERE userIzena='ISADtaldea'";
-    	int zut = 1;
-    		try{
-    			ResultSet rs = dbk.execSQL(agindua);
-    			while(rs.next()){
-        			row = sheetRt.createRow(zut);
-        			for(int err=0; err<3; err++){
-        				row.createCell(err).setCellValue(rs.getString(err+1));
-        			}
-    			}
-    		} catch (SQLException e) {
-        		System.out.println("EZ DAUKAZU TXIORIK!!!");
-    		}
-    }
+   
     public void jarraituakPage(){
     	sheetFllw = workbook.createSheet("Jarraituak");
     	Row row = sheetFllw.createRow(0);

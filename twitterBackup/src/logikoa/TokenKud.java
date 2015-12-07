@@ -107,89 +107,16 @@ public class TokenKud {
 		return twitter;
 	}
 	
-	/*
-	 * ###########################################
-	 * ###########BISTARATZEKO METODOAK###########
-	 * ###########################################
-	 */
 	
 	
 	
-	public void getDirectMessage(){
-        try {
-            Paging paging = new Paging(1);
-            List<DirectMessage> messages;
-            do {
-                messages = twitter.getDirectMessages(paging);
-                for (DirectMessage message : messages) {
-                    System.out.println("Noiz: "+message.getCreatedAt()+"From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
-                            + message.getText());
-                }
-                paging.setPage(paging.getPage() + 1);
-            } while (messages.size() > 0 && paging.getPage() < 10);
-            System.out.println("done.");
-            //System.exit(0);
-        } catch (TwitterException te) {
-        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-            timeTo(te.toString());
-        }
-	}
-	public void getSentDirectMessage(){
-		 try {
-	            Paging page = new Paging(1);
-	            List<DirectMessage> directMessages;
-	            do {
-	                directMessages = twitter.getSentDirectMessages(page);
-	                for (DirectMessage message : directMessages) {
-	                    System.out.println("Noiz: "+message.getCreatedAt()+"To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
-	                            + message.getText());
-	                    String[]mezua = new String[3];
-	                    mezua[0]= message.getCreatedAt().toString();
-	                    mezua[1] = message.getRecipientScreenName();
-	                    mezua[2] = Long.toString(message.getId());
-	                    mezua[3] = message.getText();
-	                    Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
-	                }
-	                page.setPage(page.getPage() + 1);
-	            } while (directMessages.size() > 0 && page.getPage() < 10);
-	            System.out.println("done.");
-	            //System.exit(0);
-	        } catch (TwitterException te) {
-	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-	            timeTo(te.toString());
-	        }
-	}
 	
 	
 
-	/*
-	 * #####################################################################
-	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
-	 * #####################################################################
-	 */
 	
 	
-	public void backupRt(){
-		/*try {
-			List<Status> statuses = null;
-			long max = Eragiketak.getEragiketak().azkenRtId();
-		 if (max == 0){
-	            Twitter twitter = new TwitterFactory().getInstance();
-	            //List<Status> statuses = twitter.getretw;
-	            for (Status status : statuses) {
-	                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-	            }
-		 }else{
-			 
-		 }
-	        } catch (TwitterException te) {
-	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-	            timeTo(te.toString());
-	        }*/
-	}
 	
 	
-
 	/*
 	 * #####################################################################
 	 * ########################SINCE ID -ak#################################

@@ -71,10 +71,6 @@ public class Eragiketak {
 		
 		dbk.execSQL("INSERT INTO `fav`(`idFav`,`nork`,`txioa`,`userIzena`)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
-	public void rtGorde(String tweet){
-		dbk.execSQL("INSERT INTO `rt`(`id`,`data`,`nork`,`txioa`)VALUES();");
-	}
-
 	public void followingGorde(String[] following, String userId){
 		String id = following[0];
 		String screenName = following[1];
@@ -88,8 +84,8 @@ public class Eragiketak {
 	public void tweetGorde(String[] tweet, String userId){
 		dbk.execSQL("INSERT INTO txio(id, nork, txioa, userIzena)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
-	public void dmGorde(String[] follow, String userId){
-		dbk.execSQL("INSERT INTO `md` VALUES("+follow[0]+",'"+follow[1]+"','"+follow[3]+",'"+follow[2]+",'"+userId+");");
+	public void dmGorde(String[] mezua, String userId){
+		dbk.execSQL("INSERT INTO md(id, nork, mezua, userId) VALUES("+mezua[0]+",'"+mezua[1]+"','"+mezua[2]+",'"+userId+");");
 	}
 	public String userIzena(String id){
 		String userId = "";
@@ -107,6 +103,11 @@ public class Eragiketak {
 		}
 		return userId;
 	}
+	/*
+	 * ####################################################################
+	 * ###########################MAXIMOAK BILATU###########################
+	 * ####################################################################
+	 */
 	public long azkenFavId(String user){
 		String favIDS = "";
 		//long favId = 0;
@@ -126,21 +127,6 @@ public class Eragiketak {
 		}else{
 			return Long.valueOf(favIDS);
 		}
-	}
-	public long azkenRtId(){
-		long id = 0;
-		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM rt;");
-			while(rs.next()){
-				//rs osoan dagoena sartuko du String -ean
-				id = Long.valueOf(rs.getString("maximoa"));
-				System.out.println(id);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return id;
 	}
 	public long azkenTweetId(String user){
 		String idS = "";

@@ -19,6 +19,11 @@ public class Following {
 			mFollowing = new Following();
 		}return mFollowing;
 	}
+	/*
+	 * ###########################################
+	 * ###########BISTARATZEKO METODOAK###########
+	 * ###########################################
+	 */
 	public void getFollowing(){
 		try {
             long cursor = -1;
@@ -39,6 +44,11 @@ public class Following {
 
         }
 	}
+	/*
+	 * #####################################################################
+	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
+	 * #####################################################################
+	 */
 	public void backupFollowing(){
 		  try{
 			long cursor = -1;

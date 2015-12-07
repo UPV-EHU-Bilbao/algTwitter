@@ -1,5 +1,7 @@
 package grafikoa;
 import logikoa.*;
+import twitter4j.TwitterException;
+import twittercomponents.DirectMessages;
 import twittercomponents.Favorites;
 import twittercomponents.Followers;
 import twittercomponents.Following;
@@ -20,6 +22,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 
 import db.Eragiketak;
@@ -55,7 +59,6 @@ public class OrrNagusia extends JFrame{
 	JCheckBox tweets = new JCheckBox("Tweets",false);
 	//JCheckBox rt = new JCheckBox(new ImageIcon("src/media1/images.png"),false);
 	//JCheckBox fav = new JCheckBox(new ImageIcon("src/media1/fav.jpg"),false);
-	JCheckBox rt = new JCheckBox("RT",false);
 	JCheckBox fav = new JCheckBox("FAV",false);
 	JCheckBox dm = new JCheckBox("Direct Messages",false);
 	JCheckBox followers = new JCheckBox("Followers",false);
@@ -123,26 +126,20 @@ myJFrame.getContentPane().invalidate()
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if(rt.isSelected()){
-							//TokenKud.getToken().
-						}
 						if(fav.isSelected()){
-							//TokenKud.getToken().backupFavorites();
 							Favorites.getMfav().backupFavorites();
 						}
 						if(tweets.isSelected()){
-							//TokenKud.getToken().backupTweets();
 							HomeTimeLine.getMhome().backupTweets();
 						}
 						if(dm.isSelected()){
-							//TokenKud.getToken().getSentDirectMessage();
+							DirectMessages.getmDirect().backupDirectMessage();
+							DirectMessages.getmDirect().backupSentDirectMessage();
 						}
 						if(followers.isSelected()){
 							Followers.getMfollowers().backupFollowers();
-							//TokenKud.getToken().backupFollowers();
 						}
 						if(following.isSelected()){
-							//TokenKud.getToken().backupFollowing();
 							Following.getMfollowing().backupFollowing();
 						}	
 					}
@@ -155,14 +152,27 @@ myJFrame.getContentPane().invalidate()
 						viewText.setText("KAIXO HEMEN NAGO");
 						//TokenKud.getToken().getFavorites();
 						
-							//TokenKud.getToken().getFavPage();
-							if(rt.isSelected()){
-								//TokenKud.getToken().backupRt();
-							}
 							if(fav.isSelected()){
-								//TokenKud.getToken().getFavPage();
+								try {
+									bistaratuFav();
+									bistaratuNagusia();
+								} catch (IllegalStateException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								} catch (TwitterException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
 							}
 							if(tweets.isSelected()){
+								try {
+									lag = HomeTimeLine.getMhome().getTweets();
+									lag.setVisible(true);
+									bistaratuNagusia();
+								} catch (IllegalStateException | TwitterException e1) {
+									System.out.println("ez da panela egin");
+								}
 							}
 							if(dm.isSelected()){
 							}
@@ -226,16 +236,19 @@ myJFrame.getContentPane().invalidate()
 		aukerak.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		aukerak.add(tweets);
 		aukerak.add(fav);
-		aukerak.add(rt);
 		aukerak.add(dm);
 		aukerak.add(followers);
 		aukerak.add(following);
 	}
 	public void bistaratuNagusia(){
 		nagusia.setLayout(new BoxLayout(aukerak, BoxLayout.Y_AXIS));
-		nagusia.add(lag);
 		nagusia.setVisible(true);
 		
+	}
+	public void bistaratuFav() throws IllegalStateException, TwitterException{
+		JTable taula = new JTable(new TableG(Favorites.getMfav().bistaratzeko()));
+		JScrollPane scrollPane = new JScrollPane(taula);
+		nagusia.add(scrollPane);
 	}
 	public static void main(String[] args) {
 		bistaratu();

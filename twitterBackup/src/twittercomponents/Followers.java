@@ -19,6 +19,11 @@ public class Followers {
 			mfollowers = new Followers();
 		}return mfollowers;
 	}
+	/*
+	 * ###########################################
+	 * ###########BISTARATZEKO METODOAK###########
+	 * ###########################################
+	 */
 	public void getFollowers(){
 		 try {
 	            
@@ -40,6 +45,11 @@ public class Followers {
 	            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 	        }
 	}
+	/*
+	 * #####################################################################
+	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
+	 * #####################################################################
+	 */
 	public void backupFollowers(){
 		try {
             long cursor = -1;
