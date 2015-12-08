@@ -1,17 +1,19 @@
 package exportOptions;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
+import java.io.FileFilter;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-
-import jdk.jfr.events.FileWriteEvent;
+import java.io.File;  
+import java.io.FileInputStream;  
+import java.io.FileOutputStream;  
+  
+import javax.swing.JFileChooser;  
 
 public class Export {
 	private static Export mExport = null;
+	private JFileChooser  jfc = new JFileChooser();
 	private Export(){}
 	public static synchronized Export getExport(){
 		if(mExport == null){
@@ -54,4 +56,24 @@ public class Export {
 	/*
 	 * http://stackoverflow.com/questions/26925275/how-to-save-file-in-java-using-jfilechooser
 	 */
+	public String saveWin() {
+		jfc.setAcceptAllFileFilterUsed(false);  
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);//  
+       /* jfc.setFileFilter(  new FileFilter(){  
+                    public boolean accept(File f) {  
+                        // TODO Auto-generated method stub  
+                        return f.getName().toLowerCase().endsWith(".xls");  
+                    }  
+                    public String getDescription() {  
+                        // TODO Auto-generated method stub  
+                        return "Excel File";  
+                    }  
+                }  
+        );  */
+        jfc.showSaveDialog(null);  
+        String resultSave = jfc.getSelectedFile().getPath();  
+        System.out.println(resultSave);  
+        return resultSave;  
+	
+	}
 }
