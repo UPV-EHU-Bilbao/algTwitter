@@ -37,6 +37,7 @@ public class ExcelFile {
     }
 	
     public void createExcel(){
+    	String filePath = Export.getExport().saveWin();
     	/*
 	       * TXIO SHEET EGITEKO
 	       */
@@ -59,14 +60,13 @@ public class ExcelFile {
 	      try
 	      {
 	          //Write the workbook in file system
-	          FileOutputStream out = new FileOutputStream(filename);
+	          FileOutputStream out = new FileOutputStream(filePath+"//"+filename);
 	          workbook.write(out);
-	          out.close();
-	          String name = "";
-		      Export.getExport().fileSave(filename, name);
+	         // out.close();
+	          //String name = "";
+		      //Export.getExport().fileSave(filename, name);
 
-	          out.close();
-	          System.out.println("howtodoinjava_demo.xlsx written successfully on disk.");
+	          System.out.println(filename+" written successfully on disk.");
 	      }
 	      catch (Exception e) {
 	          e.printStackTrace();
@@ -88,6 +88,7 @@ public class ExcelFile {
         			for(int err=0; err<3; err++){
         				row.createCell(err).setCellValue(rs.getString(err+1));
         			}
+        			zut++;
     			}
     		} catch (SQLException e) {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
@@ -107,7 +108,7 @@ public class ExcelFile {
         			row = sheetFav.createRow(zut);
         			for(int err=0; err<3; err++){
         				row.createCell(err).setCellValue(rs.getString(err+1));
-        			}
+        			}zut++;
     			}
     		} catch (SQLException e) {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
@@ -127,7 +128,7 @@ public class ExcelFile {
         			row = sheetFllw.createRow(zut);
         			for(int err=0; err<2; err++){
         				row.createCell(err).setCellValue(rs.getString(err+1));
-        			}
+        			}zut++;
     			}
     		} catch (SQLException e) {
         		System.out.println("EZ DUZU INOR JARRAITZEN!!!");
@@ -146,7 +147,8 @@ public class ExcelFile {
         			row = sheetFoll.createRow(zut);
         			for(int err=0; err<2; err++){
         				row.createCell(err).setCellValue(rs.getString(err+1));
-        			}
+        				
+        			}zut++;
     			}
     		} catch (SQLException e) {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
