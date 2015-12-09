@@ -1,7 +1,5 @@
 package grafikoa;
 import logikoa.*;
-import twitter4j.Status;
-import twitter4j.TwitterException;
 import twittercomponents.DirectMessages;
 import twittercomponents.Favorites;
 import twittercomponents.Followers;
@@ -9,13 +7,10 @@ import twittercomponents.Following;
 import twittercomponents.HomeTimeLine;
 
 import java.awt.BorderLayout;
-import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -27,11 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
-
-import db.Eragiketak;
 import exportOptions.ExcelFile;
 
 public class OrrNagusia extends JFrame{
@@ -158,7 +149,7 @@ myJFrame.getContentPane().invalidate()
 						//TokenKud.getToken().getFavorites();
 						
 							if(fav.isSelected()){
-									TDemoFav td = new TDemoFav();
+									TDemoFav td = new TDemoFav(Erabiltzailea.getErab().getUserId());
 									td.createAndShowGUI();
 									nagusia.removeAll();
 									nagusia.add(td);
@@ -168,7 +159,7 @@ myJFrame.getContentPane().invalidate()
 								
 							}
 							if(tweets.isSelected()){
-								TDemoTweets td = new TDemoTweets();
+								TDemoTweets td = new TDemoTweets(Erabiltzailea.getErab().getUserId());
 								td.createAndShowGUI();
 								nagusia.removeAll();
 								nagusia.add(td);
@@ -178,7 +169,7 @@ myJFrame.getContentPane().invalidate()
 							if(dm.isSelected()){
 							}
 							if(followers.isSelected()){
-								TDemoFollowers td = new TDemoFollowers();
+								TDemoFollowers td = new TDemoFollowers(Erabiltzailea.getErab().getUserId());
 								td.createAndShowGUI();
 								nagusia.removeAll();
 								nagusia.add(td);
@@ -187,7 +178,7 @@ myJFrame.getContentPane().invalidate()
 							}
 							if(following.isSelected()){
 
-								TDemoFollowing td = new TDemoFollowing();
+								TDemoFollowing td = new TDemoFollowing(Erabiltzailea.getErab().getUserId());
 								td.createAndShowGUI();
 								nagusia.removeAll();
 								nagusia.add(td);

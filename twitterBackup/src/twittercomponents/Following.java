@@ -80,9 +80,9 @@ public class Following {
 	    }
 		
 	   }
-	public ArrayList<String> viewFollowing(){
+	public ArrayList<String> viewFollowing(String user){
 		ArrayList<String> lista = new ArrayList<String>();
-		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='ISADtaldea';";
+		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='"+user+"';";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);

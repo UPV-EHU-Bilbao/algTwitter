@@ -13,9 +13,9 @@ import twittercomponents.Following;
 @SuppressWarnings("serial")
 public class TDemoFollowing extends JPanel {
 	//private JScrollPane scrollPane;
-	public TDemoFollowing(){
+	public TDemoFollowing(String user){
 		super(new GridLayout(1, 0));
-		ArrayList<String> statuses = Following.getMfollowing().viewFollowing();
+		ArrayList<String> statuses = Following.getMfollowing().viewFollowing(user);
 
 		TableF model = new TableF(statuses);
 		
@@ -29,7 +29,7 @@ public class TDemoFollowing extends JPanel {
 	
 	public void createAndShowGUI(){
 
-		TDemoFollowing newContentPane = new TDemoFollowing();
+		//TDemoFollowing newContentPane = new TDemoFollowing();
 		setVisible(true);
 		
 	}

@@ -13,10 +13,10 @@ import twittercomponents.HomeTimeLine;
 @SuppressWarnings("serial")
 public class TDemoTweets extends JPanel {
 	//private JScrollPane scrollPane;
-	public TDemoTweets() {
+	public TDemoTweets(String user) {
 		
 		super(new GridLayout(1, 0));
-		ArrayList<String[]> statuses = HomeTimeLine.getMhome().viewTxio();
+		ArrayList<String[]> statuses = HomeTimeLine.getMhome().viewTxio(user);
 
 		TableG model = new TableG(statuses);
 		
@@ -29,7 +29,7 @@ public class TDemoTweets extends JPanel {
 
 	public void createAndShowGUI(){
 
-		TDemoTweets newContentPane = new TDemoTweets();
+	//	TDemoTweets newContentPane = new TDemoTweets();
 		setVisible(true);
 	}
 

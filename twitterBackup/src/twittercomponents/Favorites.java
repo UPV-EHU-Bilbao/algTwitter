@@ -5,14 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
 import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
-import logikoa.TableG;
 import logikoa.TokenKud;
 import twitter4j.Paging;
 import twitter4j.Status;
@@ -124,9 +119,9 @@ public class Favorites {
 		        }
 		        }
 		
-	public ArrayList<String[]> viewFavorites(){
+	public ArrayList<String[]> viewFavorites(String user){
 		ArrayList<String[]> lista = new ArrayList<String[]>();
-		String agindua = "SELECT nork,txioa FROM fav WHERE userIzena='ISADtaldea';";
+		String agindua = "SELECT nork,txioa FROM fav WHERE userIzena='"+user+"';";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);

@@ -9,13 +9,13 @@ import javax.swing.JTable;
 
 import logikoa.TableF;
 import twittercomponents.Followers;
-import twittercomponents.Following;
 
+@SuppressWarnings("serial")
 public class TDemoFollowers extends JPanel {
 
-	public TDemoFollowers(){
+	public TDemoFollowers(String user){
 		super(new GridLayout(1, 0));
-		ArrayList<String> statuses = Followers.getMfollowers().viewFollowers();
+		ArrayList<String> statuses = Followers.getMfollowers().viewFollowers(user);
 
 		TableF model = new TableF(statuses);
 		
@@ -28,8 +28,6 @@ public class TDemoFollowers extends JPanel {
 
 	
 	public void createAndShowGUI(){
-
-		TDemoFollowers newContentPane = new TDemoFollowers();
 		setVisible(true);
 		
 	}

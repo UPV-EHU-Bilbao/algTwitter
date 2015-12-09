@@ -1,5 +1,7 @@
 package grafikoa;
 
+
+
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -10,19 +12,19 @@ import javax.swing.JTable;
 import logikoa.TableG;
 import twittercomponents.Favorites;
 
+@SuppressWarnings("serial")
 public class TDemoFav extends JPanel{
 		private TableG model;
 		private JTable taula;
 		//private JScrollPane scrollPane;
-		public TDemoFav() {
+		public TDemoFav(String user) {
 			
 			super(new GridLayout(1, 0));
-			ArrayList<String[]> statuses = Favorites.getMfav().viewFavorites();
+			ArrayList<String[]> statuses = Favorites.getMfav().viewFavorites(user);
 
 			TableG model = new TableG(statuses);
 			
 			JTable taula = new JTable(model);
-
 			JScrollPane scrollPane = new JScrollPane(taula);
 
 			add(scrollPane);
@@ -36,7 +38,7 @@ public class TDemoFav extends JPanel{
 		}
 		public void createAndShowGUI(){
 
-			TDemoFav newContentPane = new TDemoFav();
+		//	TDemoFav newContentPane = new TDemoFav();
 			setVisible(true);
 		}
 

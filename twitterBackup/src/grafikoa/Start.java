@@ -2,13 +2,7 @@ package grafikoa;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import db.Eragiketak;
 import logikoa.Erabiltzailea;
@@ -63,6 +61,12 @@ public class Start extends JFrame{
 		((JPanel)getContentPane()).setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	}
 	public static void main(String[]args){
+		try {
+			UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		bistaratu();
 	}
 	public static void bistaratu(){

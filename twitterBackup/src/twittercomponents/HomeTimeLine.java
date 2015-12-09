@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
-import logikoa.TableG;
 import logikoa.TokenKud;
 import twitter4j.Paging;
 import twitter4j.Status;
@@ -116,11 +113,11 @@ public class HomeTimeLine {
 	}
 
 	
-public ArrayList<String[]> viewTxio(){
+public ArrayList<String[]> viewTxio(String user){
 		
 		//String[] status = new String[2];
 		ArrayList<String[]> lista = new ArrayList<String[]>();
-		String agindua = "SELECT nork,txioa FROM txio WHERE userIzena='ISADtaldea';";
+		String agindua = "SELECT nork,txioa FROM txio WHERE userIzena='"+user+"';";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);
