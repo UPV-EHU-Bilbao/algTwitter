@@ -1,5 +1,7 @@
 package twittercomponents;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
 import logikoa.TableG;
@@ -20,6 +23,7 @@ public class HomeTimeLine {
 	private static HomeTimeLine mHome = null;
 	Twitter twitter;
 	JPanel panel;
+	DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 	private HomeTimeLine(){
 		twitter = TokenKud.getToken().getMyTwitter();
 	}
@@ -38,47 +42,27 @@ public class HomeTimeLine {
 	 */
 	public JPanel getTweets() throws IllegalStateException, TwitterException{
 		long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
-		if(max != 0){
 			try {
 				int pagenumber = 1;
 				int count = 20;
 				List<Status> statuses = new ArrayList<Status>();
 				while(true){
-					Paging page = new Paging(pagenumber, count,max);
+					Paging page = new Paging(pagenumber, count).sinceId(max);
+							//,max);
 					int size = statuses.size();
 					statuses.addAll(twitter.getHomeTimeline(page));
 					if(statuses.size()== size){
 						break;
         	   }
 				}
-					panel = makeAtable(statuses);
+					//panel = makeAtable(statuses);
         	
 				
         } catch (TwitterException te) {
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
            // TokenKud.getToken().timeTo(te.toString());
             TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-		}}else{
-			try {
-				int pagenumber = 1;
-				int count = 20;
-				List<Status> statuses = new ArrayList<Status>();
-				while(true){
-					Paging page = new Paging(pagenumber, count);
-					int size = statuses.size();
-					statuses.addAll(twitter.getHomeTimeline(page));
-					if(statuses.size()== size){
-						break;
-        	   }
-				}
-					panel = makeAtable(statuses);
-        	
-				
-        } catch (TwitterException te) {
-            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-           // TokenKud.getToken().timeTo(te.toString());
-            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-        }}
+		}
 	
 		return panel;
 		
@@ -91,18 +75,9 @@ public class HomeTimeLine {
 	public void backupTweets(){
 		try {
 			long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
-			if(max == 0){
-		            List<Status> statuses = twitter.getHomeTimeline();
-		            for (Status status : statuses) {
-		                String [] tweet = new String [3];
-		                tweet[0] = Long.toString(status.getId());
-		                tweet[1] = status.getUser().getScreenName();
-		                tweet[2] = status.getText();
-		                Eragiketak.getEragiketak().tweetGorde(tweet, twitter.getScreenName());
-		            }
-			}else{
+			
 				getHomeTimeline(max);
-			}
+			
         } catch (TwitterException te) {
             System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             //timeTo(te.toString());
@@ -115,10 +90,14 @@ public class HomeTimeLine {
 	            int count = 20;
 	            List<Status> statuses = new ArrayList<Status>();
         	while(true){
-        		Paging pag = new Paging(pagenumber, count, max);
-        		int size = statuses.size();
-        		statuses.addAll(twitter.getHomeTimeline(pag));
-        		if(statuses.size()== size){
+        		Paging pag = new Paging(pagenumber, count).sinceId(max);
+        				//, max);
+        	//	int size = statuses.size();
+        		//statuses.addAll(twitter.getHomeTimeline(pag));
+        		statuses = twitter.getHomeTimeline(pag);
+        		int zenbat = statuses.size();
+        		//if(statuses.size()== size){
+        		if( zenbat == 0){
         			break;
         		}
         	}
@@ -135,12 +114,26 @@ public class HomeTimeLine {
 	            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 	        }
 	}
-	public JPanel makeAtable(List<Status> l1){
-		JPanel p1 = new JPanel();
-		JTable table = new JTable(new TableG(l1));
-		JScrollPane scrollPane = new JScrollPane(table);
-		p1.add(scrollPane);
-		return p1;
+
+	
+public ArrayList<String[]> viewTxio(){
 		
+		//String[] status = new String[2];
+		ArrayList<String[]> lista = new ArrayList<String[]>();
+		String agindua = "SELECT nork,txioa FROM txio WHERE userIzena='ISADtaldea';";
+		try {
+			
+			ResultSet rs = dbk.execSQL(agindua);
+			while(rs.next()){
+				String[] status = new String[2];
+					status[0] = rs.getString("nork");
+					status[1] = rs.getString("txioa");
+					lista.add(status);
+			}
+			rs.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}return lista;
 	}
 }

@@ -167,35 +167,35 @@ public class TokenKud {
 	//TAULAK ERAIKITZEN             |
 	//-------------------------------
 	
-	public JPanel tweetTaula(){
-		try {
-            int pagenumber = 1;
-            int count = 20;
-            List<Status> statuses = new ArrayList<Status>();
-        	while(true){
-        	  Paging page = new Paging(pagenumber, count);
-        	  int size = statuses.size();
-        	  statuses.addAll(twitter.getHomeTimeline(page));
-        	  if(statuses.size()== size){
-            	break;
-        	  }
-        	}
-        	//TAULA ERAIKI
-        	
-        	txioTaula = new TableG(statuses);
-        	JTable taula = new JTable(txioTaula);
-        	tpanel = new JPanel();
-        	tpanel.setSize(100,100);
-        	tpanel.add(taula);
-        	//tpanel.setVisible(true);
-        	//taulaPanel(taula);
-        } catch (TwitterException te) {
-            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu..."+timeTo(te.toString()));
-            
-            TimeTo.getMessage(timeTo(te.toString()));
-           // System.exit(-1);
-        }return tpanel;
-	}
+//	public JPanel tweetTaula(){
+//		try {
+//            int pagenumber = 1;
+//            int count = 20;
+//            List<Status> statuses = new ArrayList<Status>();
+//        	while(true){
+//        	  Paging page = new Paging(pagenumber, count);
+//        	  int size = statuses.size();
+//        	  statuses.addAll(twitter.getHomeTimeline(page));
+//        	  if(statuses.size()== size){
+//            	break;
+//        	  }
+//        	}
+//        	//TAULA ERAIKI
+//        	
+//        	txioTaula = new TableG(statuses);
+//        	JTable taula = new JTable(txioTaula);
+//        	tpanel = new JPanel();
+//        	tpanel.setSize(100,100);
+//        	tpanel.add(taula);
+//        	//tpanel.setVisible(true);
+//        	//taulaPanel(taula);
+//        } catch (TwitterException te) {
+//            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu..."+timeTo(te.toString()));
+//            
+//            TimeTo.getMessage(timeTo(te.toString()));
+//           // System.exit(-1);
+//        }return tpanel;
+//	}
 
 	public void taulaPanel(JTable t){
 		tpanel = new JPanel();

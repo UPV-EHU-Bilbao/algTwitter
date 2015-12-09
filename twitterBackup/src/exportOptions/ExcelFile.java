@@ -126,7 +126,7 @@ public class ExcelFile {
     			ResultSet rs = dbk.execSQL(agindua);
     			while(rs.next()){
         			row = sheetFllw.createRow(zut);
-        			for(int err=0; err<2; err++){
+        			for(int err=0; err<3; err++){
         				row.createCell(err).setCellValue(rs.getString(err+1));
         			}zut++;
     			}

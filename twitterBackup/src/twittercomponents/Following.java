@@ -1,5 +1,10 @@
 package twittercomponents;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
@@ -11,6 +16,8 @@ public class Following {
 
 	private static Following mFollowing = null;
 	Twitter twitter;
+	private DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+
 	private Following(){
 		twitter = TokenKud.getToken().getMyTwitter();
 	}
@@ -73,6 +80,21 @@ public class Following {
 	    }
 		
 	   }
+	public ArrayList<String> viewFollowing(){
+		ArrayList<String> lista = new ArrayList<String>();
+		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='ISADtaldea';";
+		try {
+			
+			ResultSet rs = dbk.execSQL(agindua);
+			while(rs.next()){
+					lista.add(rs.getString("userIzena"));
+			}
+			rs.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}return lista;
+	}
 	
 	
 }

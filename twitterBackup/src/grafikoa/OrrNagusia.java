@@ -1,5 +1,6 @@
 package grafikoa;
 import logikoa.*;
+import twitter4j.Status;
 import twitter4j.TwitterException;
 import twittercomponents.DirectMessages;
 import twittercomponents.Favorites;
@@ -10,8 +11,10 @@ import twittercomponents.HomeTimeLine;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -153,32 +156,28 @@ myJFrame.getContentPane().invalidate()
 						//TokenKud.getToken().getFavorites();
 						
 							if(fav.isSelected()){
-								try {
-									bistaratuFav();
-									bistaratuNagusia();
-								} catch (IllegalStateException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								} catch (TwitterException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+									ArrayList<String[]> statuses = Favorites.getMfav().viewFavorites();
+									TableDemo1 td = new TableDemo1();
+									td.createAndShowGUI();
+									td.eguneratu(statuses);
+									
 								
 							}
 							if(tweets.isSelected()){
-								try {
-									lag = HomeTimeLine.getMhome().getTweets();
-									lag.setVisible(true);
-									bistaratuNagusia();
-								} catch (IllegalStateException | TwitterException e1) {
-									System.out.println("ez da panela egin");
-								}
 							}
 							if(dm.isSelected()){
 							}
 							if(followers.isSelected()){
+								ArrayList<String> statuses = Followers.getMfollowers().viewFollowers();
+								TableDemo2 td = new TableDemo2();
+								td.eguneratu(statuses);
+								td.createAndShowGUI();
 							}
 							if(following.isSelected()){
+								ArrayList<String> statuses = Following.getMfollowing().viewFollowing();
+								TableDemo2 td = new TableDemo2();
+								td.eguneratu(statuses);
+								td.createAndShowGUI();
 							}
 						
 						
@@ -245,11 +244,11 @@ myJFrame.getContentPane().invalidate()
 		nagusia.setVisible(true);
 		
 	}
-	public void bistaratuFav() throws IllegalStateException, TwitterException{
-		JTable taula = new JTable(new TableG(Favorites.getMfav().bistaratzeko()));
-		JScrollPane scrollPane = new JScrollPane(taula);
-		nagusia.add(scrollPane);
-	}
+//	public void bistaratuFav() throws IllegalStateException, TwitterException{
+//		JTable taula = new JTable(new TableG(Favorites.getMfav().bistaratzeko()));
+//		JScrollPane scrollPane = new JScrollPane(taula);
+//		nagusia.add(scrollPane);
+//	}
 	public static void main(String[] args) {
 		bistaratu();
 		

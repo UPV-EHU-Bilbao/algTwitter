@@ -1,5 +1,10 @@
 package twittercomponents;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
@@ -9,6 +14,7 @@ import twitter4j.TwitterException;
 
 public class Followers {
 	private static Followers mfollowers = null;
+	private DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 	Twitter twitter;
 
 	private Followers(){
@@ -70,5 +76,20 @@ public class Followers {
         }
 	}
 	
+	public ArrayList<String> viewFollowers(){
+		ArrayList<String> lista = new ArrayList<String>();
+		String agindua = "SELECT userIzena FROM jarraitzaileak WHERE userId='ISADtaldea';";
+		try {
+			
+			ResultSet rs = dbk.execSQL(agindua);
+			while(rs.next()){
+					lista.add(rs.getString("userIzena"));
+			}
+			rs.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}return lista;
+	}
 	
 }

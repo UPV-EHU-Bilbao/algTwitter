@@ -5,14 +5,13 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-
-
+import logikoa.TableG.Lag;
 
 @SuppressWarnings("serial")
-public class TableG extends AbstractTableModel{
+public class TableF extends AbstractTableModel{
 	private Vector<String> columnNames = new Vector<String>();
 	private ArrayList<Lag> data = new ArrayList<Lag>();
-	public TableG(){
+	public TableF(){
 //) {
 		hasieratuZutabeIzenak();
 		//data = (Vector<Status>) statuses;
@@ -21,18 +20,14 @@ public class TableG extends AbstractTableModel{
 
 	class Lag{
 		String user;
-		String tweet;
-		public Lag(String user, String tweet) {
+		public Lag(String user) {
 			super();
 			this.user = user;
-			this.tweet = tweet;
 		}
 		public Object getBalioa(int i) {
 			switch (i) {
 			case 0:
 				return user;
-			case 1:
-				return tweet;
 			
 			default:
 				System.out.println("ERROREA");
@@ -46,28 +41,24 @@ public class TableG extends AbstractTableModel{
 			case 0:
 				user = (String) value;
 				break;
-			case 1:
-				tweet = (String) value;
-				break;
 			default:
 				System.out.println("ERROREA");	
 			}
 		}
 	}
-	public void kargatu(ArrayList<String[]> statuses){
+	public void kargatu(ArrayList<String> statuses){
 //		for (int st=0; st<statuses.size(); st++){
 //			Lag l = new Lag(statuses.get(st)[0], statuses.get(st)[1]);
 //			System.out.println("user: "+statuses.get(st)[0]+"txio: "+statuses.get(st)[1]);
 //			data.add(l);
 //		}
-		for (String[] status : statuses) {
-			data.add(new Lag(status[0],status[1]));
+		for (String status : statuses) {
+			data.add(new Lag(status));
 		}
 		
 	}
 	public void hasieratuZutabeIzenak(){	
 		columnNames.add("Twitter User");
-		columnNames.add("Txioa");
 	}
 	@Override
 	public int getColumnCount() {

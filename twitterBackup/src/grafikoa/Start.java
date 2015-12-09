@@ -50,6 +50,7 @@ public class Start extends JFrame{
 	JPanel center = new JPanel();
 	
 	public Start(){
+		user.setText("ISADtaldea");
 		gridBagHasieratu();
 		getContentPane().setBackground(Color.white);
 		this.setIconImage(wlogo.getImage());

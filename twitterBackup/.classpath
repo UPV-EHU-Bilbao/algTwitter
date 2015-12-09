@@ -4,12 +4,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="twitter4jcore"/>
 	<classpathentry kind="var" path="sqliteLib"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/poi-3.13-20150929.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/poi-examples-3.13-20150929.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/poi-excelant-3.13-20150929.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/poi-ooxml-3.13-20150929.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/poi-ooxml-schemas-3.13-20150929.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/poi-scratchpad-3.13-20150929.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leire/Desktop/liburutegiak/ooxml-lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="var" path="excel1"/>
+	<classpathentry kind="var" path="excel13"/>
+	<classpathentry kind="var" path="excel14"/>
+	<classpathentry kind="var" path="excel15"/>
+	<classpathentry kind="var" path="excel16"/>
+	<classpathentry kind="var" path="excel17"/>
+	<classpathentry kind="var" path="excel18"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

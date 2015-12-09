@@ -1,5 +1,7 @@
 package twittercomponents;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
 import logikoa.TableG;
@@ -18,8 +21,10 @@ import twitter4j.TwitterException;
 
 public class Favorites {
 	private static Favorites mfavorites = null;
-	Twitter twitter;
-	JPanel p1;
+	private Twitter twitter;
+	private List<Status> statuses = new ArrayList<Status>();
+	DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+
 	private Favorites(){
 		twitter = TokenKud.getToken().getMyTwitter();
 	}
@@ -36,17 +41,20 @@ public class Favorites {
 	public List<Status> getFavorites() throws IllegalStateException, TwitterException{
 		List<Status> toAdd= new ArrayList<Status>();
 		long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
-		if(max != 0){
-			//getFavPage(max);
+
 			try {
 				int pagenumber = 1;
 				int count = 20;
 				List<Status> statuses = new ArrayList<Status>();
 				while(true){
-					Paging page = new Paging(pagenumber, count, max);
-					int size = statuses.size();
-					statuses.addAll(twitter.getFavorites(page));
-					if(statuses.size()== size){
+					Paging page = new Paging(pagenumber, count).sinceId(max);
+							//, max);
+					//int size = statuses.size();
+					statuses = twitter.getFavorites(page);
+					//statuses.addAll(twitter.getFavorites(page));
+					int zenbat = statuses.size();
+					//if(statuses.size()== size){
+					if(zenbat == 0){
 						break;
         	        }
            
@@ -61,31 +69,8 @@ public class Favorites {
 				System.exit(-1);
 				TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 			}
-		}else{
-			try {
-				int pagenumber = 1;
-				int count = 20;
-				List<Status> statuses = new ArrayList<Status>();
-				while(true){
-					Paging page = new Paging(pagenumber, count);
-					int size = statuses.size();
-					statuses.addAll(twitter.getFavorites(page));
-					if(statuses.size()== size){
-						break;
-        	        }
-           
-			  }
-				
-			for(Status status: statuses){
-				toAdd.add(status);
-			}
-			} catch (TwitterException te) {
-				te.printStackTrace();
-				System.out.println("Failed to get favorites: " + te.getMessage());
-				System.exit(-1);
-				TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-			}
-		}return toAdd;
+
+		return statuses;
 	}
 	/*
 	 * #####################################################################
@@ -97,20 +82,9 @@ public class Favorites {
 	           
 			List<Status> statuses = null;
             long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
-            System.out.println(max);
-           if ( max == 0){
-            	statuses = twitter.getFavorites();
-            	for (Status status : statuses) {
-            		String[] favTweet = new String [3];
-            		favTweet[0] = Long.toString(status.getId());
-            		favTweet[1] = status.getUser().getScreenName();
-            		favTweet[2] = status.getText();
-            		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
-                
-            	}
-            }else{
+            System.out.println(max);       
             	getFavPage(max);	
-            }
+            
         } catch (TwitterException te) {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
            // timeTo(te.toString());
@@ -124,10 +98,14 @@ public class Favorites {
 		            int count = 20;
 		            List<Status> statuses = new ArrayList<Status>();
 	          	while(true){
-	          		Paging pag = new Paging(pagenumber, count, max);
+	          		Paging pag = new Paging(pagenumber, count).sinceId(max);
+	          				//, max);
 	          		int size = statuses.size();
+	          		statuses = twitter.getFavorites(pag);
+	          		//int zenbat = statuses.size();
 	          		statuses.addAll(twitter.getFavorites(pag));
 	          		if(statuses.size()== size){
+	          		//if(zenbat == 0){
 	          			break;
 	          		}
 	          	}
@@ -146,17 +124,22 @@ public class Favorites {
 		        }
 		        }
 		
-		public JPanel makeAtable(List<Status> l1){
-			JPanel panel = new JPanel();
-			JTable table = new JTable(new TableG(l1));
-			JScrollPane scrollPane = new JScrollPane(table);
-			p1.add(scrollPane);
-			return panel;
+	public ArrayList<String[]> viewFavorites(){
+		ArrayList<String[]> lista = new ArrayList<String[]>();
+		String agindua = "SELECT nork,txioa FROM fav WHERE userIzena='ISADtaldea';";
+		try {
 			
-		}
-		public List<Status> bistaratzeko() throws IllegalStateException, TwitterException{
-			return getFavorites();
+			ResultSet rs = dbk.execSQL(agindua);
+			while(rs.next()){
+				String[] status = new String[2];
+					status[0] = rs.getString("nork");
+					status[1] = rs.getString("txioa");
+					lista.add(status);
+			}		
+			rs.close();
 			
-		}
-	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}return lista;
+	}
 }
