@@ -110,8 +110,8 @@ public class Start extends JFrame{
 					String userId = user.getText();
 					System.out.println(userId);
 				
-					
-					 if(Eragiketak.getEragiketak().userIzena(userId)!= null){
+					String izena = Eragiketak.getEragiketak().userIzena(userId);
+					if(izena != null){
 						TokenKud.getToken().getSession(userId);
 						Erabiltzailea.getErab().setUserId(userId);
 						OrrNagusia.bistaratu();

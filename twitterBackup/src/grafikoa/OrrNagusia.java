@@ -1,16 +1,15 @@
 package grafikoa;
 import logikoa.*;
+import twitter4j.TwitterException;
+import twittercomponents.DirectMessages;
+import twittercomponents.Favorites;
+import twittercomponents.Followers;
+import twittercomponents.Following;
+import twittercomponents.HomeTimeLine;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,9 +22,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 
 import db.Eragiketak;
+import exportOptions.ExcelFile;
 
 public class OrrNagusia extends JFrame{
 	/**
@@ -57,7 +59,6 @@ public class OrrNagusia extends JFrame{
 	JCheckBox tweets = new JCheckBox("Tweets",false);
 	//JCheckBox rt = new JCheckBox(new ImageIcon("src/media1/images.png"),false);
 	//JCheckBox fav = new JCheckBox(new ImageIcon("src/media1/fav.jpg"),false);
-	JCheckBox rt = new JCheckBox("RT",false);
 	JCheckBox fav = new JCheckBox("FAV",false);
 	JCheckBox dm = new JCheckBox("Direct Messages",false);
 	JCheckBox followers = new JCheckBox("Followers",false);
@@ -67,6 +68,8 @@ public class OrrNagusia extends JFrame{
 	//JPanel NAGUSIA
 	JPanel nagusia = new JPanel();
 	JTextArea viewText = new JTextArea();
+	
+	JPanel lag = new JPanel();
 	
 	public OrrNagusia(){
 		getContentPane().setBackground(Color.decode("#7ea6e0"));
@@ -107,6 +110,13 @@ public class OrrNagusia extends JFrame{
 		nagusia.setBackground(Color.decode("#7ea6e0"));
 		nagusia.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		getContentPane().add(nagusia, BorderLayout.CENTER);
+		/* http://stackoverflow.com/questions/218155/how-do-i-change-jpanel-inside-a-jframe-on-the-fly
+		 * myJFrame.getContentPane().removeAll()
+myJFrame.getContentPane().invalidate()
+*/
+		//getContentPane().add(new nagusia)
+		getContentPane().revalidate();
+		 
 		
 		((JPanel)getContentPane()).setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	}
@@ -116,23 +126,21 @@ public class OrrNagusia extends JFrame{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if(rt.isSelected()){
-							//TokenKud.getToken().
-						}
 						if(fav.isSelected()){
-							TokenKud.getToken().backupFavorites();
+							Favorites.getMfav().backupFavorites();
 						}
 						if(tweets.isSelected()){
-							TokenKud.getToken().backupTweets();
+							HomeTimeLine.getMhome().backupTweets();
 						}
 						if(dm.isSelected()){
-							//TokenKud.getToken().getSentDirectMessage();
+							DirectMessages.getmDirect().backupDirectMessage();
+							DirectMessages.getmDirect().backupSentDirectMessage();
 						}
 						if(followers.isSelected()){
-							TokenKud.getToken().backupFollowers();
+							Followers.getMfollowers().backupFollowers();
 						}
 						if(following.isSelected()){
-							TokenKud.getToken().backupFollowing();
+							Following.getMfollowing().backupFollowing();
 						}	
 					}
 				});
@@ -144,25 +152,33 @@ public class OrrNagusia extends JFrame{
 						viewText.setText("KAIXO HEMEN NAGO");
 						//TokenKud.getToken().getFavorites();
 						
-							//TokenKud.getToken().getFavPage();
-							if(rt.isSelected()){
-								//TokenKud.getToken().backupRt();
-							}
 							if(fav.isSelected()){
-								//TokenKud.getToken().getFavPage();
+								try {
+									bistaratuFav();
+									bistaratuNagusia();
+								} catch (IllegalStateException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								} catch (TwitterException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
 							}
 							if(tweets.isSelected()){
-								TokenKud.getToken().tweetTaula();
-								//TokenKud.getToken().aldatuVisible();
+								try {
+									lag = HomeTimeLine.getMhome().getTweets();
+									lag.setVisible(true);
+									bistaratuNagusia();
+								} catch (IllegalStateException | TwitterException e1) {
+									System.out.println("ez da panela egin");
+								}
 							}
 							if(dm.isSelected()){
-								TokenKud.getToken().getSentDirectMessage();
 							}
 							if(followers.isSelected()){
-								TokenKud.getToken().getFollowers();
 							}
 							if(following.isSelected()){
-								TokenKud.getToken().getFollowing();
 							}
 						
 						
@@ -184,6 +200,27 @@ public class OrrNagusia extends JFrame{
 						
 						}
 				});
+				export.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try{
+							ExcelFile.getMExcel().createExcel();
+							JOptionPane.showMessageDialog(null,
+								    "Zure fitxategia eratu da!.",
+								    "Info",
+								    JOptionPane.PLAIN_MESSAGE);
+						}catch(Exception ex){
+							JOptionPane.showMessageDialog(null,
+								    "EZ DA FITXATEGIA ERATU.",
+								    "ERROR",
+								    JOptionPane.ERROR_MESSAGE);
+						}
+							
+						
+						
+					}
+				});
 					
 	}
 	public static void bistaratu(){
@@ -199,12 +236,20 @@ public class OrrNagusia extends JFrame{
 		aukerak.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		aukerak.add(tweets);
 		aukerak.add(fav);
-		aukerak.add(rt);
 		aukerak.add(dm);
 		aukerak.add(followers);
 		aukerak.add(following);
 	}
-	
+	public void bistaratuNagusia(){
+		nagusia.setLayout(new BoxLayout(aukerak, BoxLayout.Y_AXIS));
+		nagusia.setVisible(true);
+		
+	}
+	public void bistaratuFav() throws IllegalStateException, TwitterException{
+		JTable taula = new JTable(new TableG(Favorites.getMfav().bistaratzeko()));
+		JScrollPane scrollPane = new JScrollPane(taula);
+		nagusia.add(scrollPane);
+	}
 	public static void main(String[] args) {
 		bistaratu();
 		

@@ -9,6 +9,7 @@ import twitter4j.Status;
 
 
 
+@SuppressWarnings("serial")
 public class TableG extends AbstractTableModel{
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Lag> data = new Vector<Lag>();

@@ -6,8 +6,10 @@ Instrukzioak:
 *INSTALATZEKO: 
    * JDK8 instalatuta izan beharko duzu. Esteka deskargatzeko: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
    * Twitter4j deskargatu beharko duzu eta twitter4j-core-4.0.4.jar liburutegia instalatu beharko duzu proiektuan. Esteka deskargatzeko: http://twitter4j.org/archive/twitter4j-4.0.4.zip
-   * MysqlConnector 5.1.37 instalaturik izatea. Esteka deskargatzeko: https://dev.mysql.com/downloads/connector/j/
+   * SQLite 3.8.11.2 instalaturik izatea. Esteka deskargatzeko: https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.8.11.2.jar
+   * EXCEL liburutegiak deskargatu. Esteka:
 
+Pantaila Nagusia eta hasi behar dena Start da!!
 
 
 1. Lehenengo pantailan, 2 aukera ditugu:

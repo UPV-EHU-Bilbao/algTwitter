@@ -17,11 +17,14 @@ public class DBKudeatzaile {
 				conn = null;
 			}
 
-			String userName = "twitterUser";
-			String password = "twitter";
-			String url = "jdbc:mysql://localhost:3306/twittermysql";
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = (Connection) DriverManager.getConnection(url, userName, password);
+//			String userName = "twitterUser";
+//			String password = "twitter";
+		//	String url = "jdbc:mysql://localhost:3306/twittermysql";
+			String url = "jdbc:sqlite:twitter.sqlite";
+			//Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("org.sqlite.JDBC").newInstance();
+			conn = (Connection) DriverManager.getConnection(url);
+					//userName, password);
 			System.out.println("Database connection established");
 		} catch (Exception e) {
 			System.err.println("Cannot connect to database server");
@@ -29,13 +32,27 @@ public class DBKudeatzaile {
 		}
 	}
 
+	private void conClose() {
+
+		if (conn != null)
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		System.out.println("Database connection terminated");
+
+	}
+
 	private ResultSet query(Statement s, String query) {
 
 		ResultSet rs = null;
 
 		try {
-			s.executeQuery(query);
-			rs = s.getResultSet();
+			rs = s.executeQuery(query);
+			//rs = s.getResultSet();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +71,7 @@ public class DBKudeatzaile {
 		return instantzia;
 	}
 
-	public ResultSet execSQL(String query) {
+	public ResultSet execSQL(String query)  {
 		int count = 0;
 		Statement s = null;
 		ResultSet rs = null;
@@ -69,7 +86,16 @@ public class DBKudeatzaile {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		
+//		}finally {
+//			if (s != null)
+//			try {
+//				s.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+	}
+
 		return rs;
 	}
 }
