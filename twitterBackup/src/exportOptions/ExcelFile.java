@@ -36,25 +36,25 @@ public class ExcelFile {
     	}return mExcel;
     }
 	
-    public void createExcel(){
+    public void createExcel(String user){
     	String filePath = Export.getExport().saveWin();
     	/*
 	       * TXIO SHEET EGITEKO
 	       */
-		txioPage();
+		txioPage(user);
 	      /*
 	       * FAV SHEET EGITEKO
 	       */
-	      favPage();
+	      favPage(user);
 	      
 	      /*
 	       * FOLLOWERS SHEET EGITEKO
 	       */
-	      jarraitzaileakPage();
+	      jarraitzaileakPage(user);
 	      /*
 	       * FOLLOWING SHEET EGITEKO
 	       */
-	      jarraituakPage();
+	      jarraituakPage(user);
 	      
 	      String  filename = "backupTwitter.xls";
 	      try
@@ -73,13 +73,13 @@ public class ExcelFile {
 	      }
 	    //  Export.getExport().fileSave();
 	}
-    public  void txioPage(){
+    public  void txioPage(String user){
     	sheetTxio = workbook.createSheet("Txioak");
     	Row row = sheetTxio.createRow(0);
     	row.createCell(0).setCellValue("ID");
     	row.createCell(1).setCellValue("User");
     	row.createCell(2).setCellValue("Txioa");
-    	String agindua = "SELECT id, nork, txioa FROM txio WHERE userIzena='ISADtaldea'";
+    	String agindua = "SELECT id, nork, txioa FROM txio WHERE userIzena='"+user+"';";
     	int zut = 1;
     		try{
     			ResultSet rs = dbk.execSQL(agindua);
@@ -94,13 +94,13 @@ public class ExcelFile {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
     		}
     }
-    public void favPage(){
+    public void favPage(String user){
     	sheetFav = workbook.createSheet("FAV");
     	Row row = sheetFav.createRow(0);
     	row.createCell(0).setCellValue("ID");
     	row.createCell(1).setCellValue("User");
     	row.createCell(2).setCellValue("Txioa");
-    	String agindua = "SELECT idFav, nork, txioa FROM fav WHERE userIzena='ISADtaldea'";
+    	String agindua = "SELECT idFav, nork, txioa FROM fav WHERE userIzena='"+user+"';";
     	int zut = 1;
     		try{
     			ResultSet rs = dbk.execSQL(agindua);
@@ -115,12 +115,12 @@ public class ExcelFile {
     		}
     }
    
-    public void jarraituakPage(){
+    public void jarraituakPage(String user){
     	sheetFllw = workbook.createSheet("Jarraituak");
     	Row row = sheetFllw.createRow(0);
     	row.createCell(0).setCellValue("ID");
     	row.createCell(1).setCellValue("User");
-    	String agindua = "SELECT id, userIzena FROM jarraituak WHERE userIzena='ISADtaldea'";
+    	String agindua = "SELECT id, userIzena FROM jarraituak WHERE userId='"+user+"';";
     	int zut = 1;
     		try{
     			ResultSet rs = dbk.execSQL(agindua);
@@ -134,12 +134,12 @@ public class ExcelFile {
         		System.out.println("EZ DUZU INOR JARRAITZEN!!!");
     		}
     }
-    public void jarraitzaileakPage(){
+    public void jarraitzaileakPage(String user){
     	sheetFoll = workbook.createSheet("Jarraitzaileak");
     	Row row = sheetFoll.createRow(0);
     	row.createCell(0).setCellValue("ID");
     	row.createCell(1).setCellValue("User");
-    	String agindua = "SELECT id, userIzena FROM jarraitzaileak WHERE userIzena='ISADtaldea'";
+    	String agindua = "SELECT id, userIzena FROM jarraitzaileak WHERE userId='"+user+"';";
     	int zut = 1;
     		try{
     			ResultSet rs = dbk.execSQL(agindua);

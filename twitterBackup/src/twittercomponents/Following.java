@@ -71,7 +71,7 @@ public class Following {
 	            Eragiketak.getEragiketak().followingGorde(following,twitter.getScreenName());
 	            }
 	        }while ((cursor = ids.getNextCursor()) != 0);
-	        System.exit(0);
+	        //System.exit(0);
 	    } catch (TwitterException te) {
 	    	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
 	        //timeTo(te.toString());

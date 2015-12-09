@@ -210,7 +210,7 @@ myJFrame.getContentPane().invalidate()
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						try{
-							ExcelFile.getMExcel().createExcel();
+							ExcelFile.getMExcel().createExcel(Erabiltzailea.getErab().getUserId());
 							JOptionPane.showMessageDialog(null,
 								    "Zure fitxategia eratu da!.",
 								    "Info",
