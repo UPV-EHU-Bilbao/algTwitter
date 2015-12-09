@@ -9,6 +9,7 @@ import twittercomponents.Following;
 import twittercomponents.HomeTimeLine;
 
 import java.awt.BorderLayout;
+import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -156,28 +158,41 @@ myJFrame.getContentPane().invalidate()
 						//TokenKud.getToken().getFavorites();
 						
 							if(fav.isSelected()){
-									ArrayList<String[]> statuses = Favorites.getMfav().viewFavorites();
-									TableDemo1 td = new TableDemo1();
+									TDemoFav td = new TDemoFav();
 									td.createAndShowGUI();
-									td.eguneratu(statuses);
+									nagusia.removeAll();
+									nagusia.add(td);
+									getContentPane().add(nagusia);
+									getContentPane().revalidate();
 									
 								
 							}
 							if(tweets.isSelected()){
+								TDemoTweets td = new TDemoTweets();
+								td.createAndShowGUI();
+								nagusia.removeAll();
+								nagusia.add(td);
+								getContentPane().add(nagusia);
+								getContentPane().revalidate();
 							}
 							if(dm.isSelected()){
 							}
 							if(followers.isSelected()){
-								ArrayList<String> statuses = Followers.getMfollowers().viewFollowers();
-								TableDemo2 td = new TableDemo2();
-								td.eguneratu(statuses);
+								TDemoFollowers td = new TDemoFollowers();
 								td.createAndShowGUI();
+								nagusia.removeAll();
+								nagusia.add(td);
+								getContentPane().add(nagusia);
+								getContentPane().revalidate();
 							}
 							if(following.isSelected()){
-								ArrayList<String> statuses = Following.getMfollowing().viewFollowing();
-								TableDemo2 td = new TableDemo2();
-								td.eguneratu(statuses);
+
+								TDemoFollowing td = new TDemoFollowing();
 								td.createAndShowGUI();
+								nagusia.removeAll();
+								nagusia.add(td);
+								getContentPane().add(nagusia);
+								getContentPane().revalidate();
 							}
 						
 						
@@ -233,6 +248,12 @@ myJFrame.getContentPane().invalidate()
 	private void bistaratuAukerak(){
 		aukerak.setLayout(new BoxLayout(aukerak, BoxLayout.Y_AXIS));
 		aukerak.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		ButtonGroup cbg = new ButtonGroup();
+		cbg.add(tweets);
+		cbg.add(fav);
+		cbg.add(dm);
+		cbg.add(followers);
+		cbg.add(following);
 		aukerak.add(tweets);
 		aukerak.add(fav);
 		aukerak.add(dm);

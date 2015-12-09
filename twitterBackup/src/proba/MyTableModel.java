@@ -1,33 +1,35 @@
-package logikoa;
+package proba;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import logikoa.TableG.Lag;
 
-@SuppressWarnings("serial")
-public class TableF extends AbstractTableModel{
+
+public class MyTableModel extends AbstractTableModel{
+
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Lag> data = new Vector<Lag>();
-	public TableF(ArrayList<String> f){
-//) {
+	public MyTableModel(ArrayList<String[]> status){
 		hasieratuZutabeIzenak();
-		kargatu(f);
+		kargatu(status);
 	}
 
 	class Lag{
-		String user;
-		public Lag(String user) {
+		String izena;
+		String abizena;
+		public Lag(String izena, String abizena) {
 			super();
-			this.user = user;
+			this.izena = izena;
+			this.abizena = abizena;
 		}
 		public Object getBalioa(int i) {
 			switch (i) {
 			case 0:
-				return user;
-			
+				return izena;
+			case 1:
+				return abizena;
 			default:
 				System.out.println("ERROREA");
 				return null;	
@@ -35,24 +37,32 @@ public class TableF extends AbstractTableModel{
 			
 			
 		}
+		
+		
 		public void insertElementAt(Object value, int i){
 			switch (i) {
 			case 0:
-				user = (String) value;
+				izena = (String) value;
+				break;
+			case 1:
+				abizena = (String) value;
 				break;
 			default:
 				System.out.println("ERROREA");	
 			}
 		}
 	}
-	public void kargatu(ArrayList<String> statuses){
-		for (String status : statuses) {
-			data.add(new Lag(status));
+	public void kargatu(ArrayList<String[]> status){
+		for(int n=0; n<status.size();n++){
+			Lag e = new Lag(status.get(n)[0],status.get(n)[1]);
+			data.add(e);
 		}
 		
 	}
-	public void hasieratuZutabeIzenak(){	
-		columnNames.add("Twitter User");
+	public void hasieratuZutabeIzenak(){
+		
+		columnNames.add("User");
+		columnNames.add("Tweet");
 	}
 	@Override
 	public int getColumnCount() {
@@ -71,12 +81,11 @@ public class TableF extends AbstractTableModel{
 	public Class getColumnClass(int col){
 		return data.get(0).getBalioa(col).getClass();
 	}
-	public String getColumnName(int col){
-		return columnNames.get(col);
-	}
-
 	public void setValueAt(Object value, int row, int col){
 		data.get(row).insertElementAt(value, col);
+	}
+	public String getColumnName(int col){
+		return columnNames.get(col);
 	}
 	public boolean isCellEditable(int row, int col){
 		return false;

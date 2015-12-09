@@ -11,12 +11,10 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class TableG extends AbstractTableModel{
 	private Vector<String> columnNames = new Vector<String>();
-	private ArrayList<Lag> data = new ArrayList<Lag>();
-	public TableG(){
-//) {
+	private Vector<Lag> data = new Vector<Lag>();
+	public TableG(ArrayList<String[]> status){
 		hasieratuZutabeIzenak();
-		//data = (Vector<Status>) statuses;
-		//kargatu(statuses);
+		kargatu(status);
 	}
 
 	class Lag{
@@ -54,15 +52,13 @@ public class TableG extends AbstractTableModel{
 			}
 		}
 	}
-	public void kargatu(ArrayList<String[]> statuses){
-//		for (int st=0; st<statuses.size(); st++){
-//			Lag l = new Lag(statuses.get(st)[0], statuses.get(st)[1]);
-//			System.out.println("user: "+statuses.get(st)[0]+"txio: "+statuses.get(st)[1]);
-//			data.add(l);
-//		}
-		for (String[] status : statuses) {
-			data.add(new Lag(status[0],status[1]));
+	public void kargatu(ArrayList<String[]> status){
+
+		for(int n=0; n<status.size();n++){
+			Lag e = new Lag(status.get(n)[0],status.get(n)[1]);
+			data.add(e);
 		}
+		
 		
 	}
 	public void hasieratuZutabeIzenak(){	
@@ -83,6 +79,9 @@ public class TableG extends AbstractTableModel{
 	public Object getValueAt(int row, int col) {
 		return data.get(row).getBalioa(col);
 	}
+	public Class getColumnClass(int col){
+		return data.get(0).getBalioa(col).getClass();
+	}
 	
 	public String getColumnName(int col){
 		return columnNames.get(col);
@@ -90,5 +89,8 @@ public class TableG extends AbstractTableModel{
 
 	public void setValueAt(Object value, int row, int col){
 		data.get(row).insertElementAt(value, col);
+	}
+	public boolean isCellEditable(int row, int col){
+		return false;
 	}
 }
