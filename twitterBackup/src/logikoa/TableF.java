@@ -12,7 +12,6 @@ public class TableF extends AbstractTableModel{
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Lag> data = new Vector<Lag>();
 	public TableF(ArrayList<String> f){
-//) {
 		hasieratuZutabeIzenak();
 		kargatu(f);
 	}
@@ -23,18 +22,26 @@ public class TableF extends AbstractTableModel{
 			super();
 			this.user = user;
 		}
+		
+		/**
+		 * Gure array-ean i gelaxkan dagoen Objektua bueltatzen du.
+		 * @param i
+		 * @return Object - Objektu bat jasotzen du.
+		 */
 		public Object getBalioa(int i) {
 			switch (i) {
 			case 0:
 				return user;
-			
 			default:
 				System.out.println("ERROREA");
 				return null;	
 			}
-			
-			
 		}
+		
+		/**
+		 * Gelaxka batean (Gure array-an i indizean) balio bat sartzen du.
+		 * @param value, i - Balioa eta indizea jasotzen ditu.
+		 */
 		public void insertElementAt(Object value, int i){
 			switch (i) {
 			case 0:
@@ -45,11 +52,15 @@ public class TableF extends AbstractTableModel{
 			}
 		}
 	}
+	
+	/**
+	 * Gure user-ak kargatzen ditugu.
+	 * @param statuses
+	 */
 	public void kargatu(ArrayList<String> statuses){
 		for (String status : statuses) {
 			data.add(new Lag(status));
-		}
-		
+		}		
 	}
 	
 	/**
@@ -86,6 +97,11 @@ public class TableF extends AbstractTableModel{
 		return data.get(row).getBalioa(col);
 	}
 
+	/**
+	 * Guk eskatzen diogun zutabearen klasea bueltatzen du.
+	 * @param col - Zutabe baten id-a.
+	 * @return Class - Zutabearen klasea bueltatzen du.
+	 */
 	public Class getColumnClass(int col){
 		return data.get(0).getBalioa(col).getClass();
 	}
