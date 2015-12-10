@@ -7,7 +7,7 @@ Instrukzioak:
    * JDK8 instalatuta izan beharko duzu. Esteka deskargatzeko: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
    * Twitter4j deskargatu beharko duzu eta twitter4j-core-4.0.4.jar liburutegia instalatu beharko duzu proiektuan. Esteka deskargatzeko: http://twitter4j.org/archive/twitter4j-4.0.4.zip
    * SQLite 3.8.11.2 instalaturik izatea. Esteka deskargatzeko: https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.8.11.2.jar
-   * EXCEL liburutegiak deskargatu. Esteka: http://www.apache.org/dyn/closer.lua/poi/release/src/poi-src-3.13-20150929.zip
+   * EXCEL liburutegiak deskargatu. Esteka: http://www.eu.apache.org/dist/poi/release/src/poi-src-3.13-20150929.zip
 
 Pantaila Nagusia eta hasi behar dena Start da!!
 
