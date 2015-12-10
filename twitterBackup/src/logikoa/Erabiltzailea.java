@@ -15,16 +15,25 @@ public class Erabiltzailea {
 	private Erabiltzailea(){
 		
 	}
+	
 	public static synchronized Erabiltzailea getErab(){
 		if(mErab==null){
 			mErab = new Erabiltzailea();
 		}
 		return mErab;
 	}
+	
+	/**
+	 * Erabiltzailearen Id-a bueltatuko du.
+	 * @return getUserId - user-aren Id-a bueltzatzen du
+	 */
 	public String getUserId() {
 		return userId;
 	}
-	//db-an gordeta dagoen user id -a izango da erabiltzaile saia irekita dagoenenan gordeko den izena
+	/**
+	 * db-an gordeta dagoen user id -a izango da erabiltzaile saia irekita dagoenenan gordeko den izena
+	 * @param izena
+	 */
 	public void setUserId(String izena) {
 		userId = izena;
 		
