@@ -1,7 +1,11 @@
 package twittercomponents;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import db.DBKudeatzaile;
 import db.Eragiketak;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
@@ -13,7 +17,7 @@ import twitter4j.TwitterException;
 public class DirectMessages {
 	private static DirectMessages mDirect = null;
 	Twitter twitter;
-	
+	DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 	private DirectMessages(){
 		twitter = TokenKud.getToken().getMyTwitter();
 	}
@@ -119,11 +123,33 @@ public class DirectMessages {
                 paging.setPage(paging.getPage() + 1);
             } while (messages.size() > 0 && paging.getPage() < 10);
             System.out.println("done.");
-            //System.exit(0);
         } catch (TwitterException te) {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
         }
+	}
+	/*
+	 * #####################################################################
+	 * ###########TAULAN BISTARATZEKO METODOA###############################
+	 * #####################################################################
+	 */
+	public ArrayList<String[]> viewFavorites(String user){
+		ArrayList<String[]> lista = new ArrayList<String[]>();
+		String agindua = "SELECT nork,mezua FROM md WHERE userId='"+user+"';";
+		try {
+			
+			ResultSet rs = dbk.execSQL(agindua);
+			while(rs.next()){
+				String[] status = new String[2];
+					status[0] = rs.getString("nork");
+					status[1] = rs.getString("mezua");
+					lista.add(status);
+			}		
+			rs.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}return lista;
 	}
 	
 }

@@ -65,7 +65,7 @@ public class OrrNagusia extends JFrame{
 	JPanel nagusia = new JPanel();
 	JTextArea viewText = new JTextArea();
 	
-	JPanel lag = new JPanel();
+	JPanel aldagaia = new JPanel();
 	
 	public OrrNagusia(){
 		getContentPane().setBackground(Color.decode("#7ea6e0"));
@@ -106,6 +106,7 @@ public class OrrNagusia extends JFrame{
 		nagusia.setBackground(Color.decode("#7ea6e0"));
 		nagusia.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		getContentPane().add(nagusia, BorderLayout.CENTER);
+		aldagaia = nagusia;
 		/* http://stackoverflow.com/questions/218155/how-do-i-change-jpanel-inside-a-jframe-on-the-fly
 		 * myJFrame.getContentPane().removeAll()
 myJFrame.getContentPane().invalidate()
@@ -145,45 +146,51 @@ myJFrame.getContentPane().invalidate()
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						viewText.setText("KAIXO HEMEN NAGO");
-						//TokenKud.getToken().getFavorites();
-						
 							if(fav.isSelected()){
 									TDemoFav td = new TDemoFav(Erabiltzailea.getErab().getUserId());
 									td.createAndShowGUI();
-									nagusia.removeAll();
-									nagusia.add(td);
-									getContentPane().add(nagusia);
+									remove(aldagaia);
+									aldagaia = td;
+									getContentPane().add(td,BorderLayout.CENTER);
 									getContentPane().revalidate();
-									
-								
+									getContentPane().repaint();
 							}
 							if(tweets.isSelected()){
 								TDemoTweets td = new TDemoTweets(Erabiltzailea.getErab().getUserId());
 								td.createAndShowGUI();
-								nagusia.removeAll();
-								nagusia.add(td);
-								getContentPane().add(nagusia);
+								remove(aldagaia);
+								aldagaia = td;
+								getContentPane().add(td,BorderLayout.CENTER);
 								getContentPane().revalidate();
+								getContentPane().repaint();
 							}
 							if(dm.isSelected()){
+								TDemoMD td = new TDemoMD(Erabiltzailea.getErab().getUserId());
+								td.createAndShowGUI();
+								remove(aldagaia);
+								aldagaia = td;
+								getContentPane().add(td,BorderLayout.CENTER);
+								getContentPane().revalidate();
+								getContentPane().repaint();
 							}
 							if(followers.isSelected()){
 								TDemoFollowers td = new TDemoFollowers(Erabiltzailea.getErab().getUserId());
 								td.createAndShowGUI();
-								nagusia.removeAll();
-								nagusia.add(td);
-								getContentPane().add(nagusia);
+								remove(aldagaia);
+								aldagaia = td;
+								getContentPane().add(td,BorderLayout.CENTER);
 								getContentPane().revalidate();
+								getContentPane().repaint();
 							}
 							if(following.isSelected()){
 
 								TDemoFollowing td = new TDemoFollowing(Erabiltzailea.getErab().getUserId());
 								td.createAndShowGUI();
-								nagusia.removeAll();
-								nagusia.add(td);
-								getContentPane().add(nagusia);
+								remove(aldagaia);
+								aldagaia = td;
+								getContentPane().add(td,BorderLayout.CENTER);
 								getContentPane().revalidate();
+								getContentPane().repaint();
 							}
 						
 						
@@ -251,16 +258,7 @@ myJFrame.getContentPane().invalidate()
 		aukerak.add(followers);
 		aukerak.add(following);
 	}
-	public void bistaratuNagusia(){
-		nagusia.setLayout(new BoxLayout(aukerak, BoxLayout.Y_AXIS));
-		nagusia.setVisible(true);
-		
-	}
-//	public void bistaratuFav() throws IllegalStateException, TwitterException{
-//		JTable taula = new JTable(new TableG(Favorites.getMfav().bistaratzeko()));
-//		JScrollPane scrollPane = new JScrollPane(taula);
-//		nagusia.add(scrollPane);
-//	}
+	
 	public static void main(String[] args) {
 		bistaratu();
 		

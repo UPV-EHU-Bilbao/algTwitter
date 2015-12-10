@@ -85,7 +85,7 @@ public class Eragiketak {
 		dbk.execSQL("INSERT INTO txio(id, nork, txioa, userIzena)VALUES('"+tweet[0]+"','"+tweet[1]+"','"+tweet[2]+"','"+userId+"');");
 	}
 	public void dmGorde(String[] mezua, String userId){
-		dbk.execSQL("INSERT INTO md(id, nork, mezua, userId) VALUES("+mezua[0]+",'"+mezua[1]+"','"+mezua[2]+",'"+userId+");");
+		dbk.execSQL("INSERT INTO md(id, nork, mezua, userId) VALUES('"+mezua[0]+"','"+mezua[1]+"','"+mezua[2]+"','"+userId+"');");
 	}
 	public String userIzena(String id){
 		String userId = "";

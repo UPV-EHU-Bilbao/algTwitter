@@ -14,8 +14,6 @@ import twittercomponents.Favorites;
 
 @SuppressWarnings("serial")
 public class TDemoFav extends JPanel{
-		private TableG model;
-		private JTable taula;
 		//private JScrollPane scrollPane;
 		public TDemoFav(String user) {
 			
@@ -28,13 +26,6 @@ public class TDemoFav extends JPanel{
 			JScrollPane scrollPane = new JScrollPane(taula);
 
 			add(scrollPane);
-		}
-
-		public void eguneratu(ArrayList<String[]> statuses){
-			model.kargatu(statuses);
-			taula.revalidate();
-			revalidate();
-			
 		}
 		public void createAndShowGUI(){
 

@@ -5,31 +5,31 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+import logikoa.TableG.Lag;
 
+public class TableM extends AbstractTableModel{
 
-
-public class TableG extends AbstractTableModel{
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Lag> data = new Vector<Lag>();
-	public TableG(ArrayList<String[]> status){
+	public TableM(ArrayList<String[]> status){
 		hasieratuZutabeIzenak();
 		kargatu(status);
 	}
 
 	class Lag{
 		String user;
-		String tweet;
+		String mezua;
 		public Lag(String user, String tweet) {
 			super();
 			this.user = user;
-			this.tweet = tweet;
+			this.mezua = tweet;
 		}
 		public Object getBalioa(int i) {
 			switch (i) {
 			case 0:
 				return user;
 			case 1:
-				return tweet;
+				return mezua;
 			
 			default:
 				System.out.println("ERROREA");
@@ -44,7 +44,7 @@ public class TableG extends AbstractTableModel{
 				user = (String) value;
 				break;
 			case 1:
-				tweet = (String) value;
+				mezua = (String) value;
 				break;
 			default:
 				System.out.println("ERROREA");	
@@ -62,19 +62,17 @@ public class TableG extends AbstractTableModel{
 	}
 	public void hasieratuZutabeIzenak(){	
 		columnNames.add("Twitter User");
-		columnNames.add("Txioa");
+		columnNames.add("Mezua");
 	}
-	@Override
+
 	public int getColumnCount() {
 		return columnNames.size();
 	}
 
-	@Override
 	public int getRowCount() {
 		return data.size();
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
 		return data.get(row).getBalioa(col);
 	}
