@@ -37,6 +37,13 @@ public class HomeTimeLine {
 	 * ###########BISTARATZEKO METODOAK###########
 	 * ###########################################
 	 */
+	
+	/**
+	 * Txioak bistaratzen ditu
+	 * @return JPanel - JPanel-a egin dugu txioak bistaratzeko.
+	 * @throws IllegalStateException
+	 * @throws TwitterException
+	 */
 	public JPanel getTweets() throws IllegalStateException, TwitterException{
 		long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
 			try {
@@ -68,6 +75,10 @@ public class HomeTimeLine {
 	 * #####################################################################
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
 	 * #####################################################################
+	 */
+	
+	/**
+	 * Txioen backup-a egiten du.
 	 */
 	public void backupTweets(){
 		try {
@@ -112,7 +123,11 @@ public class HomeTimeLine {
 	        }
 	}
 
-	
+	/**
+	 * Txioak bistaratzen ditu.
+	 * @param user
+	 * @return ArrayList<String> - Txioak bueltatzen ditu ArrayList batean.
+	 */
 public ArrayList<String[]> viewTxio(String user){
 		
 		//String[] status = new String[2];

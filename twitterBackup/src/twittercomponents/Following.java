@@ -31,6 +31,8 @@ public class Following {
 	 * ###########BISTARATZEKO METODOAK###########
 	 * ###########################################
 	 */
+	
+	
 	public void getFollowing(){
 		try {
             long cursor = -1;
@@ -56,6 +58,10 @@ public class Following {
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
 	 * #####################################################################
 	 */
+	
+	/**
+	 * Gure kontuarekin jarraitzen ditugunen backup-a egiten du.
+	 */
 	public void backupFollowing(){
 		  try{
 			long cursor = -1;
@@ -80,6 +86,11 @@ public class Following {
 	    }
 		
 	   }
+	
+	/**
+	 * Gure kontuarekin jarraitzen ditugun user-ak bistaratzen ditu.
+	 * @return ArrayList<String> - Jarraitutakoak ArrayList-ean bueltatzen ditu.
+	 */
 	public ArrayList<String> viewFollowing(String user){
 		ArrayList<String> lista = new ArrayList<String>();
 		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='"+user+"';";

@@ -56,6 +56,10 @@ public class Followers {
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
 	 * #####################################################################
 	 */
+	
+	/**
+	 * Gure kontura jarraitzen gaituzten user-en backup-a egiten du.
+	 */
 	public void backupFollowers(){
 		try {
             long cursor = -1;
@@ -76,6 +80,10 @@ public class Followers {
         }
 	}
 	
+	/**
+	 * Gure kontura jarraitzen gaituzten user-ak bistaratzen ditu.
+	 * @return ArrayList<String> - Jarraitzen gaituztak bistaratu.
+	 */
 	public ArrayList<String> viewFollowers(String user){
 		ArrayList<String> lista = new ArrayList<String>();
 		String agindua = "SELECT userIzena FROM jarraitzaileak WHERE userId='"+user+"';";
