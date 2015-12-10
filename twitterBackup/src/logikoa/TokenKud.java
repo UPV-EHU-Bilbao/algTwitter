@@ -48,6 +48,13 @@ public class TokenKud {
 	 * ###########HASIERATU GABEKO ERABILTZAILEAK###########
 	 * #####################################################
 	 */
+	
+	/**
+	 * Gure tokenak hasieratzen ditu
+	 * @throws TwitterException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public void hasieratuToken() throws TwitterException, IOException, SQLException{
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -68,6 +75,14 @@ public class TokenKud {
 		
            
 	}
+	
+	/**
+	 * Gure accesstoken eta requesttoken-ak lortzen ditu.
+	 * @param pin - Twitter-ek ematen digun pin-a
+	 * @throws TwitterException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public void enterPin(String pin) throws TwitterException, IOException, SQLException{
 		System.out.println("AccesToken lortzen...");
 		accessToken = twitter.getOAuthAccessToken(requestToken, pin);
@@ -89,6 +104,11 @@ public class TokenKud {
 	 * ###########HASIERATUTAKO ERABILTZAILEEN SAIOA BERRESKURATU###########
 	 * #####################################################################
 	 */
+	
+	/**
+	 * Gure token-ak sartzen ditu eta Twitter-en instantzia bat sortzen du CB-en
+	 * @param izena
+	 */
 	public void getSession(String izena){
 		System.out.println(izena);
 		String accesstoken = Eragiketak.getEragiketak().tokenBilatu(izena);
@@ -100,20 +120,10 @@ public class TokenKud {
 		cb.setOAuthAccessToken(accesstoken);
 		cb.setOAuthAccessTokenSecret(secret);
 		twitter = new TwitterFactory(cb.build()).getInstance();
-		
-		
 	}
 	public Twitter getMyTwitter(){
 		return twitter;
-	}
-	
-	
-	
-	
-	
-	
-
-	
+	}	
 	
 	
 	
@@ -123,8 +133,11 @@ public class TokenKud {
 	 * #####################################################################
 	 */
 	
+	/**
+	 * Gure follower-ak gordetzen ditu haien id eta izenarekin.
+	 * @param max
+	 */
 	public void getFollowersPage(long max){
-		
 		try {
             long cursor = -1;
             IDs ids;
@@ -141,9 +154,7 @@ public class TokenKud {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             timeTo(te.toString());
             TimeTo.getMessage(timeTo(te.toString()));
-        }
-		  	
-		
+        }	
 	}
 	public void getFollowingPage(long max){
 		
@@ -153,6 +164,13 @@ public class TokenKud {
 	 * ###############################################
 	 * ###################TIME TO NEXT################
 	 * ###############################################
+	 */
+	
+	
+	/**
+	 * Reset-a egiteko falta diren segunduak harttu eta bueltatzen ditu String moduan
+	 * @param errorea
+	 * @return
 	 */
 	public String timeTo(String errorea){
 		 String azpikatea = errorea.substring(errorea.indexOf("secondsUntilReset"),errorea.indexOf("secondsUntilReset")+ "secondsUntilReset=000".length());
