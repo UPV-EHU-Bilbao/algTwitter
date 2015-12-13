@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
+import db.Eragiketak;
 import exportOptions.ExcelFile;
 
 public class OrrNagusia extends JFrame{
@@ -206,8 +206,13 @@ public class OrrNagusia extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						//JOptionPane.
 						Object[] options = { "Bai", "Ez" };
-						int answer = JOptionPane.showOptionDialog(null, "Are you sure?", "EXIT", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,options[0]);
+						int answer = JOptionPane.showOptionDialog(null, "Ziur zaude? Zure datu guztiak aplikaziotik ezabatuko dira", "EXIT", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,options[0]);
 						if(answer == JOptionPane.YES_OPTION){
+							Eragiketak.getEragiketak().deleteAll(Erabiltzailea.getErab().getUserId());
+							JOptionPane.showMessageDialog(null,
+								    "DATUAK EZABATUTA =(",
+								    "AGUR BENHUR!",
+								    JOptionPane.NO_OPTION);
 							System.exit(0);
 						}
 						

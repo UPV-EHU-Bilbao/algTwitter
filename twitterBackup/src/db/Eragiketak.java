@@ -13,10 +13,22 @@ public class Eragiketak {
 			mEragiketak = new Eragiketak();
 		}return mEragiketak;
 	}
+	/**
+	 * Token -a gordetzeko erabiliko da erabiltzailea logeatzen den lehenengo aldian
+	 * @param token
+	 * @param tokenSecret
+	 * @param user
+	 * @throws SQLException
+	 */
 	public void tokenGorde(String token, String tokenSecret, String user) throws SQLException{
 		String agindua = "INSERT INTO token(accessToken, accessTokenSecret, user)VALUES('"+token+"','"+tokenSecret+"','"+user+"')";
 		dbk.execSQL(agindua);
 	}
+	/**
+	 * Token secret -a gordetzeko erabiliko da erabiltzailea logeatzen den lehenengo aldian
+	 * @param tokenSecret
+	 * @throws SQLException
+	 */
 	public void tokenSecretGorde(String tokenSecret) throws SQLException{
 		dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES('"+tokenSecret+"');");
 		//rs = dbk.execSQL("INSERT INTO token(accessTokenSecret)VALUES("+tokenSecret+");");
@@ -27,6 +39,11 @@ public class Eragiketak {
 	public void consumerSecretGorde(String cS) throws SQLException{
 		dbk.execSQL("INSERT INTO `token`(`consumerKeySecret`)VALUES('"+cS+"');");
 	}
+	/**
+	 * Logeatuta dagoen erabiltzailearen token -ak bilatuko ditu
+	 * @param izena
+	 * @return
+	 */
 	public String tokenBilatu(String izena){
 		String token = "";
 		try {
@@ -148,11 +165,7 @@ public class Eragiketak {
 			
 			}return Long.valueOf(idS);
 		}
-		/*if (idS == null){
-			return 0;
-		}else{*/
-			
-		//}
+		
 	}
 	public long azkenjarraitzId(){
 		long id = 0;
@@ -213,6 +226,21 @@ public class Eragiketak {
 			e.printStackTrace();
 		}
 		return zenb;
+	}
+	/*
+	 * #############################################################
+	 * ###############ERABILTZAILEAREN DATUAK EZABATU###############
+	 * #############################################################
+	 */
+	public void deleteAll(String user){
+		dbk.execSQL("DELETE FROM fav WHERE userIzena='"+user+"';");
+		dbk.execSQL("DELETE FROM txio WHERE userIzena='"+user+"';");
+		dbk.execSQL("DELETE FROM jarraituak WHERE userIzena='"+user+"';");
+		dbk.execSQL("DELETE FROM jarraitzaileak WHERE userId='"+user+"';");
+		dbk.execSQL("DELETE FROM md WHERE userId='"+user+"';");
+		dbk.execSQL("DELETE FROM user WHERE izena='"+user+"';");
+		dbk.execSQL("DELETE FROM token WHERE user='"+user+"';");
+		
 	}
 
 
