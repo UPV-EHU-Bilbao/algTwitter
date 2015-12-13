@@ -132,8 +132,8 @@ public class OrrNagusia extends JFrame{
 							HomeTimeLine.getMhome().backupTweets();
 						}
 						if(dm.isSelected()){
-							DirectMessages.getmDirect().backupDM();
-							//DirectMessages.getmDirect().backupSentDirectMessage();
+							DirectMessages.getmDirect().backupSentDirectMessage();
+							DirectMessages.getmDirect().backupDirectMessage();
 						}
 						if(followers.isSelected()){
 							Followers.getMfollowers().backupFollowers();

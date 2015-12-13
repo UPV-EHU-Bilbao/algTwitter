@@ -91,7 +91,7 @@ public class Followers {
 	 */
 	public ArrayList<String> viewFollowers(String user){
 		ArrayList<String> lista = new ArrayList<String>();
-		String agindua = "SELECT userIzena FROM jarraitzaileak WHERE userId='"+user+"';";
+		String agindua = "SELECT userIzena FROM jarraitzaileak WHERE userId='"+user+"' ORDER BY id DESC;";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);

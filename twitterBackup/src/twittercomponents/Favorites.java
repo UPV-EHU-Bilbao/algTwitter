@@ -83,7 +83,7 @@ public class Favorites {
 		 */
 	public ArrayList<String[]> viewFavorites(String user){
 		ArrayList<String[]> lista = new ArrayList<String[]>();
-		String agindua = "SELECT nork,txioa FROM fav WHERE userIzena='"+user+"';";
+		String agindua = "SELECT nork,txioa FROM fav WHERE userIzena='"+user+"' ORDER BY idFav DESC;";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);

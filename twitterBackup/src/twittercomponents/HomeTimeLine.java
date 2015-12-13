@@ -98,7 +98,7 @@ public ArrayList<String[]> viewTxio(String user){
 		
 		//String[] status = new String[2];
 		ArrayList<String[]> lista = new ArrayList<String[]>();
-		String agindua = "SELECT nork,txioa FROM txio WHERE userIzena='"+user+"';";
+		String agindua = "SELECT nork,txioa FROM txio WHERE userIzena='"+user+"' ORDER BY id DESC;";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);

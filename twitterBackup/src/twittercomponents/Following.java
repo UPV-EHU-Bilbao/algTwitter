@@ -98,7 +98,7 @@ public class Following {
 	 */
 	public ArrayList<String> viewFollowing(String user){
 		ArrayList<String> lista = new ArrayList<String>();
-		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='"+user+"';";
+		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='"+user+"' ORDER BY id DESC;";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);

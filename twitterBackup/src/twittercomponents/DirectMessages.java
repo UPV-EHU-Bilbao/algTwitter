@@ -27,7 +27,13 @@ public class DirectMessages {
 			mDirect = new DirectMessages();
 		}return mDirect;
 	}
-	public void backupDM(){
+	
+	/*
+	 * #####################################################################
+	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
+	 * #####################################################################
+	 */
+	public void backupSentDirectMessage(){
 		long max;
 		try {
 			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
@@ -62,57 +68,40 @@ public class DirectMessages {
             TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 		}
 	}
-	/*
-	 * #####################################################################
-	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
-	 * #####################################################################
-	 */
-	public void backupSentDirectMessage(){
-		 try {
-	            Paging page = new Paging(1);
-	            List<DirectMessage> directMessages;
-	            do {
-	                directMessages = twitter.getSentDirectMessages(page);
-	                for (DirectMessage message : directMessages) {
-	                    System.out.println("Noiz: "+message.getCreatedAt()+"To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
-	                            + message.getText());
-	                    String[]mezua = new String[3];
-	                    mezua[0] = Long.toString(message.getId());
-	                    mezua[1] = message.getRecipientScreenName();
-	                    mezua[2] = message.getText();
-	                    Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
-	                }
-	                page.setPage(page.getPage() + 1);
-	            } while (directMessages.size() > 0 && page.getPage() < 10);
-	            System.out.println("done.");
-	            //System.exit(0);
-	        } catch (TwitterException te) {
-	        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-	            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-	        }
-	}
 	public void backupDirectMessage(){
-        try {
-            Paging paging = new Paging(1);
-            List<DirectMessage> messages;
-            do {
-                messages = twitter.getDirectMessages(paging);
-                for (DirectMessage message : messages) {
-                    System.out.println("Noiz: "+message.getCreatedAt()+"From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
-                            + message.getText());
-                    String[]mezua = new String[3];
-                    mezua[0] = Long.toString(message.getId());
-                    mezua[1] = message.getRecipientScreenName();
-                    mezua[2] = message.getText();
-                    Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
-                }
-                paging.setPage(paging.getPage() + 1);
-            } while (messages.size() > 0 && paging.getPage() < 10);
-            System.out.println("done.");
-        } catch (TwitterException te) {
-        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+		long max;
+		try {
+			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
+		
+		 int pagenumber = 1;
+         int count = 20;
+         List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
+         while(true){
+       		Paging pag = new Paging(pagenumber, count).sinceId(max);
+       				//, max);
+       		int size = directMessages.size();
+       		directMessages = twitter.getDirectMessages(pag);
+       		//int zenbat = statuses.size();
+       		directMessages.addAll(twitter.getDirectMessages(pag));
+       		if(directMessages.size()== size){
+       		//if(zenbat == 0){
+       			break;
+       		}
+         }
+         for (DirectMessage message : directMessages) {
+             System.out.println("Noiz: "+message.getCreatedAt()+"From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
+                     + message.getText());
+             String[]mezua = new String[3];
+             mezua[0] = Long.toString(message.getId());
+             mezua[1] = message.getRecipientScreenName();
+             mezua[2] = message.getText();
+             Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
+         }
+		} catch (TwitterException te) {
+			System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            //timeTo(te.toString());
             TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-        }
+		}
 	}
 	/*
 	 * #####################################################################
@@ -121,7 +110,7 @@ public class DirectMessages {
 	 */
 	public ArrayList<String[]> viewFavorites(String user){
 		ArrayList<String[]> lista = new ArrayList<String[]>();
-		String agindua = "SELECT nork,mezua FROM md WHERE userId='"+user+"';";
+		String agindua = "SELECT nork,mezua FROM md WHERE userId='"+user+"' ORDER BY id DESC;";
 		try {
 			
 			ResultSet rs = dbk.execSQL(agindua);
