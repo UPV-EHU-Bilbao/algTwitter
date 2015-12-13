@@ -5,8 +5,6 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import logikoa.TableG.Lag;
-
 @SuppressWarnings("serial")
 public class TableF extends AbstractTableModel{
 	private Vector<String> columnNames = new Vector<String>();

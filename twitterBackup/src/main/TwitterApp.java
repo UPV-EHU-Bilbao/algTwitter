@@ -1,10 +1,10 @@
 package main;
 
-import db.Eragiketak;
+import grafikoa.Start;
 
 public class TwitterApp {
 	public static void main(String[]args){
-		String user = Eragiketak.getEragiketak().userIzena("");
+		Start.bistaratu();
 	}
 	
 }
