@@ -2,6 +2,7 @@ package grafikoa;
 
 
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class TDemoFav extends JPanel{
 			TableG model = new TableG(statuses);
 			
 			JTable taula = new JTable(model);
+			taula.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+			taula.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
 			JScrollPane scrollPane = new JScrollPane(taula);
 
 			add(scrollPane);

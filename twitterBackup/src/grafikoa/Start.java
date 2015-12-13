@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -18,8 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
-
 import db.Eragiketak;
 import logikoa.Erabiltzailea;
 import logikoa.TokenKud;
@@ -30,6 +31,8 @@ public class Start extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	JLabel nagusia = new JLabel(new ImageIcon("src/media1/backTwitter.jpg"));
+	
 	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel welcome = new JLabel("Ongi etorri TWITTER APP aplikaziora");
@@ -46,17 +49,14 @@ public class Start extends JFrame{
 	JButton go = new JButton("Hasi");
 	
 	JPanel center = new JPanel();
-	
+	Font f = new Font("Century Gothic",Font.BOLD,10);
 	public Start(){
 		user.setText("ISADtaldea");
 		gridBagHasieratu();
 		getContentPane().setBackground(Color.white);
 		this.setIconImage(wlogo.getImage());
-		
 		getContentPane().add(panel, BorderLayout.NORTH);
 		getContentPane().add(center, BorderLayout.CENTER);
-//		getContentPane().add(panel1, BorderLayout.WEST);
-//		getContentPane().add(panel2, BorderLayout.EAST);
 		
 		((JPanel)getContentPane()).setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	}
@@ -67,6 +67,7 @@ public class Start extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		bistaratu();
 	}
 	public static void bistaratu(){
@@ -78,6 +79,7 @@ public class Start extends JFrame{
 		st.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		st.pack();
 		st.actionListener();
+		
 		
 	}
 	private void gridBagHasieratu() {
@@ -92,7 +94,8 @@ public class Start extends JFrame{
 		
 		//panel1 hasieratu
 		panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
-		panel1.setBackground(Color.WHITE);
+		//panel1.setBackground(Color.WHITE);
+		panel1.setOpaque(false);
 		viewp1();
 		
 		//panel2 hasieratu
@@ -144,13 +147,14 @@ public class Start extends JFrame{
 	
 	public void viewp1(){
 		panel1.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		descript1.setFont(new Font("Britannic Bold",Font.BOLD,15));
+		descript1.setFont(new Font("Century Gothic",Font.BOLD,15));
 		descript1.setForeground(Color.decode("#7ea6e0"));
 
 		//bektorean erabiltzaileak gehitu
 		//cbuser = new JComboBox(users);
 		panel1.add(descript1);
 		panel1.add(user);
+		buser.setFont(f);
 		panel1.add(buser);
 	}
 	public void viewp2(){
@@ -158,6 +162,7 @@ public class Start extends JFrame{
 		descript.setFont(new Font("Britannic Bold",Font.BOLD,15));
 		descript.setForeground(Color.decode("#7ea6e0"));
 		panel2.add(descript);
+		go.setFont(f);
 		panel2.add(go);
 		
 	}

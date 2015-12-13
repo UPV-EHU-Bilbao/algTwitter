@@ -17,7 +17,6 @@ import twitter4j.TwitterException;
 public class Favorites {
 	private static Favorites mfavorites = null;
 	private Twitter twitter;
-	private List<Status> statuses = new ArrayList<Status>();
 	DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 
 	private Favorites(){
@@ -29,53 +28,12 @@ public class Favorites {
 		}return mfavorites;
 	}
 	/*
-	 * ###########################################
-	 * ###########BISTARATZEKO METODOAK###########
-	 * ###########################################
-	 */
-	public List<Status> getFavorites() throws IllegalStateException, TwitterException{
-		List<Status> toAdd= new ArrayList<Status>();
-		long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
-
-			try {
-				int pagenumber = 1;
-				int count = 20;
-				List<Status> statuses = new ArrayList<Status>();
-				while(true){
-					Paging page = new Paging(pagenumber, count).sinceId(max);
-							//, max);
-					//int size = statuses.size();
-					statuses = twitter.getFavorites(page);
-					//statuses.addAll(twitter.getFavorites(page));
-					int zenbat = statuses.size();
-					//if(statuses.size()== size){
-					if(zenbat == 0){
-						break;
-        	        }
-           
-			  }
-				
-			for(Status status: statuses){
-				toAdd.add(status);
-			}
-			} catch (TwitterException te) {
-				te.printStackTrace();
-				System.out.println("Failed to get favorites: " + te.getMessage());
-				System.exit(-1);
-				TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-			}
-
-		return statuses;
-	}
-	/*
 	 * #####################################################################
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
 	 * #####################################################################
 	 */
 	public void backupFavorites(){
 		try {
-	           
-			List<Status> statuses = null;
             long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
             System.out.println(max);       
             	getFavPage(max);	
@@ -118,7 +76,11 @@ public class Favorites {
 		            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 		        }
 		        }
-		
+		/*
+		 * #####################################################################
+		 * ###########TAULAN BISTARATZEKO METODOA###############################
+		 * #####################################################################
+		 */
 	public ArrayList<String[]> viewFavorites(String user){
 		ArrayList<String[]> lista = new ArrayList<String[]>();
 		String agindua = "SELECT nork,txioa FROM fav WHERE userIzena='"+user+"';";

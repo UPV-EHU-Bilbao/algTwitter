@@ -1,6 +1,7 @@
 package grafikoa;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -28,6 +29,8 @@ public class TDemoFollowing extends JPanel {
 		TableF model = new TableF(statuses);
 		
 		JTable taula = new JTable(model);
+		taula.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		taula.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
 
 		JScrollPane scrollPane = new JScrollPane(taula);
 		

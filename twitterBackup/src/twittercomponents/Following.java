@@ -91,6 +91,11 @@ public class Following {
 	 * Gure kontuarekin jarraitzen ditugun user-ak bistaratzen ditu.
 	 * @return ArrayList<String> - Jarraitutakoak ArrayList-ean bueltatzen ditu.
 	 */
+	/*
+	 * #####################################################################
+	 * ###########TAULAN BISTARATZEKO METODOA###############################
+	 * #####################################################################
+	 */
 	public ArrayList<String> viewFollowing(String user){
 		ArrayList<String> lista = new ArrayList<String>();
 		String agindua = "SELECT userIzena FROM jarraituak WHERE userId='"+user+"';";

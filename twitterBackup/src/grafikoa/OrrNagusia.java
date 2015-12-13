@@ -22,7 +22,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+
+
 import exportOptions.ExcelFile;
 
 public class OrrNagusia extends JFrame{
@@ -46,7 +47,7 @@ public class OrrNagusia extends JFrame{
 	
 	//APLIKAZIOTIK IRTETZEKO BOTOIA
 	JButton logOut = new JButton("LogOut"); 
-	JPanel p1 = new JPanel();
+	
 	//IRUDIAK
 	ImageIcon retwImage = new ImageIcon("src/media1/images.png");
 	ImageIcon favImage = new ImageIcon("src/media1/fav.jpg");
@@ -63,7 +64,8 @@ public class OrrNagusia extends JFrame{
 	
 	//JPanel NAGUSIA
 	JPanel nagusia = new JPanel();
-	JTextArea viewText = new JTextArea();
+	
+	JLabel back = new JLabel(new ImageIcon("src/media1/twitterN.gif"));
 	
 	JPanel aldagaia = new JPanel();
 	
@@ -74,7 +76,7 @@ public class OrrNagusia extends JFrame{
 		//HEADERS
 		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 		header.setBackground(Color.decode("#7ea6e0"));
-		userId.setFont(new Font("Arial",Font.BOLD,40));
+		userId.setFont(new Font("Century Gothic",Font.BOLD,40));
 		header.add(userId);
 		toDo.setFont(new Font("Britannic Bold",Font.BOLD,30));
 		header.add(toDo);
@@ -85,9 +87,15 @@ public class OrrNagusia extends JFrame{
 		//BOTOIAK
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		buttons.setBackground(Color.decode("#7ea6e0"));
+		Font f = new Font("Century Gothic",Font.BOLD,10);
+		view.setFont(f);
+		backup.setFont(f);
+		export.setFont(f);
+		logOut.setFont(f);
 		buttons.add(view);
 		buttons.add(backup);
 		buttons.add(export);
+		buttons.add(logOut);
 		
 		getContentPane().add(buttons, BorderLayout.SOUTH);
 		
@@ -95,23 +103,17 @@ public class OrrNagusia extends JFrame{
 		bistaratuAukerak();
 		getContentPane().add(aukerak, BorderLayout.WEST);
 		
-		//LOGOUT
-		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
-		p1.setBackground(Color.decode("#7ea6e0"));
-		p1.add(logOut);
-		getContentPane().add(p1, BorderLayout.EAST);
+		
 		
 		//PANTAILARATZEA
-		//nagusia.setLayout(mgr);
-		nagusia.setBackground(Color.decode("#7ea6e0"));
-		nagusia.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		nagusia.setBackground(Color.WHITE);
+		nagusia.setLayout(new BorderLayout());
+		//nagusia.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		nagusia.setBorder(BorderFactory.createBevelBorder(NORMAL));
+		nagusia.add(back, BorderLayout.CENTER);
 		getContentPane().add(nagusia, BorderLayout.CENTER);
 		aldagaia = nagusia;
-		/* http://stackoverflow.com/questions/218155/how-do-i-change-jpanel-inside-a-jframe-on-the-fly
-		 * myJFrame.getContentPane().removeAll()
-myJFrame.getContentPane().invalidate()
-*/
-		//getContentPane().add(new nagusia)
+		
 		getContentPane().revalidate();
 		 
 		
@@ -130,8 +132,8 @@ myJFrame.getContentPane().invalidate()
 							HomeTimeLine.getMhome().backupTweets();
 						}
 						if(dm.isSelected()){
-							DirectMessages.getmDirect().backupDirectMessage();
-							DirectMessages.getmDirect().backupSentDirectMessage();
+							DirectMessages.getmDirect().backupDM();
+							//DirectMessages.getmDirect().backupSentDirectMessage();
 						}
 						if(followers.isSelected()){
 							Followers.getMfollowers().backupFollowers();
@@ -244,8 +246,15 @@ myJFrame.getContentPane().invalidate()
 		n.actionListener();
 	}
 	private void bistaratuAukerak(){
+		Font f = new Font("Century Gothic",Font.BOLD,15);
 		aukerak.setLayout(new BoxLayout(aukerak, BoxLayout.Y_AXIS));
-		aukerak.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		aukerak.setBorder(BorderFactory.createBevelBorder(NORMAL));
+		aukerak.setOpaque(false);
+		tweets.setFont(f);
+		fav.setFont(f);
+		dm.setFont(f);
+		followers.setFont(f);
+		following.setFont(f);
 		ButtonGroup cbg = new ButtonGroup();
 		cbg.add(tweets);
 		cbg.add(fav);
@@ -258,7 +267,6 @@ myJFrame.getContentPane().invalidate()
 		aukerak.add(followers);
 		aukerak.add(following);
 	}
-	
 	public static void main(String[] args) {
 		bistaratu();
 		

@@ -184,6 +184,21 @@ public class Eragiketak {
 		}
 		return id;
 	}
+	public long azkenmdId(String user){
+		long id = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio WHERE userIzena='"+user+"';");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				id = Long.valueOf(rs.getString("maximoa"));
+				System.out.println(id);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
 	public int kontatu(String user){
 		int zenb = 0;
 		try {

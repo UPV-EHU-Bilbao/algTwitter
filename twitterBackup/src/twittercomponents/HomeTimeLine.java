@@ -33,45 +33,6 @@ public class HomeTimeLine {
 	}
 
 	/*
-	 * ###########################################
-	 * ###########BISTARATZEKO METODOAK###########
-	 * ###########################################
-	 */
-	
-	/**
-	 * Txioak bistaratzen ditu
-	 * @return JPanel - JPanel-a egin dugu txioak bistaratzeko.
-	 * @throws IllegalStateException
-	 * @throws TwitterException
-	 */
-	public JPanel getTweets() throws IllegalStateException, TwitterException{
-		long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
-			try {
-				int pagenumber = 1;
-				int count = 20;
-				List<Status> statuses = new ArrayList<Status>();
-				while(true){
-					Paging page = new Paging(pagenumber, count).sinceId(max);
-							//,max);
-					int size = statuses.size();
-					statuses.addAll(twitter.getHomeTimeline(page));
-					if(statuses.size()== size){
-						break;
-        	   }
-				}
-					//panel = makeAtable(statuses);
-        	
-				
-        } catch (TwitterException te) {
-            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-           // TokenKud.getToken().timeTo(te.toString());
-            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-		}
-	
-		return panel;
-		
-        }
-	/*
 	 * #####################################################################
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
 	 * #####################################################################
@@ -100,12 +61,12 @@ public class HomeTimeLine {
         	while(true){
         		Paging pag = new Paging(pagenumber, count).sinceId(max);
         				//, max);
-        	//	int size = statuses.size();
-        		//statuses.addAll(twitter.getHomeTimeline(pag));
+        		int size = statuses.size();
+        		statuses.addAll(twitter.getHomeTimeline(pag));
         		statuses = twitter.getHomeTimeline(pag);
-        		int zenbat = statuses.size();
-        		//if(statuses.size()== size){
-        		if( zenbat == 0){
+        		//int zenbat = statuses.size();
+        		if(statuses.size()== size){
+        		//if( zenbat == 0){
         			break;
         		}
         	}
@@ -127,6 +88,11 @@ public class HomeTimeLine {
 	 * Txioak bistaratzen ditu.
 	 * @param user
 	 * @return ArrayList<String> - Txioak bueltatzen ditu ArrayList batean.
+	 */
+	/*
+	 * #####################################################################
+	 * ###########TAULAN BISTARATZEKO METODOA###############################
+	 * #####################################################################
 	 */
 public ArrayList<String[]> viewTxio(String user){
 		

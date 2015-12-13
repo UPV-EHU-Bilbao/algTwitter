@@ -84,6 +84,11 @@ public class Followers {
 	 * Gure kontura jarraitzen gaituzten user-ak bistaratzen ditu.
 	 * @return ArrayList<String> - Jarraitzen gaituztak bistaratu.
 	 */
+	/*
+	 * #####################################################################
+	 * ###########TAULAN BISTARATZEKO METODOA###############################
+	 * #####################################################################
+	 */
 	public ArrayList<String> viewFollowers(String user){
 		ArrayList<String> lista = new ArrayList<String>();
 		String agindua = "SELECT userIzena FROM jarraitzaileak WHERE userId='"+user+"';";
