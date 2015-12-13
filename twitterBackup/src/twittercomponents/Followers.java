@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import db.DBKudeatzaile;
 import db.Eragiketak;
+import exceptions.NoBackup;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.IDs;
@@ -99,9 +100,10 @@ public class Followers {
 					lista.add(rs.getString("userIzena"));
 			}
 			rs.close();
-			
+			if(lista.size() == 0){
+				NoBackup.getback();
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}return lista;
 	}
 	

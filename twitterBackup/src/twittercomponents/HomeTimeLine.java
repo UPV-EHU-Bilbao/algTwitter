@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import db.DBKudeatzaile;
 import db.Eragiketak;
+import exceptions.NoBackup;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.Paging;
@@ -40,23 +41,28 @@ public class HomeTimeLine {
 	
 	/**
 	 * Txioen backup-a egiten du.
+	 * @throws TwitterException 
+	 * @throws IllegalStateException 
 	 */
-	public void backupTweets(){
-		try {
-			long max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
+	public void backupTweets() {
+			long max = 0;
+			try {
+				max = Eragiketak.getEragiketak().azkenTweetId(twitter.getScreenName());
+				if(max == 0){
+					getTweets();
+				}else{
+					getHomeTimeline(max);
+				}
+			} catch (TwitterException te) {
+				TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+			}
 			
-				getHomeTimeline(max);
-			
-        } catch (TwitterException te) {
-            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-            //timeTo(te.toString());
-            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-        }
+        
 	}
 	public void getHomeTimeline(long max){
 		 try {
 	    	  int pagenumber = 1;
-	            int count = 20;
+	            int count = 80;
 	            List<Status> statuses = new ArrayList<Status>();
         	while(true){
         		Paging pag = new Paging(pagenumber, count).sinceId(max);
@@ -71,10 +77,12 @@ public class HomeTimeLine {
         		}
         	}
         	for (Status status: statuses){
+        		
         		String[] favTweet = new String [3];
         		favTweet[0] = Long.toString(status.getId());
         		favTweet[1] = status.getUser().getScreenName();
         		favTweet[2] = status.getText();
+        		System.out.println(favTweet[1]+" "+favTweet[2]);
         		Eragiketak.getEragiketak().tweetGorde(favTweet, twitter.getScreenName());
         	}
 	        } catch (TwitterException te) {
@@ -82,6 +90,21 @@ public class HomeTimeLine {
 	            //timeTo(te.toString());
 	            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 	        }
+	}
+	public void getTweets(){
+		try {
+            List<Status> statuses = twitter.getHomeTimeline();
+            for (Status status : statuses) {
+            	String[] favTweet = new String [3];
+        		favTweet[0] = Long.toString(status.getId());
+        		favTweet[1] = status.getUser().getScreenName();
+        		favTweet[2] = status.getText();
+        		Eragiketak.getEragiketak().tweetGorde(favTweet, twitter.getScreenName());
+            }
+            
+        } catch (TwitterException te) {
+        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+        }
 	}
 
 	/**
@@ -101,6 +124,7 @@ public ArrayList<String[]> viewTxio(String user){
 		String agindua = "SELECT nork,txioa FROM txio WHERE userIzena='"+user+"' ORDER BY id DESC;";
 		try {
 			
+			
 			ResultSet rs = dbk.execSQL(agindua);
 			while(rs.next()){
 				String[] status = new String[2];
@@ -109,9 +133,10 @@ public ArrayList<String[]> viewTxio(String user){
 					lista.add(status);
 			}
 			rs.close();
-			
+			if(lista.size() == 0){
+				NoBackup.getback();
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}return lista;
 	}
 }

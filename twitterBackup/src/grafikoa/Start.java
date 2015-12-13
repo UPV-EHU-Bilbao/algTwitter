@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -127,11 +127,11 @@ public class Start extends JFrame{
 					}else{
 						NotUser.getmNo();
 					}
-					
 				}else{
 					System.out.println("Zerbait idatzi beharko zenuke...");
 					Empty.getEmpty();
-					
+				
+				
 				}
 			}
 		});
@@ -139,8 +139,9 @@ public class Start extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Has.bistaratu();
-				dispose();
+					Has.bistaratu();
+					dispose();
+				
 			}
 		});
 		

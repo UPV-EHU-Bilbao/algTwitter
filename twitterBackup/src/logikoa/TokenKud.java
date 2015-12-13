@@ -81,6 +81,8 @@ public class TokenKud {
 		
 		//userId DB -an gorde
 		Eragiketak.getEragiketak().sartuErab(twitter.getScreenName());
+		Erabiltzailea.getErab().setUserId(twitter.getScreenName());
+		System.out.println("Oraingo erabiltzailea: "+twitter.getScreenName());
 		
 		//tokenak datu basean gorde
 		System.out.println("ZURE TOKEN-ak GORDEKO DIRA...");

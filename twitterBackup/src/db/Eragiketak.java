@@ -39,6 +39,9 @@ public class Eragiketak {
 	public void consumerSecretGorde(String cS) throws SQLException{
 		dbk.execSQL("INSERT INTO `token`(`consumerKeySecret`)VALUES('"+cS+"');");
 	}
+	public void pasaHitzaGorde(String user){
+		dbk.execSQL("INSERT INTO user(password)VALUES('"+user+"');");
+	}
 	/**
 	 * Logeatuta dagoen erabiltzailearen token -ak bilatuko ditu
 	 * @param izena
@@ -74,7 +77,21 @@ public class Eragiketak {
 			e.printStackTrace();
 		}return token;
 	}
-	
+	public String pasaHitzaBilatu(String user){
+		String pasah= "";
+		try {
+			ResultSet rs = dbk.execSQL("SELECT password FROM user WHERE user='"+user+"';");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				pasah= rs.getString("password");
+				//System.out.println(token);
+			}
+		} catch (SQLException e) {
+			System.out.println("EZ DAGO PASAHITZIK");
+			//e.printStackTrace();
+		}
+		return pasah;
+	}
 	
 	public void sartuErab(String pizena) throws SQLException{
 		dbk.execSQL("INSERT INTO user(`izena`) VALUES('"+pizena+"');");
@@ -198,19 +215,24 @@ public class Eragiketak {
 		return id;
 	}
 	public long azkenmdId(String user){
-		long id = 0;
+		String id = null ;
 		try {
 			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio WHERE userIzena='"+user+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				id = Long.valueOf(rs.getString("maximoa"));
+				id = rs.getString("maximoa");
 				System.out.println(id);
 			}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return id;
+		if(id == null){
+			return 0;
+		}else{
+			return Long.valueOf(id);
+		}
+		
 	}
 	public int kontatu(String user){
 		int zenb = 0;

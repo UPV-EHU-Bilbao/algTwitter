@@ -7,6 +7,7 @@ import java.util.List;
 
 import db.DBKudeatzaile;
 import db.Eragiketak;
+import exceptions.NoBackup;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.DirectMessage;
@@ -37,7 +38,9 @@ public class DirectMessages {
 		long max;
 		try {
 			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
-		
+		if(max == 0){
+			getsm();
+		}
 		 int pagenumber = 1;
          int count = 20;
          List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
@@ -68,11 +71,58 @@ public class DirectMessages {
             TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 		}
 	}
+	public void getsm(){
+		try {
+            Paging paging = new Paging(1);
+            List<DirectMessage> messages;
+            do {
+                messages = twitter.getSentDirectMessages(paging);
+                for (DirectMessage message : messages) {
+                    System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
+                            + message.getText());
+                    String[]mezua = new String[3];
+                    mezua[0] = Long.toString(message.getId());
+                    mezua[1] = message.getRecipientScreenName();
+                    mezua[2] = message.getText();
+                    Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
+                }
+                paging.setPage(paging.getPage() + 1);
+            } while (messages.size() > 0 && paging.getPage() < 10);
+            
+        } catch (TwitterException te) {
+        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+        }
+	}
+	public void getm(){
+		try {
+            Paging paging = new Paging(1);
+            List<DirectMessage> messages;
+            do {
+                messages = twitter.getDirectMessages(paging);
+                for (DirectMessage message : messages) {
+                    System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
+                            + message.getText());
+                    String[]mezua = new String[3];
+                    mezua[0] = Long.toString(message.getId());
+                    mezua[1] = message.getRecipientScreenName();
+                    mezua[2] = message.getText();
+                    Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
+                }
+                paging.setPage(paging.getPage() + 1);
+            } while (messages.size() > 0 && paging.getPage() < 10);
+            
+        } catch (TwitterException te) {
+        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+        }
+	}
 	public void backupDirectMessage(){
 		long max;
+		
 		try {
 			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
-		
+			if(max== 0){
+				getm();
+			}else{
 		 int pagenumber = 1;
          int count = 20;
          List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
@@ -96,7 +146,7 @@ public class DirectMessages {
              mezua[1] = message.getRecipientScreenName();
              mezua[2] = message.getText();
              Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
-         }
+         }}
 		} catch (TwitterException te) {
 			System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             //timeTo(te.toString());
@@ -121,9 +171,10 @@ public class DirectMessages {
 					lista.add(status);
 			}		
 			rs.close();
-			
+			if(lista.size() == 0){
+				NoBackup.getback();
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}return lista;
 	}
 	

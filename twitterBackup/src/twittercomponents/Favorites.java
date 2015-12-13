@@ -7,6 +7,7 @@ import java.util.List;
 
 import db.DBKudeatzaile;
 import db.Eragiketak;
+import exceptions.NoBackup;
 import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.Paging;
@@ -35,9 +36,12 @@ public class Favorites {
 	public void backupFavorites(){
 		try {
             long max = Eragiketak.getEragiketak().azkenFavId(twitter.getScreenName());
-            System.out.println(max);       
+            System.out.println(max); 
+            if(max ==0){
+            	getfav();
+            }else{
             	getFavPage(max);	
-            
+            }
         } catch (TwitterException te) {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
            // timeTo(te.toString());
@@ -76,6 +80,21 @@ public class Favorites {
 		            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
 		        }
 		        }
+		public void getfav(){
+			try {
+	            List<Status> statuses = twitter.getFavorites();
+	            for (Status status : statuses) {
+	            	String[] favTweet = new String [3];
+	          		favTweet[0] = Long.toString(status.getId());
+	          		favTweet[1] = status.getUser().getScreenName();
+	          		favTweet[2] = status.getText();
+	          		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
+	            }
+	            
+	        } catch (TwitterException te) {
+	        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+	        }
+		}
 		/*
 		 * #####################################################################
 		 * ###########TAULAN BISTARATZEKO METODOA###############################
@@ -94,9 +113,11 @@ public class Favorites {
 					lista.add(status);
 			}		
 			rs.close();
-			
+			if(lista.size() == 0){
+				NoBackup.getback();
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			NoBackup.getback();
 		}return lista;
 	}
 }
