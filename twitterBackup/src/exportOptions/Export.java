@@ -1,15 +1,8 @@
 package exportOptions;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import java.io.File;  
-import java.io.FileInputStream;  
-import java.io.FileOutputStream;  
-  
-import javax.swing.JFileChooser;  
 
 public class Export {
 	private static Export mExport = null;

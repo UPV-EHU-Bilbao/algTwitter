@@ -18,6 +18,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import db.Eragiketak;
+import exceptions.Empty;
+import exceptions.NotUser;
 import logikoa.Erabiltzailea;
 import logikoa.TokenKud;
 
@@ -115,18 +117,21 @@ public class Start extends JFrame{
 					System.out.println(userId);
 				
 					String izena = Eragiketak.getEragiketak().userIzena(userId);
-					if(izena != null){
+					System.out.println("res: "+izena);
+					
+					if(izena.equals(userId)){
 						TokenKud.getToken().getSession(userId);
 						Erabiltzailea.getErab().setUserId(userId);
 						OrrNagusia.bistaratu();
 						dispose();
-					
 					}else{
-						JOptionPane.showMessageDialog(null, "Ez dago erabiltzailerik izen horrekin","ERROR",JOptionPane.ERROR_MESSAGE);
-						dispose();
+						NotUser.getmNo();
 					}
+					
 				}else{
 					System.out.println("Zerbait idatzi beharko zenuke...");
+					Empty.getEmpty();
+					
 				}
 			}
 		});

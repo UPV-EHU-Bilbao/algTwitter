@@ -65,7 +65,7 @@ public class OrrNagusia extends JFrame{
 	//JPanel NAGUSIA
 	JPanel nagusia = new JPanel();
 	
-	JLabel back = new JLabel(new ImageIcon("src/media1/twitterN.gif"));
+	JLabel back = new JLabel(new ImageIcon("src/media1/twitterNew.png"));
 	
 	JPanel aldagaia = new JPanel();
 	
@@ -106,7 +106,7 @@ public class OrrNagusia extends JFrame{
 		
 		
 		//PANTAILARATZEA
-		nagusia.setBackground(Color.WHITE);
+		nagusia.setBackground(Color.decode("#7ea6e0"));
 		nagusia.setLayout(new BorderLayout());
 		//nagusia.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		nagusia.setBorder(BorderFactory.createBevelBorder(NORMAL));

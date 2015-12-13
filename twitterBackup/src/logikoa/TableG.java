@@ -9,6 +9,10 @@ import javax.swing.table.AbstractTableModel;
 
 
 public class TableG extends AbstractTableModel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Lag> data = new Vector<Lag>();
 	public TableG(ArrayList<String[]> status){

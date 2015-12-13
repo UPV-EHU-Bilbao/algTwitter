@@ -5,10 +5,12 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import logikoa.TableG.Lag;
-
 public class TableM extends AbstractTableModel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Lag> data = new Vector<Lag>();
 	public TableM(ArrayList<String[]> status){
@@ -76,6 +78,7 @@ public class TableM extends AbstractTableModel{
 	public Object getValueAt(int row, int col) {
 		return data.get(row).getBalioa(col);
 	}
+	@SuppressWarnings("unchecked")
 	public Class getColumnClass(int col){
 		return data.get(0).getBalioa(col).getClass();
 	}

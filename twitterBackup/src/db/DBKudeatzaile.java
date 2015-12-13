@@ -32,6 +32,7 @@ public class DBKudeatzaile {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void conClose() {
 
 		if (conn != null)
@@ -72,6 +73,7 @@ public class DBKudeatzaile {
 	}
 
 	public ResultSet execSQL(String query)  {
+		@SuppressWarnings("unused")
 		int count = 0;
 		Statement s = null;
 		ResultSet rs = null;

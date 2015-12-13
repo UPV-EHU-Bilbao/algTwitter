@@ -1,18 +1,10 @@
 package logikoa;
 import twitter4j.*;
 import java.awt.Desktop;
-import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import db.Eragiketak;
 import exceptions.TimeTo;
@@ -28,9 +20,6 @@ public class TokenKud {
 	private RequestToken requestToken;
 	private Twitter twitter;
 	private AccessToken accessToken;
-	private TableG txioTaula;
-	private JTable taula;
-	private JPanel tpanel;
 	
 	private TokenKud(){
 		consumerKey = "9vj1uaNEO4T6AUQc7OEUw0yOm";
@@ -181,47 +170,5 @@ public class TokenKud {
          return zatiak[1];
 	}
 	
-	//-------------------------------
-	//TAULAK ERAIKITZEN             |
-	//-------------------------------
-	
-//	public JPanel tweetTaula(){
-//		try {
-//            int pagenumber = 1;
-//            int count = 20;
-//            List<Status> statuses = new ArrayList<Status>();
-//        	while(true){
-//        	  Paging page = new Paging(pagenumber, count);
-//        	  int size = statuses.size();
-//        	  statuses.addAll(twitter.getHomeTimeline(page));
-//        	  if(statuses.size()== size){
-//            	break;
-//        	  }
-//        	}
-//        	//TAULA ERAIKI
-//        	
-//        	txioTaula = new TableG(statuses);
-//        	JTable taula = new JTable(txioTaula);
-//        	tpanel = new JPanel();
-//        	tpanel.setSize(100,100);
-//        	tpanel.add(taula);
-//        	//tpanel.setVisible(true);
-//        	//taulaPanel(taula);
-//        } catch (TwitterException te) {
-//            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu..."+timeTo(te.toString()));
-//            
-//            TimeTo.getMessage(timeTo(te.toString()));
-//           // System.exit(-1);
-//        }return tpanel;
-//	}
-
-	public void taulaPanel(JTable t){
-		tpanel = new JPanel();
-		tpanel.add(t);
-		tpanel.setVisible(false);
-	}
-	public void aldatuVisible(){
-		tpanel.setVisible(true);
-	}
 
 }

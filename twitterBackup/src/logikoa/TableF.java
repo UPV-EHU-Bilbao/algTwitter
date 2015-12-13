@@ -100,6 +100,7 @@ public class TableF extends AbstractTableModel{
 	 * @param col - Zutabe baten id-a.
 	 * @return Class - Zutabearen klasea bueltatzen du.
 	 */
+	@SuppressWarnings("unchecked")
 	public Class getColumnClass(int col){
 		return data.get(0).getBalioa(col).getClass();
 	}

@@ -90,12 +90,12 @@ public class Eragiketak {
 	public String userIzena(String id){
 		String userId = "";
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM user WHERE izena='"+id+"'");
+			ResultSet rs = dbk.execSQL("SELECT izena FROM user WHERE izena='"+id+"'");
 			System.out.println(rs);
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
-				userId = rs.getString(1);
-				System.out.println(userId);
+				userId = rs.getString("izena");
+				//System.out.println(userId);
 			}
 			rs.close();
 		} catch (SQLException e) {
