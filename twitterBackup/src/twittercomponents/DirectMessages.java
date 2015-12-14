@@ -38,9 +38,11 @@ public class DirectMessages {
 		long max;
 		try {
 			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
+			System.out.println("Bidalitako mezuen maximoa: "+max);
 		if(max == 0){
+			System.out.println("Ez daukazu md beraz....");
 			getsm();
-		}
+		}else{
 		 int pagenumber = 1;
          int count = 20;
          List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
@@ -65,6 +67,7 @@ public class DirectMessages {
              mezua[2] = message.getText();
              Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
          }
+		}
 		} catch (TwitterException te) {
 			System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             //timeTo(te.toString());
@@ -120,6 +123,7 @@ public class DirectMessages {
 		
 		try {
 			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
+			System.out.println("Hartutako mezuen maximoa: "+max);
 			if(max== 0){
 				getm();
 			}else{

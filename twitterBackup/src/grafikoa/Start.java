@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -126,6 +125,7 @@ public class Start extends JFrame{
 						dispose();
 					}else{
 						NotUser.getmNo();
+						user.setText("");
 					}
 				}else{
 					System.out.println("Zerbait idatzi beharko zenuke...");

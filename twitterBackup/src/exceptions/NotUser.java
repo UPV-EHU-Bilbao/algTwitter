@@ -2,8 +2,7 @@ package exceptions;
 
 import javax.swing.JOptionPane;
 
-public class NotUser {
-
+public class NotUser{
 	private static NotUser myNot = null;
 	private NotUser(){
 		String mezua = "Ez dago erabiltzailerik izen horrekin";

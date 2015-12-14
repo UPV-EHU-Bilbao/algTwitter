@@ -24,6 +24,7 @@ public class ExcelFile {
     private XSSFSheet sheetFav ;
     private XSSFSheet sheetFllw ;
     private XSSFSheet sheetFoll ;
+    private XSSFSheet sheetMD ;
     
     private ExcelFile(){}
     
@@ -52,8 +53,12 @@ public class ExcelFile {
 	       * FOLLOWING SHEET EGITEKO
 	       */
 	      jarraituakPage(user);
+	      /*
+	       * MD SHEET EGITEKO
+	       */
+	      mdPage(user);
 	      
-	      String  filename = "backupTwitter.xls";
+	      String  filename = user+"_backupTwitter.xls";
 	      try
 	      {
 	          //Write the workbook in file system
@@ -123,7 +128,7 @@ public class ExcelFile {
     			ResultSet rs = dbk.execSQL(agindua);
     			while(rs.next()){
         			row = sheetFllw.createRow(zut);
-        			for(int err=0; err<3; err++){
+        			for(int err=0; err<2; err++){
         				row.createCell(err).setCellValue(rs.getString(err+1));
         			}zut++;
     			}
@@ -149,6 +154,26 @@ public class ExcelFile {
     			}
     		} catch (SQLException e) {
         		System.out.println("EZ DAUKAZU TXIORIK!!!");
+    		}
+    }
+    public void mdPage(String user){
+    	sheetMD = workbook.createSheet("Direct Messages");
+    	Row row = sheetMD.createRow(0);
+    	row.createCell(0).setCellValue("ID");
+    	row.createCell(1).setCellValue("User");
+    	row.createCell(2).setCellValue("Mezua");
+    	String agindua = "SELECT id, nork, mezua FROM md WHERE userId='"+user+"';";
+    	int zut = 1;
+    		try{
+    			ResultSet rs = dbk.execSQL(agindua);
+    			while(rs.next()){
+        			row = sheetMD.createRow(zut);
+        			for(int err=0; err<3; err++){
+        				row.createCell(err).setCellValue(rs.getString(err+1));
+        			}zut++;
+    			}
+    		} catch (SQLException e) {
+        		System.out.println("EZ DAUKAZU MEZURIK!!!");
     		}
     }
 }

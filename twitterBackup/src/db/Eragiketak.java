@@ -39,8 +39,11 @@ public class Eragiketak {
 	public void consumerSecretGorde(String cS) throws SQLException{
 		dbk.execSQL("INSERT INTO `token`(`consumerKeySecret`)VALUES('"+cS+"');");
 	}
-	public void pasaHitzaGorde(String user){
-		dbk.execSQL("INSERT INTO user(password)VALUES('"+user+"');");
+	public void cursorFollowersGorde(String user, long cursor){
+		dbk.execSQL("INSERT INTO user(followerscursor)VALUES("+cursor+") WHERE izena='"+user+"';");
+	}
+	public void cursorFollowingGorde(String user, long cursor){
+		dbk.execSQL("INSERT INTO user(followingcursor)VALUES("+cursor+") WHERE izena='"+user+"';");
 	}
 	/**
 	 * Logeatuta dagoen erabiltzailearen token -ak bilatuko ditu
@@ -77,21 +80,7 @@ public class Eragiketak {
 			e.printStackTrace();
 		}return token;
 	}
-	public String pasaHitzaBilatu(String user){
-		String pasah= "";
-		try {
-			ResultSet rs = dbk.execSQL("SELECT password FROM user WHERE user='"+user+"';");
-			while(rs.next()){
-				//rs osoan dagoena sartuko du String -ean
-				pasah= rs.getString("password");
-				//System.out.println(token);
-			}
-		} catch (SQLException e) {
-			System.out.println("EZ DAGO PASAHITZIK");
-			//e.printStackTrace();
-		}
-		return pasah;
-	}
+	
 	
 	public void sartuErab(String pizena) throws SQLException{
 		dbk.execSQL("INSERT INTO user(`izena`) VALUES('"+pizena+"');");
@@ -217,7 +206,7 @@ public class Eragiketak {
 	public long azkenmdId(String user){
 		String id = null ;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM txio WHERE userIzena='"+user+"';");
+			ResultSet rs = dbk.execSQL("SELECT MAX(id) as maximoa FROM md WHERE userId='"+user+"';");
 			while(rs.next()){
 				//rs osoan dagoena sartuko du String -ean
 				id = rs.getString("maximoa");
@@ -249,6 +238,23 @@ public class Eragiketak {
 		}
 		return zenb;
 	}
+	public long azkenCursorFollowers(String user){
+		long cursor = 0;
+		//long favId = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT followerscursor FROM user WHERE izena='"+user+"'");
+			while(rs.next()){
+				//rs osoan dagoena sartuko du String -ean
+				cursor = rs.getLong("followerscursor");
+				System.out.println("AURKITUTAKO CURSOR: "+cursor);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cursor;
+	}
+	
 	/*
 	 * #############################################################
 	 * ###############ERABILTZAILEAREN DATUAK EZABATU###############
@@ -257,7 +263,7 @@ public class Eragiketak {
 	public void deleteAll(String user){
 		dbk.execSQL("DELETE FROM fav WHERE userIzena='"+user+"';");
 		dbk.execSQL("DELETE FROM txio WHERE userIzena='"+user+"';");
-		dbk.execSQL("DELETE FROM jarraituak WHERE userIzena='"+user+"';");
+		dbk.execSQL("DELETE FROM jarraituak WHERE userId='"+user+"';");
 		dbk.execSQL("DELETE FROM jarraitzaileak WHERE userId='"+user+"';");
 		dbk.execSQL("DELETE FROM md WHERE userId='"+user+"';");
 		dbk.execSQL("DELETE FROM user WHERE izena='"+user+"';");

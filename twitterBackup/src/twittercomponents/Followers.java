@@ -58,6 +58,7 @@ public class Followers {
 	 * #####################################################################
 	 */
 	
+	
 	/**
 	 * Gure kontura jarraitzen gaituzten user-en backup-a egiten du.
 	 */
@@ -71,9 +72,12 @@ public class Followers {
                     String[] follow= new String[2];
                     follow[0] = Long.toString(id);
                     follow[1] = twitter.showUser(id).getScreenName();
-                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName());  
+                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName()); 
+                    System.out.println("follower cursor balioa while: "+cursor);
                 }
             } while ((cursor = ids.getNextCursor()) != 0);
+           
+            //Eragiketak.getEragiketak().cursorFollowersGorde(twitter.getScreenName(), cursor);
         } catch (TwitterException te) {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
             //timeTo(te.toString());
