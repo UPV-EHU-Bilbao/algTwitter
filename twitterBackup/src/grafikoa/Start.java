@@ -31,7 +31,7 @@ public class Start extends JFrame{
 	JLabel nagusia = new JLabel(w1);
 	//"src/media1/logoTwitter.png"
 	ImageIcon wlogo = new ImageIcon(getClass().getResource("/media1/logoTwitter.png"));
-	JLabel logoTwitter = new JLabel( new ImageIcon(getClass().getResource("media1/loginTwitter.png")));
+	JLabel logoTwitter = new JLabel( new ImageIcon(getClass().getResource("/media1/loginTwitter.png")));
 	JLabel welcome = new JLabel("Ongi etorri TWITTER APP aplikaziora");
 	JPanel panel = new JPanel();
 	//erabiltzaile hauen saioa jadanik gordeta izango dugu
