@@ -31,7 +31,7 @@ public class OrrNagusia extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
+	ImageIcon wlogo = new ImageIcon(getClass().getResource("/media1/logoTwitter.png"));
 	JLabel userId = new JLabel("Hi "+Erabiltzailea.getErab().getUserId());
 	
 	//HEADER
@@ -48,14 +48,9 @@ public class OrrNagusia extends JFrame{
 	//APLIKAZIOTIK IRTETZEKO BOTOIA
 	JButton logOut = new JButton("LogOut"); 
 	
-	//IRUDIAK
-	ImageIcon retwImage = new ImageIcon("src/media1/images.png");
-	ImageIcon favImage = new ImageIcon("src/media1/fav.jpg");
 	
 	//AUKERAK JPanel
 	JCheckBox tweets = new JCheckBox("Tweets",false);
-	//JCheckBox rt = new JCheckBox(new ImageIcon("src/media1/images.png"),false);
-	//JCheckBox fav = new JCheckBox(new ImageIcon("src/media1/fav.jpg"),false);
 	JCheckBox fav = new JCheckBox("FAV",false);
 	JCheckBox dm = new JCheckBox("Direct Messages",false);
 	JCheckBox followers = new JCheckBox("Followers",false);
@@ -65,9 +60,12 @@ public class OrrNagusia extends JFrame{
 	//JPanel NAGUSIA
 	JPanel nagusia = new JPanel();
 	
-	JLabel back = new JLabel(new ImageIcon("src/media1/twitterNew.png"));
+	JLabel back = new JLabel(new ImageIcon(getClass().getResource("/media1/twitterNew.png")));
 	
 	JPanel aldagaia = new JPanel();
+	
+
+	
 	
 	public OrrNagusia(){
 		getContentPane().setBackground(Color.decode("#7ea6e0"));
@@ -132,8 +130,8 @@ public class OrrNagusia extends JFrame{
 							HomeTimeLine.getMhome().backupTweets();
 						}
 						if(dm.isSelected()){
-							DirectMessages.getmDirect().backupSentDirectMessage();
-							DirectMessages.getmDirect().backupDirectMessage();
+							DirectMessages.getmDirect().backupNireMessages();
+							DirectMessages.getmDirect().backupHartutakoMessages();
 						}
 						if(followers.isSelected()){
 							Followers.getMfollowers().backupFollowers();
@@ -156,6 +154,7 @@ public class OrrNagusia extends JFrame{
 									getContentPane().add(td,BorderLayout.CENTER);
 									getContentPane().revalidate();
 									getContentPane().repaint();
+								
 							}
 							if(tweets.isSelected()){
 								TDemoTweets td = new TDemoTweets(Erabiltzailea.getErab().getUserId());
@@ -273,6 +272,7 @@ public class OrrNagusia extends JFrame{
 		aukerak.add(following);
 	}
 	public static void main(String[] args) {
+		
 		bistaratu();
 		
 	}

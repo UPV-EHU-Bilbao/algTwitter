@@ -23,8 +23,8 @@ public class Has extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
-	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
+	ImageIcon wlogo = new ImageIcon(getClass().getResource("/media1/logoTwitter.png"));
+	JLabel logoTwitter = new JLabel( new ImageIcon(getClass().getResource("/media1/loginTwitter.png")));
 	JLabel loginOn = new JLabel("WELCOME! / ONGI ETORRI!");
 	JLabel descript = new JLabel("Aurrera botoia sakatzean nabigatzailea irekiko da, ");
 	JLabel descript2 = new JLabel("bertan agertzen zaizkizun pausuak jarraitu ondoren,");

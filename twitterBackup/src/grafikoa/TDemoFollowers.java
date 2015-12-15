@@ -32,5 +32,6 @@ public class TDemoFollowers extends JPanel {
 	
 	public void createAndShowGUI(){
 		setVisible(true);
+		
 	}
 }
