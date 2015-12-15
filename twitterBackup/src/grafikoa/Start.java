@@ -11,14 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import db.Eragiketak;
-import exceptions.Empty;
-import exceptions.NotUser;
 import logikoa.Erabiltzailea;
 import logikoa.TokenKud;
 
@@ -29,8 +28,8 @@ public class Start extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	JLabel nagusia = new JLabel(new ImageIcon("src/media1/backTwitter.jpg"));
-	
-	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
+	//"src/media1/logoTwitter.png"
+	ImageIcon wlogo = new ImageIcon(getClass().getResource("/media1/logoTwitter.png"));
 	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
 	JLabel welcome = new JLabel("Ongi etorri TWITTER APP aplikaziora");
 	JPanel panel = new JPanel();
@@ -124,12 +123,17 @@ public class Start extends JFrame{
 						OrrNagusia.bistaratu();
 						dispose();
 					}else{
-						NotUser.getmNo();
+						String mezua = "Ez dago erabiltzailerik izen horrekin";
+						JOptionPane.showMessageDialog(null,mezua ,"ERROR",JOptionPane.ERROR_MESSAGE);
 						user.setText("");
 					}
 				}else{
 					System.out.println("Zerbait idatzi beharko zenuke...");
-					Empty.getEmpty();
+					String mezua = "Zerbait idatzi beharko zenuke...";
+					JOptionPane.showMessageDialog(null,
+						    mezua,
+						    "Oops!",
+						    JOptionPane.NO_OPTION);
 				
 				
 				}

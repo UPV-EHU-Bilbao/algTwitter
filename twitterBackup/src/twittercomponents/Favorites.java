@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import db.DBKudeatzaile;
 import db.Eragiketak;
-import exceptions.NoBackup;
-import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.Paging;
 import twitter4j.Status;
@@ -44,13 +44,17 @@ public class Favorites {
             }
         } catch (TwitterException te) {
         	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-           // timeTo(te.toString());
-            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+        	String time = TokenKud.getToken().timeTo(te.toString());
+	           String mezua = "Gehiago lortzeko pixka bat itxaron beharko duzu!: " + time +" seg.";
+	   		JOptionPane.showMessageDialog(null,
+	   			    mezua,
+	   			    "ITXARON",
+	   			    JOptionPane.NO_OPTION);
         }
 	}
 		
-		public void getFavPage(long max){
-		      try {
+		public void getFavPage(long max)throws TwitterException{
+		      //try {
 		    	  int pagenumber = 1;
 		            int count = 20;
 		            List<Status> statuses = new ArrayList<Status>();
@@ -73,15 +77,15 @@ public class Favorites {
 	          		favTweet[2] = status.getText();
 	          		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
 	          	}
-		        } catch (TwitterException te) {
-		            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-		            //timeTo(te.toString());
-		            //System.exit(-1);
-		            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+//		        } catch (TwitterException te) {
+//		            System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+//		            //timeTo(te.toString());
+//		            //System.exit(-1);
+//		            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+//		        }
 		        }
-		        }
-		public void getfav(){
-			try {
+		public void getfav()throws TwitterException{
+			//try {
 	            List<Status> statuses = twitter.getFavorites();
 	            for (Status status : statuses) {
 	            	String[] favTweet = new String [3];
@@ -91,9 +95,9 @@ public class Favorites {
 	          		Eragiketak.getEragiketak().favGorde(favTweet, twitter.getScreenName());
 	            }
 	            
-	        } catch (TwitterException te) {
-	        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
-	        }
+//	        } catch (TwitterException te) {
+//	        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+//	        }
 		}
 		/*
 		 * #####################################################################
@@ -114,10 +118,14 @@ public class Favorites {
 			}		
 			rs.close();
 			if(lista.size() == 0){
-				NoBackup.getback();
+				String mezua = "WAIT! Lehenago Backup bat egin beharko zenuke..." ;
+				JOptionPane.showMessageDialog(null,
+					    mezua,
+					    "NO BACKUP",
+					    JOptionPane.NO_OPTION);
 			}
 		} catch (SQLException e) {
-			NoBackup.getback();
+			System.out.println("SQL favorites txarto");
 		}return lista;
 	}
 }
