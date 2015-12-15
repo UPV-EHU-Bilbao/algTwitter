@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import db.DBKudeatzaile;
 import db.Eragiketak;
+import exceptions.NoBackup;
+import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.DirectMessage;
 import twitter4j.Paging;
@@ -34,39 +34,27 @@ public class DirectMessages {
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
 	 * #####################################################################
 	 */
-	/**
-	 * Erabiltzaileak bidalitako mezuak gorde
-	 */
-	public void backupNireMessages(){
+	public void backupSentDirectMessage(){
 		long max;
-		try{
+		try {
 			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
-			if(max == 0){
-				System.out.println("Ez daukazu md beraz....");
-				getsm();
-			}else{
-				backupSentDirectMessage(max);
-			}
-		}catch(TwitterException te){
-			String time = TokenKud.getToken().timeTo(te.toString());
-	           String mezua = "Gehiago lortzeko pixka bat itxaron beharko duzu!: " + time +" seg.";
-	   		JOptionPane.showMessageDialog(null,
-	   			    mezua,
-	   			    "ITXARON",
-	   			    JOptionPane.NO_OPTION);
-		}
-	}
-	public void backupSentDirectMessage(long max)throws TwitterException{
-		
+			System.out.println("Bidalitako mezuen maximoa: "+max);
+		if(max == 0){
+			System.out.println("Ez daukazu md beraz....");
+			getsm();
+		}else{
 		 int pagenumber = 1;
          int count = 20;
          List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
          while(true){
        		Paging pag = new Paging(pagenumber, count).sinceId(max);
+       				//, max);
        		int size = directMessages.size();
        		directMessages = twitter.getSentDirectMessages(pag);
+       		//int zenbat = statuses.size();
        		directMessages.addAll(twitter.getSentDirectMessages(pag));
        		if(directMessages.size()== size){
+       		//if(zenbat == 0){
        			break;
        		}
          }
@@ -79,8 +67,15 @@ public class DirectMessages {
              mezua[2] = message.getText();
              Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
          }
+		}
+		} catch (TwitterException te) {
+			System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            //timeTo(te.toString());
+            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+		}
 	}
-	public void getsm()throws TwitterException{
+	public void getsm(){
+		try {
             Paging paging = new Paging(1);
             List<DirectMessage> messages;
             do {
@@ -96,32 +91,13 @@ public class DirectMessages {
                 }
                 paging.setPage(paging.getPage() + 1);
             } while (messages.size() > 0 && paging.getPage() < 10);
-       
+            
+        } catch (TwitterException te) {
+        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+        }
 	}
-	
-	/**
-	 * Erabiltzaileari bidalitako mezuen backup -a
-	 */
-	public void backupHartutakoMessages(){
-		long max;
-		try{
-			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
-			if(max== 0){
-				getm();
-			}else{
-				backupDirectMessage(max);
-			}
-		}catch(TwitterException te){
-			String time = TokenKud.getToken().timeTo(te.toString());
-	           String mezua = "Gehiago lortzeko pixka bat itxaron beharko duzu!: " + time +" seg.";
-	   		JOptionPane.showMessageDialog(null,
-	   			    mezua,
-	   			    "ITXARON",
-	   			    JOptionPane.NO_OPTION);
-		}
-		
-	}
-	public void getm() throws TwitterException{
+	public void getm(){
+		try {
             Paging paging = new Paging(1);
             List<DirectMessage> messages;
             do {
@@ -137,9 +113,20 @@ public class DirectMessages {
                 }
                 paging.setPage(paging.getPage() + 1);
             } while (messages.size() > 0 && paging.getPage() < 10);
+            
+        } catch (TwitterException te) {
+        	TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+        }
 	}
-	public void backupDirectMessage(long max)throws TwitterException{
+	public void backupDirectMessage(){
+		long max;
 		
+		try {
+			max = Eragiketak.getEragiketak().azkenmdId(twitter.getScreenName());
+			System.out.println("Hartutako mezuen maximoa: "+max);
+			if(max== 0){
+				getm();
+			}else{
 		 int pagenumber = 1;
          int count = 20;
          List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
@@ -163,7 +150,12 @@ public class DirectMessages {
              mezua[1] = message.getRecipientScreenName();
              mezua[2] = message.getText();
              Eragiketak.getEragiketak().dmGorde(mezua, twitter.getScreenName());
-         }
+         }}
+		} catch (TwitterException te) {
+			System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            //timeTo(te.toString());
+            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+		}
 	}
 	/*
 	 * #####################################################################
@@ -184,11 +176,7 @@ public class DirectMessages {
 			}		
 			rs.close();
 			if(lista.size() == 0){
-				String mezua = "WAIT! Lehenago Backup bat egin beharko zenuke..." ;
-				JOptionPane.showMessageDialog(null,
-					    mezua,
-					    "NO BACKUP",
-					    JOptionPane.NO_OPTION);
+				NoBackup.getback();
 			}
 		} catch (SQLException e) {
 		}return lista;

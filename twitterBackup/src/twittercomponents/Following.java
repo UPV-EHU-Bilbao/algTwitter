@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import db.DBKudeatzaile;
 import db.Eragiketak;
+import exceptions.NoBackup;
+import exceptions.TimeTo;
 import logikoa.TokenKud;
 import twitter4j.IDs;
 import twitter4j.Twitter;
@@ -27,7 +27,33 @@ public class Following {
 			mFollowing = new Following();
 		}return mFollowing;
 	}
+	/*
+	 * ###########################################
+	 * ###########BISTARATZEKO METODOAK###########
+	 * ###########################################
+	 */
 	
+	
+	public void getFollowing(){
+		try {
+            long cursor = -1;
+            IDs ids;
+            System.out.println("Listing following ids.");
+            do {
+                    ids = twitter.getFriendsIDs(cursor);
+                
+                for (long id : ids.getIDs()) {
+                    System.out.println(id);
+                    System.out.println(twitter.showUser(id).getScreenName());   
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+            System.exit(0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+
+        }
+	}
 	/*
 	 * #####################################################################
 	 * ###########BACKUP METODOAK________________DATUBASEAN GORDE###########
@@ -53,15 +79,14 @@ public class Following {
 	            Eragiketak.getEragiketak().followingGorde(following,twitter.getScreenName());
 	            }
 	        }while ((cursor = ids.getNextCursor()) != 0);
+	        //System.exit(0);
 	    } catch (TwitterException te) {
 	    	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
-	    	String time = TokenKud.getToken().timeTo(te.toString());
-	           String mezua = "Gehiago lortzeko pixka bat itxaron beharko duzu!: " + time +" seg.";
-	   		JOptionPane.showMessageDialog(null,
-	   			    mezua,
-	   			    "ITXARON",
-	   			    JOptionPane.NO_OPTION);
+	        //timeTo(te.toString());
+            TimeTo.getMessage(TokenKud.getToken().timeTo(te.toString()));
+
 	    }
+		
 	   }
 	
 	/**
@@ -85,11 +110,7 @@ public class Following {
 				}
 			rs.close();
 			if(lista.size() == 0){
-				String mezua = "WAIT! Lehenago Backup bat egin beharko zenuke..." ;
-				JOptionPane.showMessageDialog(null,
-					    mezua,
-					    "NO BACKUP",
-					    JOptionPane.NO_OPTION);
+				NoBackup.getback();
 			}
 		} catch (SQLException e) {
 			

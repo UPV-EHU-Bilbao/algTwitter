@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 import db.Eragiketak;
+import exceptions.TimeTo;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
@@ -115,6 +116,40 @@ public class TokenKud {
 		return twitter;
 	}	
 	
+	
+	
+	/*
+	 * #####################################################################
+	 * ########################SINCE ID -ak#################################
+	 * #####################################################################
+	 */
+	
+	/**
+	 * Gure follower-ak gordetzen ditu haien id eta izenarekin.
+	 * @param max
+	 */
+	public void getFollowersPage(long max){
+		try {
+            long cursor = -1;
+            IDs ids;
+            do { 
+                ids = twitter.getFollowersIDs(cursor);
+                for (long id : ids.getIDs()) {
+                    String[] follow= new String[2];
+                    follow[0] = Long.toString(id);
+                    follow[1] = twitter.showUser(id).getScreenName();
+                    Eragiketak.getEragiketak().followerGorde(follow,twitter.getScreenName());  
+                }
+            } while ((cursor = ids.getNextCursor()) != 0);
+        } catch (TwitterException te) {
+        	System.out.println("Gehiago lortzeko pixka bat itxaron behar duzu...");
+            timeTo(te.toString());
+            TimeTo.getMessage(timeTo(te.toString()));
+        }	
+	}
+	public void getFollowingPage(long max){
+		
+	}
 	
 	/*
 	 * ###############################################
