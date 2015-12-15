@@ -27,10 +27,11 @@ public class Start extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JLabel nagusia = new JLabel(new ImageIcon("src/media1/backTwitter.jpg"));
+	ImageIcon w1 = new ImageIcon(getClass().getResource("/media1/loginTwitter.png"));
+	JLabel nagusia = new JLabel(w1);
 	//"src/media1/logoTwitter.png"
 	ImageIcon wlogo = new ImageIcon(getClass().getResource("/media1/logoTwitter.png"));
-	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
+	JLabel logoTwitter = new JLabel( new ImageIcon(getClass().getResource("media1/loginTwitter.png")));
 	JLabel welcome = new JLabel("Ongi etorri TWITTER APP aplikaziora");
 	JPanel panel = new JPanel();
 	//erabiltzaile hauen saioa jadanik gordeta izango dugu
@@ -58,6 +59,7 @@ public class Start extends JFrame{
 	}
 	public static void main(String[]args){
 		try {
+			
 			UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block

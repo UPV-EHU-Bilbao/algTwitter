@@ -26,8 +26,8 @@ public class PinOrr extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ImageIcon wlogo = new ImageIcon("src/media1/logoTwitter.png");
-	JLabel logoTwitter = new JLabel( new ImageIcon("src/media1/loginTwitter.png")) ;
+	ImageIcon wlogo = new ImageIcon(getClass().getResource("/media1/logoTwitter.png"));
+	JLabel logoTwitter = new JLabel( new ImageIcon(getClass().getResource("/media1/loginTwitter.png"))) ;
 	JLabel loginOn = new JLabel("LOGIN ON TWITTER");
 	JLabel descript = new JLabel("Zuriunean nabigatzailean agertutako zenbakia sar ezazu, mesedez. :)");
 	JLabel descript2 = new JLabel("Idatzi ondoren enter sakatu...");
