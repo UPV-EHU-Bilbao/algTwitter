@@ -9,7 +9,8 @@ Instrukzioak:
    * SQLite 3.8.11.2 instalaturik izatea. Esteka deskargatzeko: https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.8.11.2.jar
    * EXCEL liburutegiak deskargatu. Esteka: http://www.eu.apache.org/dist/poi/release/src/poi-src-3.13-20150929.zip
 
-MAIN CLASS : Start
+*MAIN CLASS : Start
+
 Pantaila Nagusia eta hasi behar dena Start da!!
 
 
